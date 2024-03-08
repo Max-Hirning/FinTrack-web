@@ -1,12 +1,21 @@
 {
-  "name": "fintrack-web",
-  "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "version": "1.0.0",
+  "name": "fintrack-web",
+  "author": {
+    "name": "Max-Hirning",
+    "url": "https://github.com/Max-Hirning"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Max-Hirning/FinTrack-web"
   },
   "dependencies": {
     "react": "^18",
