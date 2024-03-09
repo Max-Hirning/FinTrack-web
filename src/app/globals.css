@@ -8,40 +8,16 @@ html {
 
 
 
-button {
-  cursor: pointer;
-  overflow: hidden;
-  position: relative;
+#sidebar {
+  transform: translateX(-250px);
+  transition: transform 0.3s ease-in-out;
 }
-button:before {
-  top: 50%;
-  left: 50%;
-  opacity: 0;
-  z-index: 0;
-  width: 300%;
-  content: '';
-  height: 300%;
-  position: absolute;
-  border-radius: 50%;
-  transition: all 0.25s ease-out;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 123, 255, 0.422);
+#sidebarBackdrop {
+  display: none;
 }
-button:disabled {
-  background-color: #B1B1B1;
+#sidebar-toggle:checked + #sidebar {
+  transform: translateX(0);
 }
-button:active:before {
-  opacity: 1;
-  transition: none;
-}
-
-
-
-input::placeholder {
-  font-size: 15px;
-  color: #718EBF;
-}
-input:focus-visible {
-  outline: none;
-  border-color: #979ea3;
+#sidebar-toggle:checked + #sidebar + #sidebarBackdrop {
+  display: block;
 }

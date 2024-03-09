@@ -7,7 +7,7 @@ const config: Config = {
       screens: {
         "sm": "376px",
         "md": "426px",
-        "lg": "851px",
+        "lg": "769px",
         "xl": "1025px",
         "2xl": "1441px",
       },
@@ -35,36 +35,6 @@ const config: Config = {
           backgroundColor: "white",
           boxShadow: "0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12)"
         },
-        ".input": {
-          padding: "13px",
-          fontSize: "15px",
-          color: "#718EBF",
-          borderRadius: "15px",
-          border: "1px solid #DFEAF2"
-        },
-        ".button": {
-          color: "white",
-          display: "flex",
-          borderRadius: "15px",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: "#1814F3",
-        },
-        ".text-button": {
-          display: "flex",
-          color: "#1814F3",
-          borderRadius: "15px",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-        ".outlined-button": {
-          display: "flex",
-          color: "#1814F3",
-          borderRadius: "15px",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "2px solid #1814F3"
-        }
       });
       addUtilities({
         ".title": {
