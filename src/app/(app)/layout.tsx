@@ -10,10 +10,6 @@ interface IProps {
 export default function AppLayout({children}: IProps) {
   return (
     <>
-      <aside className="bg-white h-full w-[250px] max-lg:hidden border-[#E6EFF5] border-r absolute p-[25px] pt-[30px]">
-        <h1 className='font-black text-text title text-[25px] text-center'>FinTrack.</h1>
-        <Navigation/>
-      </aside>
       <input 
         type="checkbox" 
         className="hidden"
@@ -21,7 +17,7 @@ export default function AppLayout({children}: IProps) {
       />
       <aside 
         id="sidebar"
-        className="bg-white fixed h-full z-30 w-[250px] lg:hidden border-[#E6EFF5] border-r p-[25px] pt-[30px]"
+        className="bg-white fixed h-full z-30 w-[250px] border-[#E6EFF5] border-r p-[25px] pt-[30px]"
       >
         <label 
           htmlFor="sidebar-toggle"
@@ -35,9 +31,14 @@ export default function AppLayout({children}: IProps) {
       <div
         id="sidebarBackdrop"
         className="fixed inset-0 bg-black bg-opacity-25 z-20"
-      ></div>
+      >
+        <label 
+          htmlFor="sidebar-toggle"
+          className="block w-full h-full"
+        ></label>
+      </div>
       <Header/>
-      <main className="lg:left-[250px] relative max-lg:w-full lg:w-[calc(100%-250px)] p-[25px]">{children}</main>
+      <main className="relative w-full pt-[125px] p-[25px]">{children}</main>
     </>
   );
 }
