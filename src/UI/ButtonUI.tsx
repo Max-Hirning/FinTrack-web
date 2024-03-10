@@ -1,6 +1,6 @@
-import React, {ReactNode} from "react";
+import React, {ButtonHTMLAttributes, ReactNode} from "react";
 
-interface IProps {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   styles?: string;
   color?: "danger";
   disabled?: boolean;
@@ -10,7 +10,7 @@ interface IProps {
   variant: "contained"|"text"|"outlined";
 }
 
-export function ButtonUI({onClick, children, styles, color, type, disabled, variant}: IProps) {
+export function ButtonUI({onClick, children, styles, color, type, disabled, variant, ...props}: IProps) {
   const componentStyles = (): string => {
     if(color === "danger") {
       if(variant === "contained") return "bg-red-500 hover:bg-red-600 active:bg-red-700 focus:ring-red-300";
@@ -26,6 +26,7 @@ export function ButtonUI({onClick, children, styles, color, type, disabled, vari
   if(variant === "contained") {
     return (
       <button 
+        {...props}
         type={type}
         onClick={onClick}
         disabled={disabled}
@@ -37,6 +38,7 @@ export function ButtonUI({onClick, children, styles, color, type, disabled, vari
   if(variant === "outlined") {
     return (
       <button 
+        {...props}
         type={type}
         onClick={onClick}
         disabled={disabled}
@@ -48,6 +50,7 @@ export function ButtonUI({onClick, children, styles, color, type, disabled, vari
   if(variant === "text") {
     return (
       <button 
+        {...props}
         type={type}
         onClick={onClick}
         disabled={disabled}

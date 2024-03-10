@@ -5,7 +5,9 @@ import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import EditIcon from "@/UI/icons/edit";
 import {AvatarUI} from "@/UI/AvatarUI";
+import {signOut} from "next-auth/react";
 import CloseIcon from "@/UI/icons/close";
+import LogOutIcon from "@/UI/icons/logout";
 import {ICurrency} from "@/types/currency";
 import {useSession} from "next-auth/react";
 import {IUserSession} from "../types/user";
@@ -49,7 +51,8 @@ export function SettingsForm({user}: IProps) {
   const deleteAvatarUser = useDeleteUserAvatar();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File|null>(null);
-
+  const [iconColor, setIconColor] = useState<"white"|"#ef4444">("#ef4444");
+  
   const handleButtonClick = (): void => {
     if(fileInputRef.current) fileInputRef.current.click();
   };
@@ -66,6 +69,22 @@ export function SettingsForm({user}: IProps) {
 
   return (
     <>
+      <ButtonUI
+        type="button"
+        variant="text"
+        color="danger"
+        onClick={() => signOut()}
+        onMouseEnter={() => setIconColor("white")}
+        onMouseLeave={() => setIconColor("#ef4444")}
+        styles="sm:w-[120px] max-sm:w-[40px] h-[40px] justify-evenly max-sm:rounded-full absolute top-[25px] right-[25px]"
+      >
+        <LogOutIcon 
+          width={25} 
+          height={25} 
+          color={iconColor}
+        />
+        <span className="max-sm:hidden">Log out</span>
+      </ButtonUI>
       <div className="relative w-fit">
         <AvatarUI
           size={150}
@@ -183,13 +202,13 @@ export function SettingsForm({user}: IProps) {
             type="button"
             color="danger"
             variant="outlined"
-            styles="w-[190px] h-[50px]"
+            styles="w-full max-w-[190px] h-[50px]"
             onClick={() => deleteUser.mutate()}
           >Delete</ButtonUI>
           <ButtonUI
             type="submit"
             variant="contained"
-            styles="w-[190px] h-[50px]"
+            styles="w-full max-w-[190px] h-[50px]"
             disabled={!((formik.isValid && Object.values(formik.values).some((el) => el.length > 0)) || (currencyHasBeenChanged.current) || (avatarHasBeenChanged.current))}
           >Save</ButtonUI>
         </div>

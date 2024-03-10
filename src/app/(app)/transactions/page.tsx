@@ -29,7 +29,7 @@ export default function Transactions() {
           </section>
         </section>
         <section>
-          <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transaction</h1>
+          <h1 className="title font-semibold text-[22px] text-text mb-[10px]">My Expense</h1>
           <section className="card w-[350px] h-[235px]"></section>
         </section>
       </section>
