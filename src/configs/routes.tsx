@@ -1,8 +1,8 @@
 import React from "react";
 import {IRoute} from "@/types/routes";
 import HomeIcon from "@/UI/icons/home";
+import CardIcon from "@/UI/icons/card";
 import {IIconProps} from "@/types/icon";
-import CreditCardIcon from "@/UI/icons/card";
 import AccountsIcon from "@/UI/icons/account";
 import SettingsIcon from "@/UI/icons/setting";
 import InvestmentsIcon from "@/UI/icons/investment";
@@ -37,7 +37,7 @@ export const routes: IRoute[] = [
     href: "/cards",
     title: "Cards",
     pageTitle: "Cards",
-    icon: (props: IIconProps) => <CreditCardIcon width={props.width} height={props.height} color={props.color}/>,
+    icon: (props: IIconProps) => <CardIcon width={props.width} height={props.height} color={props.color}/>,
   },
   {
     href: "/settings",

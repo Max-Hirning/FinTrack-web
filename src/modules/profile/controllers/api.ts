@@ -1,10 +1,10 @@
-import {IUser} from "../types/user";
 import {IResponse} from "@/types/api";
+import {IUserResponse} from "../types/user";
 
 class UserAPI {
   constructor(protected readonly url: string) {}
 
-  async getUser(userId: string, token: string): Promise<IResponse<IUser>> {
+  async getUser(userId: string, token: string): Promise<IResponse<IUserResponse>> {
     try {
       const response = await fetch(`${this.url}/${userId}`, {
         method: "GET",

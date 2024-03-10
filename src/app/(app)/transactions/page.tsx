@@ -1,5 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, {Suspense} from "react";
+import {CardsListWrapper} from "@/modules/cards";
+import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 
 export default function Transactions() {
   return (
@@ -13,11 +15,17 @@ export default function Transactions() {
               className="title font-semibold text-[17px] text-text mb-[2px] ml-[10px]"
             >+ Add Card</Link>
           </article>
-          <section className="flex gap-[25px] pb-[5px] overflow-auto">
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
+          <section className="flex gap-[25px] pb-[5px] px-[5px] overflow-auto">
+            <Suspense fallback={
+              <>
+                <BankCardSkeleton/>
+                <BankCardSkeleton/>
+                <BankCardSkeleton/>
+                <BankCardSkeleton/>
+              </>
+            }>
+              <CardsListWrapper elStyle="card"/>
+            </Suspense>
           </section>
         </section>
         <section>

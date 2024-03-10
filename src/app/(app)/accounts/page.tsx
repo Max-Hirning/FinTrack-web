@@ -1,5 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, {Suspense} from "react";
+import {CardsListWrapper} from "@/modules/cards";
+import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 
 export default function Accounts() {
   return (
@@ -24,10 +26,16 @@ export default function Accounts() {
             >See All</Link>
           </article>
           <section className="flex gap-[25px] pb-[5px] overflow-auto">
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
-            <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px]"></div>
+            <Suspense fallback={
+              <>
+                <BankCardSkeleton/>
+                <BankCardSkeleton/>
+                <BankCardSkeleton/>
+                <BankCardSkeleton/>
+              </>
+            }>
+              <CardsListWrapper elStyle="card"/>
+            </Suspense>
           </section>
         </section>
       </section>

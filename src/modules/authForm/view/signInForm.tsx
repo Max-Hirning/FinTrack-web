@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import {useFormik} from "formik";
 import {InputUI} from "@/UI/InputUI";
+import {ButtonUI} from "@/UI/ButtonUI";
 import {useSignIn} from "../hooks/signIn";
 import {signInModel} from "../models/signIn";
 import {signInSchema} from "../schemas/signIn";
@@ -54,11 +55,13 @@ export function SignInForm() {
         href="/auth/forgot-password"
         className="text-end block text-main-auth-pages-link text-main"
       >Forgot password?</Link>
-      <button 
+      <ButtonUI
         type="submit"
+        text="Sign in"
+        variant="contained"
+        styles="m-auto h-[50px] w-[190px] mt-[25px]"
         disabled={!formik.isValid || !Object.values(formik.values).some((value: string) => value.length)}
-        className="text-white m-auto h-[50px] w-[190px] rounded-[15px] flex items-center justify-center mt-[25px] cursor-pointer disabled:bg-disabled bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
-      >Sign in</button>
+      />
     </form>
   );
 }

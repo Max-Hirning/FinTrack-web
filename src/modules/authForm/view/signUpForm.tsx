@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useFormik} from "formik";
 import {InputUI} from "@/UI/InputUI";
 import React, {useState} from "react";
+import {ButtonUI} from "@/UI/ButtonUI";
 import {useSignUp} from "../hooks/signUp";
 import {signUpModel} from "../models/signUp";
 import {signUpSchema} from "../schemas/signUp";
@@ -102,11 +103,13 @@ export function SignUpForm() {
           className="text-main ml-[5px] text-[14px]"
         >I&lsquo;ve read privacy policy and agree</Link>
       </fieldset>
-      <button 
+      <ButtonUI
         type="submit"
+        text="Sign up"
+        variant="contained"
+        styles="m-auto h-[50px] w-[190px] mt-[25px]"
         disabled={!formik.isValid || !agreedToPolicy || !Object.values(formik.values).some((value: string) => value.length)}
-        className="text-white m-auto h-[50px] w-[190px] rounded-[15px] flex items-center justify-center mt-[25px] cursor-pointer disabled:bg-disabled bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300"
-      >Sign up</button>
+      />
     </form>
   );
 }
