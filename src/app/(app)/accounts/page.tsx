@@ -12,12 +12,12 @@ export default function Accounts() {
         <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[255px] h-[120px]"></div>
         <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[255px] h-[120px]"></div>
       </section>
-      <section className="mt-[25px] flex gap-[25px]">
+      <section className="max-lg:flex-col mt-[25px] flex gap-[25px]">
         <section className="w-full">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Last Transaction</h1>
           <section className="card h-[235px]"></section>
         </section>
-        <section className="w-[350px]">
+        <section className="max-lg:w-full lg:w-[350px]">
           <article className="flex items-end justify-between mb-[10px]">
             <h1 className="title font-semibold text-[22px] text-text">My Cards</h1>
             <Link 

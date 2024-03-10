@@ -6,8 +6,8 @@ import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 export default function Transactions() {
   return (
     <>
-      <section className="flex gap-[25px]">
-        <section className="min-w-[350px] w-fit">
+      <section className="max-lg:flex-col flex gap-[25px]">
+        <section className="max-lg:w-full lg:min-w-[350px] w-fit">
           <article className="flex items-end justify-between mb-[10px]">
             <h1 className="title font-semibold text-[22px] text-text">My Cards</h1>
             <Link 
@@ -30,7 +30,7 @@ export default function Transactions() {
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">My Expense</h1>
-          <section className="card w-[350px] h-[235px]"></section>
+          <section className="card max-lg:w-full lg:w-[350px] h-[235px]"></section>
         </section>
       </section>
       <section className="w-full w-max-[1110px] mt-[25px]">
