@@ -57,11 +57,10 @@ export function SignInForm() {
       >Forgot password?</Link>
       <ButtonUI
         type="submit"
-        text="Sign in"
         variant="contained"
         styles="m-auto h-[50px] w-[190px] mt-[25px]"
         disabled={!formik.isValid || !Object.values(formik.values).some((value: string) => value.length)}
-      />
+      >Sign in</ButtonUI>
     </form>
   );
 }

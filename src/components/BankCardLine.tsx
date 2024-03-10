@@ -34,10 +34,9 @@ export function BankCardLine({id, title, color, currency, balance, owner}: IProp
       <ButtonUI
         type="button"
         variant="text"
-        text="View Details"
         styles="h-[40px] w-[120px]"
         onClick={() => dispatch(setCard({id, title, color, currency, balance}))}
-      />
+      >View Details</ButtonUI>
     </div>
   );
 }

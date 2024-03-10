@@ -5,13 +5,13 @@ import React, {useMemo} from "react";
 import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import CloseIcon from "@/UI/icons/close";
-import {ICardForm, resetCard} from "@/modules/store";
 import {ICurrency} from "@/types/currency";
 import {useUpdateCard} from "../hooks/updateCard";
 import {useCreateCard} from "../hooks/createCard";
 import {useDeleteCard} from "../hooks/deleteCard";
 import {SearchSelectUI} from "@/UI/SeacrhSelectUI";
 import {cardFormSchema} from "../schemas/cardForm";
+import {ICardForm, resetCard} from "@/modules/store";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
 import {useGetCurrencies} from "@/hooks/getCurrencies";
@@ -136,16 +136,14 @@ export function CardForm() {
             type="submit"
             variant="contained"
             styles="w-[130px] h-[40px] rounded-[9px] mt-[20px]"
-            text={`${(id.length > 0) ? "Update" : "Add"} Card`}
-          />
+          >{(id.length > 0) ? "Update" : "Add"} Card</ButtonUI>
           <ButtonUI
             type="button"
             color="danger"
-            text="Delete Card"
             variant="outlined"
             onClick={() => deleteCard.mutate()}
             styles={`w-[130px] h-[40px] rounded-[9px] mt-[20px] ${(id.length === 0) && "hidden"}`}
-          />
+          >Delete Card</ButtonUI>
         </fieldset>
       </form>
     </>

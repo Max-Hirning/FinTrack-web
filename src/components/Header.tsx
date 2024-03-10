@@ -5,11 +5,14 @@ import Link from "next/link";
 import {IRoute} from "@/types/routes";
 import {AvatarUI} from "@/UI/AvatarUI";
 import {routes} from "@/configs/routes";
+import {useSession} from "next-auth/react";
 import {usePathname} from "next/navigation";
 import SecurityIcon from "@/UI/icons/security";
+import {IUserSession} from "@/modules/profile";
 
 export function Header() {
   const pathName = usePathname();
+  const {data: session} = useSession();
 
   return (
     <header className="bg-white z-10 h-[100px] border-[#E6EFF5] border-b fixed w-full p-[25px] flex items-center justify-between">
@@ -30,7 +33,7 @@ export function Header() {
           >
             <AvatarUI
               size={60}
-              avatar={null}
+              avatar={(session?.user as IUserSession)?.avatar}
             />
           </label>
         </li>

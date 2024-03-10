@@ -14,8 +14,9 @@ export function Loader() {
 
   const isUpdateUser = useIsMutating({mutationKey: [QueryKeys.updateUser]});
   const isDeleteUser = useIsMutating({mutationKey: [QueryKeys.deleteUser]});
+  const isDeleteUserAvatar = useIsMutating({mutationKey: [QueryKeys.deleteUserAvatar]});
   const isUpdateUserSecurity = useIsMutating({mutationKey: [QueryKeys.updateUserSecurity]});
-
+  
   const isUpdateTransaction = useIsMutating({mutationKey: [QueryKeys.updateTransaction]});
   const isDeleteTransaction = useIsMutating({mutationKey: [QueryKeys.deleteTransaction]});
   const isCreateTransaction = useIsMutating({mutationKey: [QueryKeys.createTransaction]});
@@ -23,7 +24,7 @@ export function Loader() {
   return (
     <div
       id="loaderBackdrop"
-      className={`fixed inset-0 bg-black bg-opacity-50 z-20 flex items-center justify-center ${!(isSignIn||isSignUp||isUpdateCard||isDeleteCard||isCreateCard||isCreateTransaction||isUpdateTransaction||isDeleteTransaction||isUpdateUser||isUpdateUserSecurity||isDeleteUser) && "hidden"}`}
+      className={`fixed inset-0 bg-black bg-opacity-50 z-20 flex items-center justify-center ${!(isSignIn||isSignUp||isUpdateCard||isDeleteCard||isCreateCard||isCreateTransaction||isUpdateTransaction||isDeleteTransaction||isDeleteUserAvatar||isUpdateUser||isUpdateUserSecurity||isDeleteUser) && "hidden"}`}
     >
       <div className="lds-roller">
         <div></div>

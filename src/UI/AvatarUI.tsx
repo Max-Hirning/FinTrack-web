@@ -15,14 +15,18 @@ export function AvatarUI({avatar, size}: IProps) {
         src={avatar}
         height={size}
         alt="Profile avatar"
-        className="rounded-full"
+        style={{width: `${size}px`, height: `${size}px`}}
+        className="rounded-full border border-[#DFEAF2]"
       />
     );
   }
 
   return (
-    <div className="bg-[#F5F7FA] flex w-[60px] h-[60px] rounded-full items-center justify-center">
-      <ProfileIcon width={35} height={35} color="#343C6A"/>
+    <div 
+      style={{width: `${size}px`, height: `${size}px`}}
+      className="bg-[#F5F7FA] flex rounded-full items-center justify-center"
+    >
+      <ProfileIcon width={size/1.25} height={size/1.25} color="#343C6A"/>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export function SearchSelectUI({id, children, styles, listId, label, value, disa
       <label 
         htmlFor={id}
         className="text-[#232323] text-[16px] font-normal"
-      >{label} <span className={`${required && "hidden"} text-danger`}>*</span></label>
+      >{label} <span className={`${!required && "hidden"} text-danger`}>*</span></label>
       <input 
         id={id}
         type={type}

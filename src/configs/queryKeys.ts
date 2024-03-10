@@ -15,6 +15,7 @@ export enum QueryKeys {
   getUser = "get-user",
   updateUser = "update-user",
   deleteUser = "delete-user",
+  deleteUserAvatar = "delete-user-avatar",
   updateUserSecurity = "update-user-security",
 
   getInfo = "get-info",

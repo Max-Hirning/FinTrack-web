@@ -105,11 +105,10 @@ export function SignUpForm() {
       </fieldset>
       <ButtonUI
         type="submit"
-        text="Sign up"
         variant="contained"
         styles="m-auto h-[50px] w-[190px] mt-[25px]"
         disabled={!formik.isValid || !agreedToPolicy || !Object.values(formik.values).some((value: string) => value.length)}
-      />
+      >Sign up</ButtonUI>
     </form>
   );
 }

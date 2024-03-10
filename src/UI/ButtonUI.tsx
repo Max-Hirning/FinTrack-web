@@ -1,16 +1,16 @@
-import React from "react";
+import React, {ReactNode} from "react";
 
 interface IProps {
-  text: string;
   styles?: string;
   color?: "danger";
   disabled?: boolean;
+  children: ReactNode;
   onClick?: () => void;
   type: "submit"|"button";
   variant: "contained"|"text"|"outlined";
 }
 
-export function ButtonUI({onClick, text, styles, color, type, disabled, variant}: IProps) {
+export function ButtonUI({onClick, children, styles, color, type, disabled, variant}: IProps) {
   const componentStyles = (): string => {
     if(color === "danger") {
       if(variant === "contained") return "bg-red-500 hover:bg-red-600 active:bg-red-700 focus:ring-red-300";
@@ -30,7 +30,7 @@ export function ButtonUI({onClick, text, styles, color, type, disabled, variant}
         onClick={onClick}
         disabled={disabled}
         className={`${styles || ""} text-white rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disabled focus:outline-none focus:ring ${componentStyles()}`}
-      >{text}</button>
+      >{children}</button>
     );
   }
 
@@ -41,7 +41,7 @@ export function ButtonUI({onClick, text, styles, color, type, disabled, variant}
         onClick={onClick}
         disabled={disabled}
         className={`${styles || ""} rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disable border hover:text-white focus:outline-none focus:ring ${componentStyles()}`}
-      >{text}</button>
+      >{children}</button>
     );
   }
 
@@ -52,7 +52,7 @@ export function ButtonUI({onClick, text, styles, color, type, disabled, variant}
         onClick={onClick}
         disabled={disabled}
         className={`${styles || ""} rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disabled hover:text-white focus:outline-none focus:ring ${componentStyles()}`}
-      >{text}</button>
+      >{children}</button>
     );
   }
 }
