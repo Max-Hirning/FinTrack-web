@@ -30,7 +30,7 @@ export default function AppLayout({children}: IProps) {
       </aside>
       <div
         id="sidebarBackdrop"
-        className="fixed inset-0 bg-black bg-opacity-25 z-20"
+        className="fixed inset-0 bg-black bg-opacity-50 z-20"
       >
         <label 
           htmlFor="sidebar-toggle"
