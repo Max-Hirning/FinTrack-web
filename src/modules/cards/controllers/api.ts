@@ -5,12 +5,10 @@ import {ICardsResponse} from "../types/card";
 class CardAPI {
   constructor(protected readonly url: string) {}
 
-  async getAll(cards: string[], token: string): Promise<IResponse<ICardsResponse[]>> {
+  async getAll(ownerId: string, token: string): Promise<IResponse<ICardsResponse[]>> {
     try {
-      if (!(cards && token)) throw new Error("No cards were found");
-      const queryParams = new URLSearchParams({
-        cards: JSON.stringify(cards),
-      });
+      if (!(ownerId && token)) throw new Error("No cards were found");
+      const queryParams = new URLSearchParams({ownerId});
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,

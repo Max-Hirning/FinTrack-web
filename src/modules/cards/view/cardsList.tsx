@@ -14,7 +14,7 @@ interface IProps {
 
 export function CardsList({elStyle, session}: IProps) {
   const {data} = useGetCards(session);
-
+  console.log(data);
   if(elStyle === "card") {
     return (
       <>

@@ -8,7 +8,7 @@ import {IUserSession} from "@/modules/profile";
 export function useGetCards(session: IUserSession) {
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, session.cards],
-    queryFn: () => cardAPI.getAll(session.cards, session.jwt),
+    queryKey: [QueryKeys.getCards, session.id],
+    queryFn: () => cardAPI.getAll(session.id, session.jwt),
   });
 }

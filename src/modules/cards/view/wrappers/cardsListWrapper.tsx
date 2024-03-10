@@ -17,8 +17,8 @@ export async function CardsListWrapper({elStyle}: IProps) {
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, (session?.user as IUserSession).cards],
-    queryFn: () => cardAPI.getAll((session?.user as IUserSession).cards, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getCards, (session?.user as IUserSession).id],
+    queryFn: () => cardAPI.getAll((session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
   });
   
   return (

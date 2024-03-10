@@ -7,11 +7,12 @@ class UserAPI {
   async getUser(userId: string, token: string): Promise<IResponse<IUserResponse>> {
     try {
       const response = await fetch(`${this.url}/${userId}`, {
-        method: "GET",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
+        method: "GET",
+        cache: "force-cache",
       });
       if(!response.ok) throw new Error("Network response was not ok");
       const result = await response.json();
