@@ -44,7 +44,7 @@ export default function Cards() {
       </section>
       <section className="mt-[25px] max-w-[730px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Add New Card</h1>
-        <section className="card p-[20px] w-full">
+        <section className="card p-[20px] w-full relative">
           <p className="font-normal text-[16px] text-secondary">Credit Card generally means a plastic card issued by Scheduled Commercial Banks assigned to a Cardholder, with a credit limit, that can be used to purchase goods and services on credit or obtain cash advances.</p>
           <CardFormWrapper/>
         </section>

@@ -1,6 +1,7 @@
 import {ICardForm} from "../types/cardForm";
 
 export const cardFormInitialValues: ICardForm = {
+  id: "",
   title: "",
   balance: 0,
   currency: "USD",

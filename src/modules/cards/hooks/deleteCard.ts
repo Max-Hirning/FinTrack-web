@@ -1,28 +1,34 @@
 "use client";
 
 import {IResponse} from "@/types/api";
-import {ICardForm} from "@/modules/store";
+import {resetCard} from "@/modules/store";
 import {useSession} from "next-auth/react";
 import {cardAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/types/store";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useCreateCard() {
+export function useDeleteCard() {
   const {data: session} = useSession();
   const queryClient = useQueryClient();
+  const dispatch: AppDispatch = useDispatch();
+  const cardFormInitialValues = useSelector((state: RootState) => state.cardForm);
 
   return useMutation({
-    mutationFn: (data: Omit<ICardForm, "id">): Promise<IResponse<undefined>> => cardAPI.create(data, (session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
+    mutationFn: (): Promise<IResponse<undefined>> => cardAPI.delete(cardFormInitialValues.id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       console.log(success.message);
+      dispatch(resetCard());
     },
     onError: (error: IResponse<undefined>) => {
       console.log(error.message);
     },
-    mutationKey: [QueryKeys.createCard],
+    mutationKey: [QueryKeys.deleteCard],
   });
 }
