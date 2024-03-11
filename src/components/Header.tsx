@@ -10,7 +10,11 @@ import {usePathname} from "next/navigation";
 import SecurityIcon from "@/UI/icons/security";
 import {IUserSession} from "@/modules/profile";
 
-export function Header() {
+interface IProps {
+  user: IUserSession;
+}
+
+export function Header({user}: IProps) {
   const pathName = usePathname();
   const {data: session} = useSession();
 
@@ -33,7 +37,7 @@ export function Header() {
           >
             <AvatarUI
               size={60}
-              avatar={(session?.user as IUserSession)?.avatar}
+              avatar={(session?.user as IUserSession)?.avatar || user.avatar}
             />
           </label>
         </li>

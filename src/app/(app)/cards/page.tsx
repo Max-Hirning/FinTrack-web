@@ -1,6 +1,6 @@
 import React, {Suspense} from "react";
-import {CardExpenseStatisticsWrappers} from "@/modules/charts";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {CardExpenseStatisticsWrappers} from "@/modules/analytics";
 import {CardFormWrapper, CardsListWrapper} from "@/modules/cards";
 import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
 

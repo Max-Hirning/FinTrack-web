@@ -26,7 +26,7 @@ const chartColor: string[] = [];
 const chartLabels: string[] = [];
 const chartBorderColor: string[] = [];
 
-export function PieChart({filters, session}: IProps) {
+export function CardExpenseStatistics({filters, session}: IProps) {
   const {data} = useGetTransactions(filters, session.jwt);
 
   useMemo(() => {

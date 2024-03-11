@@ -1,13 +1,18 @@
 import React, {ReactNode} from "react";
 import CloseIcon from "@/UI/icons/close";
 import {Header} from "@/components/Header";
+import {getServerSession} from "next-auth";
+import {IUserSession} from "@/modules/profile";
+import {authOptions} from "@/configs/authOptions";
 import {Navigation} from "@/components/Navigation";
 
 interface IProps {
   children: ReactNode;
 }
 
-export default function AppLayout({children}: IProps) {
+export default async function AppLayout({children}: IProps) {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <input 
@@ -37,7 +42,7 @@ export default function AppLayout({children}: IProps) {
           className="block w-full h-full"
         ></label>
       </div>
-      <Header/>
+      <Header user={session?.user as IUserSession}/>
       <main className="relative w-full pt-[125px] p-[25px]">{children}</main>
     </>
   );
