@@ -1,30 +1,29 @@
 import React from "react";
-import {CardsList} from "../cardsList";
+import {PieChart} from "../pieChart";
 import {getServerSession} from "next-auth";
-import {cardAPI} from "../../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
+import {IFilters} from "@/modules/transactions";
 import {authOptions} from "@/configs/authOptions";
+import {transactionsAPI} from "@/modules/transactions";
+import {getStartEndOfMonth} from "@/controllers/dates";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
-interface IProps {
-  elStyle: "card"|"line";
-}
-
-export async function CardsListWrapper({elStyle}: IProps) {
+export async function CardExpenseStatisticsWrappers() {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
+  const filters: IFilters = {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()};
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, JSON.stringify((session?.user as IUserSession).cards)],
-    queryFn: () => cardAPI.getAll((session?.user as IUserSession).cards, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getTransactions, JSON.stringify({cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()})],
+    queryFn: () => transactionsAPI.getAll(filters, (session?.user as IUserSession).jwt)
   });
-  
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardsList 
-        elStyle={elStyle} 
+      <PieChart
+        filters={filters}
         session={session?.user as IUserSession}
       />
     </HydrationBoundary>

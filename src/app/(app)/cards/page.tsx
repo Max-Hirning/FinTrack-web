@@ -1,4 +1,5 @@
 import React, {Suspense} from "react";
+import {CardExpenseStatisticsWrappers} from "@/modules/charts";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {CardFormWrapper, CardsListWrapper} from "@/modules/cards";
 import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
@@ -24,11 +25,13 @@ export default function Cards() {
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
         <section className="w-full max-w-[350px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card Expense Statistics</h1>
-          <section className="card w-full h-[310px]"></section>
+          <section className="card w-full h-[350px] p-[25px]">
+            <CardExpenseStatisticsWrappers/>
+          </section>
         </section>
         <section className="max-w-fit max-lg:w-full lg:w-[calc(100%-375px)]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card List</h1>
-          <section className="flex flex-col h-[310px] gap-[25px] pb-[5px] pr-[5px] overflow-auto">
+          <section className="flex flex-col h-[350px] gap-[25px] pb-[5px] pr-[5px] overflow-auto">
             <Suspense fallback={
               <>
                 <BankCardLineSkeleton/>

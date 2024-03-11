@@ -34,6 +34,7 @@ export const authOptions: NextAuthOptions = {
             jwt: data.token,
             id: data.userId,
             email: user.data.email,
+            cards: user.data.cards,
             avatar: user.data.avatar,
             lastName: user.data.lastName,
             currency: user.data.currency,
@@ -49,10 +50,10 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({token, user, trigger}: any) => {
       if(trigger === "update" && token.sub) {
         const {data} = await userAPI.getUser(token.sub, token.jwt);
-        console.log(data);
         if(data) {
           token._id = data.id;
           token.email = data.email;
+          token.cards = data.cards;
           token.avatar = data.avatar;
           token.lastName = data.lastName;
           token.currency = data.currency;
@@ -63,6 +64,7 @@ export const authOptions: NextAuthOptions = {
         token._id = user.id;
         token.jwt = user.jwt;
         token.email = user.email;
+        token.cards = user.cards;
         token.avatar = user.avatar;
         token.lastName = user.lastName;
         token.currency = user.currency;
@@ -75,6 +77,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token._id;
         session.user.jwt = token.jwt;
         session.user.email = token.email;
+        session.user.cards = token.cards;
         session.user.avatar = token.avatar;
         session.user.currency = token.currency;
         session.user.lastName = token.lastName;

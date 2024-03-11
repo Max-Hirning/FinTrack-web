@@ -9,9 +9,9 @@ import {IUserSession} from "@/modules/profile";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export function useCreateCard() {
-  const {data: session} = useSession();
   const queryClient = useQueryClient();
-
+  const {data: session, update} = useSession();
+  
   return useMutation({
     mutationFn: (data: Omit<ICardForm, "id">): Promise<IResponse<undefined>> => cardAPI.create(data, (session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
@@ -19,6 +19,7 @@ export function useCreateCard() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       console.log(success.message);
+      update();
     },
     onError: (error: IResponse<undefined>) => {
       console.log(error.message);

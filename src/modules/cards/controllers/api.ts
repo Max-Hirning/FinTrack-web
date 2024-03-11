@@ -22,10 +22,12 @@ class CardAPI {
     }
   }
 
-  async getAll(ownerId: string, token: string): Promise<IResponse<ICardsResponse[]>> {
+  async getAll(cards: string[], token: string): Promise<IResponse<ICardsResponse[]>> {
     try {
-      if (!(ownerId && token)) throw new Error("No cards were found");
-      const queryParams = new URLSearchParams({ownerId});
+      if (!(cards && token)) throw new Error("No cards were found");
+      const queryParams = new URLSearchParams({
+        cards: JSON.stringify(cards),
+      });
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
