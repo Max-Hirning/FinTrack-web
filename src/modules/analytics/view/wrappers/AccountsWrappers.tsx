@@ -1,32 +1,33 @@
 import React from "react";
-import {CardsList} from "../cardsList";
+import {Accounts} from "../Accounts";
 import {getServerSession} from "next-auth";
-import {cardAPI} from "../../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
-import {ICardsFilters} from "../../types/card";
 import {authOptions} from "@/configs/authOptions";
+import {analyticsAPI} from "../../controllers/api";
+import {IAccountFilters} from "../../types/account";
+import {getStartEndOfMonth} from "@/controllers/dates";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
-interface IProps {
-  elStyle: "card"|"line";
-}
-
-export async function CardsListWrapper({elStyle}: IProps) {
+export async function AccountsWrappers() {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
-  const filters: ICardsFilters = {cards: (session?.user as IUserSession).cards};
+
+  const filters: IAccountFilters = {
+    currency: (session?.user as IUserSession).currency, 
+    cards: {cards: (session?.user as IUserSession).cards}, 
+    transactions: {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()},
+  };
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, JSON.stringify(filters)],
-    queryFn: () => cardAPI.getAll(filters, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getInfo, JSON.stringify(filters)],
+    queryFn: () => analyticsAPI.getAccountInfo(filters, (session?.user as IUserSession).jwt)
   });
-  
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardsList 
-        elStyle={elStyle} 
+      <Accounts
         filters={filters}
         session={session?.user as IUserSession}
       />

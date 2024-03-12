@@ -1,16 +1,23 @@
 import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
+import {AccountsWrappers} from "@/modules/analytics";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
 
 export default function Accounts() {
   return (
     <>
       <section className="flex gap-[25px] pb-[5px] overflow-auto max-w-fit">
-        <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[255px] h-[120px]"></div>
-        <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[255px] h-[120px]"></div>
-        <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[255px] h-[120px]"></div>
-        <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[255px] h-[120px]"></div>
+        <Suspense fallback={
+          <>
+            <AccountInfoCardSkeleton/>
+            <AccountInfoCardSkeleton/>
+            <AccountInfoCardSkeleton/>
+          </>
+        }>
+          <AccountsWrappers/>
+        </Suspense>
       </section>
       <section className="max-lg:flex-col mt-[25px] flex gap-[25px]">
         <section className="w-full">

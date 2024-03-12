@@ -1,14 +1,14 @@
 import React from "react";
-import {ICardsResponse} from "@/modules/cards";
+import {ICardResponse} from "@/modules/cards";
 
-interface IProps extends ICardsResponse {}
+interface IProps extends ICardResponse {}
 
 export function BankCard({id, title, currency, balance, owner}: IProps) {
   return (
     <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px] p-[20px] flex flex-col justify-between relative">
       <article>
         <p className="text-[12px] font-normal text-secondary">Balance</p>
-        <p className="title text-[20px] font-semibold text-text">{currency} {balance}</p>
+        <p className="title text-[20px] font-semibold text-text">{currency} {balance.toFixed(2)}</p>
       </article>
       <article className="flex items-center justify-between">
         <article className="w-[45%]">

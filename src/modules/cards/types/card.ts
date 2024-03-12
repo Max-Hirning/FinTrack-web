@@ -1,6 +1,10 @@
 import {IUserResponse} from "@/modules/profile";
 
-export interface ICardsResponse {
+export interface ICardsFilters {
+  cards: string[];
+}
+
+export interface ICardResponse {
   id: string;
   color: string;
   title: string;

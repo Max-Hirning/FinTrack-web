@@ -7,7 +7,7 @@ import {Chart, ArcElement} from "chart.js";
 import {hexToRgba} from "@/controllers/colors";
 import {IUserSession} from "@/modules/profile";
 import {useGetTransactions} from "@/modules/transactions";
-import {IFilters, ITransactionResponse} from "@/modules/transactions/types/transaction";
+import {ITransactionsFilters, ITransactionResponse} from "@/modules/transactions";
 
 Chart.register(ArcElement);
 
@@ -17,8 +17,8 @@ interface IRes {
   ammount: number;
 }
 interface IProps {
-  filters: IFilters;
   session: IUserSession;
+  filters: ITransactionsFilters;
 }
 
 const chartData: number[] = [];

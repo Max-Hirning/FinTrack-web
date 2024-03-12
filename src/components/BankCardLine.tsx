@@ -3,10 +3,10 @@ import CardIcon from "@/UI/icons/card";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {setCard} from "@/modules/store";
 import {useDispatch} from "react-redux";
-import {ICardsResponse} from "@/modules/cards";
+import {ICardResponse} from "@/modules/cards";
 import {hexToRgba} from "@/controllers/colors";
 
-interface IProps extends ICardsResponse {}
+interface IProps extends ICardResponse {}
 
 export function BankCardLine({id, title, color, currency, balance, owner}: IProps) {
   const dispatch = useDispatch();

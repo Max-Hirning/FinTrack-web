@@ -1,7 +1,7 @@
-import {ICardsResponse} from "@/modules/cards";
+import {ICardResponse} from "@/modules/cards";
 import {ITransactionCategoryResponse} from "./transactionCategory";
 
-export interface IFilters {
+export interface ITransactionsFilters {
   page?: number;
   cards: string[];
   dates: [string, string];
@@ -12,6 +12,6 @@ export interface ITransactionResponse {
   date: string;
   ammount: number;
   description: string;
-  card: ICardsResponse;
+  card: ICardResponse;
   category: ITransactionCategoryResponse;
 }

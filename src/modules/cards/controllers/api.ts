@@ -1,6 +1,7 @@
 import {IResponse} from "@/types/api";
 import {ICardForm} from "@/modules/store";
-import {ICardsResponse} from "../types/card";
+import {ICardsFilters} from "../types/card";
+import {ICardResponse} from "../types/card";
 
 class CardAPI {
   constructor(protected readonly url: string) {}
@@ -22,7 +23,7 @@ class CardAPI {
     }
   }
 
-  async getAll(cards: string[], token: string): Promise<IResponse<ICardsResponse[]>> {
+  async getAll({cards}: ICardsFilters, token: string): Promise<IResponse<ICardResponse[]>> {
     try {
       if (!(cards && token)) throw new Error("No cards were found");
       const queryParams = new URLSearchParams({

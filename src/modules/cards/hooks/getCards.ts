@@ -1,14 +1,14 @@
 "use client";
 
 import {cardAPI} from "../controllers/api";
+import {ICardsFilters} from "../types/card";
 import {QueryKeys} from "@/configs/queryKeys";
 import {useQuery} from "@tanstack/react-query";
-import {IUserSession} from "@/modules/profile";
 
-export function useGetCards(session: IUserSession) {
+export function useGetCards(filters: ICardsFilters, token: string) {
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, JSON.stringify(session.cards)],
-    queryFn: () => cardAPI.getAll(session.cards, session.jwt),
+    queryKey: [QueryKeys.getCards, JSON.stringify(filters)],
+    queryFn: () => cardAPI.getAll(filters, token),
   });
 }

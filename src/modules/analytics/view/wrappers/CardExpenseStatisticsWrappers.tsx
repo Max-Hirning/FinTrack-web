@@ -2,17 +2,17 @@ import React from "react";
 import {getServerSession} from "next-auth";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
-import {IFilters} from "@/modules/transactions";
 import {authOptions} from "@/configs/authOptions";
 import {transactionsAPI} from "@/modules/transactions";
 import {getStartEndOfMonth} from "@/controllers/dates";
+import {ITransactionsFilters} from "@/modules/transactions";
 import {CardExpenseStatistics} from "../CardExpenseStatistics";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
 export async function CardExpenseStatisticsWrappers() {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
-  const filters: IFilters = {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()};
+  const filters: ITransactionsFilters = {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()};
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps

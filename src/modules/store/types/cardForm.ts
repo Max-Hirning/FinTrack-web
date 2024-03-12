@@ -1,3 +1,3 @@
-import {ICardsResponse} from "@/modules/cards";
+import {ICardResponse} from "@/modules/cards";
 
-export interface ICardForm extends Pick<ICardsResponse, "id"|"title"|"balance"|"color"|"currency"> {}
+export interface ICardForm extends Pick<ICardResponse, "id"|"title"|"balance"|"color"|"currency"> {}
