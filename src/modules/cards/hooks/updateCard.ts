@@ -16,7 +16,7 @@ export function useUpdateCard() {
   const dispatch: AppDispatch = useDispatch();
 
   return useMutation({
-    mutationFn: ({id, ...data}: ICardForm): Promise<IResponse<undefined>> => cardAPI.update(data, id, (session?.user as IUserSession).jwt),
+    mutationFn: ({_id, ...data}: ICardForm): Promise<IResponse<undefined>> => cardAPI.update(data, _id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});

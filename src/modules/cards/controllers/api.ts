@@ -1,7 +1,6 @@
 import {IResponse} from "@/types/api";
 import {ICardForm} from "@/modules/store";
-import {ICardsFilters} from "../types/card";
-import {ICardResponse} from "../types/card";
+import {ICardsFilters, ICardsListResponse} from "../types/card";
 
 class CardAPI {
   constructor(protected readonly url: string) {}
@@ -23,12 +22,13 @@ class CardAPI {
     }
   }
 
-  async getAll({cards}: ICardsFilters, token: string): Promise<IResponse<ICardResponse[]>> {
+  async getAll({ownerId, cards}: Partial<ICardsFilters>, token: string): Promise<IResponse<ICardsListResponse>> {
     try {
-      if (!(cards && token)) throw new Error("No cards were found");
-      const queryParams = new URLSearchParams({
-        cards: JSON.stringify(cards),
-      });
+      if (!((ownerId || cards) && token)) throw new Error("No cards were found");
+      const filters: { ownerId?: string, cards?: string } = {};
+      if (ownerId) filters.ownerId = ownerId;
+      if (cards) filters.cards = JSON.stringify(cards);
+      const queryParams = new URLSearchParams(filters as Record<string, string>);
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
@@ -44,7 +44,7 @@ class CardAPI {
     }
   }
 
-  async update(data: Omit<ICardForm, "id">, cardId: string, token: string): Promise<IResponse<undefined>> {
+  async update(data: Omit<ICardForm, "_id">, cardId: string, token: string): Promise<IResponse<undefined>> {
     try {
       const response = await fetch(`${this.url}/${cardId}`, {
         headers: {
@@ -62,7 +62,7 @@ class CardAPI {
     }
   }
 
-  async create(data: Omit<ICardForm, "id">, ownerId: string, token: string): Promise<IResponse<undefined>> {
+  async create(data: Omit<ICardForm, "_id">, ownerId: string, token: string): Promise<IResponse<undefined>> {
     try {
       const response = await fetch(this.url, {
         headers: {

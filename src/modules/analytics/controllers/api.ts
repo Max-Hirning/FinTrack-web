@@ -1,8 +1,31 @@
 import {IResponse} from "@/types/api";
+import {ICardsExpensesFilters} from "../types/cardsExpenses";
 import {IAccountFilters, IAccountResponse} from "../types/account";
 
 class AnalyticsAPI {
   constructor(protected readonly url: string) {}
+
+  async getCardsExpenses({currency, filters}: ICardsExpensesFilters, token: string): Promise<IResponse<IAccountResponse>> {
+    try {
+      if (!(filters && token)) throw new Error("No expenses were found");
+      const queryParams = new URLSearchParams({
+        currency,
+        filters: JSON.stringify(filters),
+      });
+      const response = await fetch(`${this.url}/cards/expenses?${queryParams.toString()}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      });
+      if (!response.ok) throw new Error("Network response was not ok");
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  }
 
   async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
     try {
@@ -12,7 +35,7 @@ class AnalyticsAPI {
         cards: JSON.stringify(cards),
         transactions: JSON.stringify(transactions),
       });
-      const response = await fetch(`${this.url}?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -28,4 +51,4 @@ class AnalyticsAPI {
   }
 }
 
-export const analyticsAPI = new AnalyticsAPI(`${process.env.NEXT_PUBLIC_LOCAL_URL}/api/account`);
+export const analyticsAPI = new AnalyticsAPI(`${process.env.NEXT_PUBLIC_LOCAL_URL}/api`);

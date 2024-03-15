@@ -13,7 +13,7 @@ export function useCreateCard() {
   const {data: session, update} = useSession();
   
   return useMutation({
-    mutationFn: (data: Omit<ICardForm, "id">): Promise<IResponse<undefined>> => cardAPI.create(data, (session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
+    mutationFn: (data: Omit<ICardForm, "_id">): Promise<IResponse<undefined>> => cardAPI.create(data, (session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});

@@ -24,5 +24,7 @@ export enum QueryKeys {
 
   getExpenses = "get-expenses",
 
+  getCardsExpenses = "get-cards-expenses",
+
   getCurrencies = "get-currencies",
 }

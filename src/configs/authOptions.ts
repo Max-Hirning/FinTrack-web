@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
             jwt: data.token,
             id: data.userId,
             email: user.data.email,
-            cards: user.data.cards,
+            cards: user.data.cardIds,
             avatar: user.data.avatar,
             lastName: user.data.lastName,
             currency: user.data.currency,
@@ -51,9 +51,9 @@ export const authOptions: NextAuthOptions = {
       if(trigger === "update" && token.sub) {
         const {data} = await userAPI.getUser(token.sub, token.jwt);
         if(data) {
-          token._id = data.id;
+          token._id = data._id;
           token.email = data.email;
-          token.cards = data.cards;
+          token.cards = data.cardIds;
           token.avatar = data.avatar;
           token.lastName = data.lastName;
           token.currency = data.currency;

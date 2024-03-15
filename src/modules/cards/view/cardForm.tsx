@@ -17,14 +17,14 @@ import {AppDispatch, RootState} from "@/types/store";
 import {useGetCurrencies} from "@/hooks/getCurrencies";
 
 export function CardForm() {
-  const {id, ...cardFormInitialValues} = useSelector((state: RootState) => state.cardForm);
+  const {_id, ...cardFormInitialValues} = useSelector((state: RootState) => state.cardForm);
 
   const formik = useFormik({
     validationSchema: cardFormSchema,
     initialValues: cardFormInitialValues, 
-    onSubmit: (data: Omit<ICardForm, "id">, {resetForm}): void => {
-      if(id.length > 0) {
-        updateCard.mutate({...data, id});
+    onSubmit: (data: Omit<ICardForm, "_id">, {resetForm}): void => {
+      if(_id.length > 0) {
+        updateCard.mutate({...data, _id});
       } else {
         createCard.mutate(data);
       }
@@ -45,7 +45,7 @@ export function CardForm() {
     <>
       <button 
         onClick={() => dispatch(resetCard())}
-        className={`absolute top-[20px] right-[20px] ${id.length === 0 && "hidden"}`}
+        className={`absolute top-[20px] right-[20px] ${_id.length === 0 && "hidden"}`}
       >
         <CloseIcon width={25} height={25} color="#343C6A"/>
       </button>
@@ -100,7 +100,7 @@ export function CardForm() {
             id="balance"
             type="number"
             label="Card Balance"
-            disabled={id.length > 0}
+            disabled={_id.length > 0}
             onBlur={formik.handleBlur}
             styles="w-full max-w-[320px]"
             errorMsg={formik.errors.balance}
@@ -136,13 +136,13 @@ export function CardForm() {
             type="submit"
             variant="contained"
             styles="w-[130px] h-[40px] rounded-[9px] mt-[20px]"
-          >{(id.length > 0) ? "Update" : "Add"} Card</ButtonUI>
+          >{(_id.length > 0) ? "Update" : "Add"} Card</ButtonUI>
           <ButtonUI
             type="button"
             color="danger"
             variant="outlined"
             onClick={() => deleteCard.mutate()}
-            styles={`w-[130px] h-[40px] rounded-[9px] mt-[20px] ${(id.length === 0) && "hidden"}`}
+            styles={`w-[130px] h-[40px] rounded-[9px] mt-[20px] ${(_id.length === 0) && "hidden"}`}
           >Delete Card</ButtonUI>
         </fieldset>
       </form>

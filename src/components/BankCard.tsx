@@ -3,7 +3,7 @@ import {ICardResponse} from "@/modules/cards";
 
 interface IProps extends ICardResponse {}
 
-export function BankCard({id, title, currency, balance, owner}: IProps) {
+export function BankCard({_id, title, currency, balance, owner}: IProps) {
   return (
     <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px] p-[20px] flex flex-col justify-between relative">
       <article>
@@ -21,7 +21,7 @@ export function BankCard({id, title, currency, balance, owner}: IProps) {
         </article>
       </article>
       <hr className="absolute bottom-[60px] left-0 w-full"/>
-      <p className="title text-[20px] font-semibold text-text">{id.substring(0, 4)} **** **** {id.substring(id.length - 4)}</p>
+      <p className="title text-[20px] font-semibold text-text">{_id.substring(0, 4)} **** **** {_id.substring(_id.length - 4)}</p>
     </div>
   );
 }

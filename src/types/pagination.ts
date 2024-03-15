@@ -1,5 +1,5 @@
 export interface IPagination<T> {
-  data: T[];
+  data: T;
   page: null|number;
   next: null|number;
   previous: null|number;

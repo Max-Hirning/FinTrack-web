@@ -3,8 +3,8 @@ import {ITransactionsFilters} from "@/modules/transactions";
 
 export interface IAccountFilters {
   currency: string;
-  cards: ICardsFilters;
   transactions: ITransactionsFilters;
+  cards: Pick<ICardsFilters, "cards">;
 }
 export interface IAccountResponse {
   incomes: number;

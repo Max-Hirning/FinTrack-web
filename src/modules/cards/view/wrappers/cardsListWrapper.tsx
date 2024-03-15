@@ -15,7 +15,7 @@ interface IProps {
 export async function CardsListWrapper({elStyle}: IProps) {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
-  const filters: ICardsFilters = {cards: (session?.user as IUserSession).cards};
+  const filters: Pick<ICardsFilters, "ownerId"> = {ownerId: (session?.user as IUserSession).id};
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps

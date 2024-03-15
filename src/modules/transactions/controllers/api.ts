@@ -1,11 +1,11 @@
 import {IResponse} from "@/types/api";
 import {IPagination} from "@/types/pagination";
-import {ITransactionsFilters, ITransactionResponse} from "../types/transaction";
+import {ITransactionsFilters, ITransactionListResponse} from "../types/transaction";
 
 class TransactionsAPI {
   constructor(protected readonly url: string) {}
 
-  async getAll({page, cards, dates}: ITransactionsFilters, token: string): Promise<IResponse<IPagination<ITransactionResponse>>> {
+  async getAll({page, cards, dates}: ITransactionsFilters, token: string): Promise<IResponse<IPagination<ITransactionListResponse>>> {
     try {
       const queryParams = new URLSearchParams({
         page: JSON.stringify(page),

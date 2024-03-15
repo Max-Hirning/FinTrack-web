@@ -6,12 +6,15 @@ export interface ITransactionsFilters {
   cards: string[];
   dates: [string, string];
 }
-
 export interface ITransactionResponse {
   id: string;
   date: string;
-  ammount: number;
+  amount: number;
   description: string;
   card: ICardResponse;
   category: ITransactionCategoryResponse;
+}
+export interface ITransactionListResponse {
+  currencies: string[];
+  data: ITransactionResponse[];
 }

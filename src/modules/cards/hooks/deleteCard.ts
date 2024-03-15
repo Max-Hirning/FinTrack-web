@@ -17,7 +17,7 @@ export function useDeleteCard() {
   const cardFormInitialValues = useSelector((state: RootState) => state.cardForm);
 
   return useMutation({
-    mutationFn: (): Promise<IResponse<undefined>> => cardAPI.delete(cardFormInitialValues.id, (session?.user as IUserSession).jwt),
+    mutationFn: (): Promise<IResponse<undefined>> => cardAPI.delete(cardFormInitialValues._id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});

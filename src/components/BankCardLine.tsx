@@ -8,7 +8,7 @@ import {hexToRgba} from "@/controllers/colors";
 
 interface IProps extends ICardResponse {}
 
-export function BankCardLine({id, title, color, currency, balance, owner}: IProps) {
+export function BankCardLine({_id, title, color, currency, balance, owner}: IProps) {
   const dispatch = useDispatch();
 
   return (
@@ -25,7 +25,7 @@ export function BankCardLine({id, title, color, currency, balance, owner}: IProp
       </article>
       <article className="w-[150px]">
         <p className="text-[16px] font-medium text-text">Card Number</p>
-        <p className="title text-[15px] font-normal text-secondary">{id.substring(0, 4)} **** **** {id.substring(id.length - 4)}</p>
+        <p className="title text-[15px] font-normal text-secondary">{_id.substring(0, 4)} **** **** {_id.substring(_id.length - 4)}</p>
       </article>
       <article className="w-[100px]">
         <p className="text-[16px] font-medium text-text">Namain Card</p>
@@ -35,7 +35,7 @@ export function BankCardLine({id, title, color, currency, balance, owner}: IProp
         type="button"
         variant="text"
         styles="h-[40px] w-[120px]"
-        onClick={() => dispatch(setCard({id, title, color, currency, balance}))}
+        onClick={() => dispatch(setCard({_id, title, color, currency, balance}))}
       >View Details</ButtonUI>
     </div>
   );

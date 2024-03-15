@@ -1,13 +1,15 @@
 export interface IUserResponse {
-	id: string;
-	email: string;
-	cards: string[];
-	lastName: string;
-	currency: string;
-	firstName: string;
-	avatar: string|null;
+	_id: string;
+  email: string;
+  lastName: string;
+  currency: string;
+  firstName: string;
+  cardIds: string[];
+  avatar: string | null;
 }
 
-export interface IUserSession extends IUserResponse {
+export interface IUserSession extends Omit<IUserResponse, "cardIds"|"_id"> {
+	id: string;
   jwt: string;
+	cards: string[];
 }

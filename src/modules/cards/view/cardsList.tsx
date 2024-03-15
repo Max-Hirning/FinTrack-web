@@ -9,8 +9,8 @@ import {ICardResponse, ICardsFilters} from "../types/card";
 
 interface IProps {
   session: IUserSession;
-  filters: ICardsFilters;
   elStyle: "card"|"line";
+  filters: Pick<ICardsFilters, "ownerId">;
 }
 
 export function CardsList({elStyle, filters, session}: IProps) {
@@ -20,11 +20,11 @@ export function CardsList({elStyle, filters, session}: IProps) {
     return (
       <>
         {
-          (data?.data || []).map((card: ICardResponse) => {
+          (data?.data?.cards || []).map((card: ICardResponse) => {
             return (
               <BankCard 
                 {...card}
-                key={card.id}
+                key={card._id}
               />
             );
           })
@@ -37,11 +37,11 @@ export function CardsList({elStyle, filters, session}: IProps) {
     return (
       <>
         {
-          (data?.data || []).map((card: ICardResponse) => {
+          (data?.data?.cards || []).map((card: ICardResponse) => {
             return (
               <BankCardLine 
                 {...card}
-                key={card.id}
+                key={card._id}
               />
             );
           })
