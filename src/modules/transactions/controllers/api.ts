@@ -59,12 +59,12 @@ class TransactionsAPI {
     }
   }
 
-  async getAll({page, cards, dates}: ITransactionsFilters, token: string): Promise<IResponse<IPagination<ITransactionListResponse>>> {
+  async getAll({page, cards, date}: ITransactionsFilters, token: string): Promise<IResponse<IPagination<ITransactionListResponse>>> {
     try {
       const queryParams = new URLSearchParams({
         page: JSON.stringify(page),
+        date: JSON.stringify(date),
         cards: JSON.stringify(cards),
-        dates: JSON.stringify(dates),
       });
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {

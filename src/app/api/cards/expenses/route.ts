@@ -16,43 +16,41 @@ export async function GET(request: Request) {
   if(currency && filters) {
     let currenciesRates: ICurrencyResponse<{[key: string]: {[key: string]: number}}>|null = null;
     const transactions = await transactionsAPI.getAll(JSON.parse(filters), token);
-    // const currencies = new Set(transactions.data?.data.currencies);
-    const currencies = new Set(["UAH", "GBP"]);
+    const currencies = new Set(transactions.data?.data.currencies);
     currencies.delete(currency);
     if(currencies.size > 0) {
-      const [start, end] = JSON.parse(filters).dates;
-      const url = `https://api.fxratesapi.com/timeseries?start_date=${new Date(start).toISOString()}&end_date=${(new Date(end) < new Date()) ? new Date(end).toISOString() : new Date().toISOString()}&api_key=fxr_demo_asdiksd21&base=${currency}&currencies=${Array.from(currencies).join(",")}&format=json`;
-      // const response = await fetch(`https://api.fxratesapi.com/latest?base=${currency}&currencies=${Array.from(currencies).join(",")}&resolution=1m&amount=1&places=6&format=json`);
+      const [start, end] = JSON.parse(filters).date;
+      const url = `https://api.fxratesapi.com/timeseries?start_date=${new Date(start).toISOString()}&end_date=${(new Date(end) < new Date()) ? new Date(end).toISOString() : new Date().toISOString()}&api_key=${process.env.ACCESS_TOKEN_CURRENCY}&base=${currency}&currencies=${Array.from(currencies).join(",")}&format=json`;
       const response = await fetch(url);
       currenciesRates = await response.json();
     }
-    
     const cardsExpenses = (transactions.data?.data.data || []).reduce((res: {[key: string]: ICardsExpensesResponse}, el: ITransactionResponse) => {
-      console.log(currenciesRates?.rates, currenciesRates?.rates[`${el.date.split("T")[0]}T23:59:00.000Z`], `${el.date.split("T")[0]}T23:59:00.000Z`);
       if(el.amount < 0) {
-        if(res[el.card._id]) {
-          // if(currenciesRates?.rates[el.card.currency]) {
-          //   res[el.card._id].amount += el.amount;
-          //   res[el.card._id].amount = res[el.card._id].amount + +((el.amount / currenciesRates.rates[el.card.currency]).toFixed(2));
-          // } else {
-          res[el.card._id].amount += el.amount;
-          // }
-        } else {
-          res[el.card._id] = {
-            amount: el.amount,
-            color: el.card.color,
-            label: el.card.title,
-            currency: el.card.currency,
-          };
+        const currencyRate = currenciesRates?.rates[`${el.date.split("T")[0]}T23:59:00.000Z`][el.card.currency];
+        if(currencyRate) {
+          if(res[el.card._id]) {
+            res[el.card._id].amount = +(res[el.card._id].amount + +((el.amount / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+          } else {
+            res[el.card._id] = {
+              color: el.card.color,
+              label: el.card.title,
+              currency: el.card.currency,
+              amount: +((el.amount / +(currencyRate.toFixed(2))).toFixed(2)),
+            };
+          }
         }
       }
       return res;
     }, {});
-    console.log(cardsExpenses);
+    return Response.json({
+      statusCode: 200,
+      data: Object.values(cardsExpenses),
+      message: "Cards expenses were calculated",
+    });
   }
   return Response.json({
+    data: [],
     statusCode: 200,
     message: "Cards expenses were calculated",
-    data: {incomes: 0, expenses: 0, balance: 0}
   });
 }

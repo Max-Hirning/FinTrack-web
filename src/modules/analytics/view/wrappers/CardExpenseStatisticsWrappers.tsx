@@ -15,7 +15,7 @@ export async function CardExpenseStatisticsWrappers() {
   // const filters: ITransactionsFilters = {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()};
   const filters: ICardsExpensesFilters = {
     currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()}
+    filters: {cards: (session?.user as IUserSession).cards, date: getStartEndOfMonth()}
   };
 
   // const a = await analyticsAPI.getCardsExpenses(filters, (session?.user as IUserSession).jwt);

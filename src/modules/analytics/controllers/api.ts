@@ -1,18 +1,19 @@
 import {IResponse} from "@/types/api";
-import {ICardsExpensesFilters} from "../types/cardsExpenses";
 import {IAccountFilters, IAccountResponse} from "../types/account";
+import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
 
 class AnalyticsAPI {
   constructor(protected readonly url: string) {}
 
-  async getCardsExpenses({currency, filters}: ICardsExpensesFilters, token: string): Promise<IResponse<IAccountResponse>> {
+  async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
     try {
-      if (!(filters && token)) throw new Error("No expenses were found");
+      if (!(cards && transactions && token)) throw new Error("No account info was found");
       const queryParams = new URLSearchParams({
         currency,
-        filters: JSON.stringify(filters),
+        cards: JSON.stringify(cards),
+        transactions: JSON.stringify(transactions),
       });
-      const response = await fetch(`${this.url}/cards/expenses?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -27,15 +28,14 @@ class AnalyticsAPI {
     }
   }
 
-  async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
+  async getCardsExpenses({currency, filters}: ICardsExpensesFilters, token: string): Promise<IResponse<ICardsExpensesResponse[]>> {
     try {
-      if (!(cards && transactions && token)) throw new Error("No account info was found");
+      if (!(filters && token)) throw new Error("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
-        cards: JSON.stringify(cards),
-        transactions: JSON.stringify(transactions),
+        filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/cards/expenses?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",

@@ -16,7 +16,7 @@ export async function AccountsWrappers() {
   const filters: IAccountFilters = {
     currency: (session?.user as IUserSession).currency, 
     cards: {cards: (session?.user as IUserSession).cards}, 
-    transactions: {cards: (session?.user as IUserSession).cards, dates: getStartEndOfMonth()},
+    transactions: {cards: (session?.user as IUserSession).cards, date: getStartEndOfMonth()},
   };
 
   await queryClient.prefetchQuery({

@@ -2,10 +2,12 @@
 
 import "chart.js/auto";
 import React from "react";
+import {Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
-import {ICardsExpensesFilters} from "../types/cardsExpenses";
+import {hexToRgba} from "@/controllers/colors";
 import {useGetCardsExpenses} from "../hooks/getCardsExpenses";
+import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
 
 Chart.register(ArcElement);
 
@@ -16,30 +18,29 @@ interface IProps {
 
 export function CardExpenseStatistics({filters, session}: IProps) {
   const {data} = useGetCardsExpenses(filters, session.jwt);
-  console.log(data);
+
   return (
-    // <Doughnut
-    //   data={{
-    //     datasets: [
-    //       {
-    //         borderWidth: 1,
-    //         data: chartData,
-    //         label: "expenses",
-    //         backgroundColor: chartColor,
-    //         borderColor: chartBorderColor,
-    //       },
-    //     ],
-    //     labels: chartLabels,
-    //   }}
-    //   options={{
-    //     plugins: {
-    //       legend: {
-    //         display: false
-    //       }
-    //     }
-    //   }}
-    //   className='w-full h-full'
-    // />
-    <p>sdds</p>
+    <Doughnut
+      data={{
+        datasets: [
+          {
+            borderWidth: 1,
+            label: "expenses",
+            data: data?.data?.map((el: ICardsExpensesResponse) => el.amount),
+            borderColor: data?.data?.map((el: ICardsExpensesResponse) => el.color),
+            backgroundColor: data?.data?.map((el: ICardsExpensesResponse) => hexToRgba(el.color, 0.25)),
+          },
+        ],
+        labels: data?.data?.map((el: ICardsExpensesResponse) => el.label),
+      }}
+      options={{
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
+      }}
+      className='w-full h-full'
+    />
   );
 }

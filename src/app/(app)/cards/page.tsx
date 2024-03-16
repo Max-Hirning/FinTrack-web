@@ -25,9 +25,11 @@ export default function Cards() {
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
         <section className="w-full max-w-[350px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card Expense Statistics</h1>
-          <section className="card w-full h-[350px] p-[25px]">
-            <CardExpenseStatisticsWrappers/>
-          </section>
+          <Suspense fallback={<section className="bg-slate-200 card border w-full h-[350px] p-[25px] animate-pulse relative"></section>}>
+            <section className="card w-full h-[350px] p-[25px]">
+              <CardExpenseStatisticsWrappers/>
+            </section>
+          </Suspense>
         </section>
         <section className="max-w-fit max-lg:w-full lg:w-[calc(100%-375px)]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card List</h1>

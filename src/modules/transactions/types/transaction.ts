@@ -4,7 +4,7 @@ import {ICardResponse} from "@/modules/cards";
 export interface ITransactionsFilters {
   page?: number;
   cards: string[];
-  dates: [string, string];
+  date: [string, string];
 }
 export interface ITransactionResponse {
   id: string;
