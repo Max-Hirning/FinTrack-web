@@ -12,7 +12,7 @@ export default function Transactions() {
           <article className="flex items-end justify-between mb-[10px]">
             <h1 className="title font-semibold text-[22px] text-text">My Cards</h1>
             <Link 
-              href="/cards"
+              href="/cards#title"
               className="title font-semibold text-[17px] text-text mb-[2px] ml-[10px]"
             >+ Add Card</Link>
           </article>
