@@ -8,13 +8,16 @@ import {SelectUI} from "@/UI/SelectUI";
 import CloseIcon from "@/UI/icons/close";
 import {ICategory} from "@/types/category";
 import {IUserSession} from "@/modules/profile";
-import {resetTransaction} from "@/modules/store";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
 import {useGetCategories} from "@/hooks/getCategories";
 import {useGetCards} from "@/modules/cards/hooks/getCards";
 import {ICardResponse, ICardsFilters} from "@/modules/cards";
+import {useDeleteTransaction} from "../hooks/deleteTransaction";
+import {useCreateTransaction} from "../hooks/createTransaction";
+// import {useUpdateTransaction} from "../hooks/updateTransaction";
 import {transactionFormSchema} from "../schemas/transactionForm";
+import {ITransactionForm, resetTransaction} from "@/modules/store";
 
 interface IProps {
   session: IUserSession;
@@ -23,18 +26,32 @@ interface IProps {
 
 export function TransactionForm({filters, session}: IProps) {
   const {_id, ...transactionFormInitialValues} = useSelector((state: RootState) => state.transactionForm);
+
   const formik = useFormik({
     validationSchema: transactionFormSchema,
     initialValues: transactionFormInitialValues, 
-    onSubmit: (data, {resetForm}): void => {
-      console.log(data);
+    onSubmit: (data: Omit<ITransactionForm, "_id">, {resetForm}): void => {
+      if(_id.length === 0) {
+        const dateObject = new Date(data.date);
+        const currentTime = new Date();
+        dateObject.setHours(currentTime.getHours());
+        dateObject.setMinutes(currentTime.getMinutes());
+        dateObject.setSeconds(currentTime.getSeconds());
+        dateObject.setMilliseconds(currentTime.getMilliseconds());
+        const isoDate = dateObject.toISOString();
+        createTransaction.mutate({...data, date: isoDate});
+      } else {
+        console.log(data);
+      }
       resetForm();
     },
   });
   const categories = useGetCategories();
-  // const deleteCard = useDeleteCard();
   const dispatch: AppDispatch = useDispatch();
   const cards = useGetCards(filters, session.jwt);
+  const deleteTransaction = useDeleteTransaction();
+  // const updateTransaction = useUpdateTransaction();
+  const createTransaction = useCreateTransaction();
 
   useMemo(() => {
     formik.setValues(transactionFormInitialValues);
@@ -200,7 +217,7 @@ export function TransactionForm({filters, session}: IProps) {
             type="button"
             color="danger"
             variant="outlined"
-            // onClick={() => deleteCard.mutate()}
+            onClick={() => deleteTransaction.mutate()}
             styles={`w-[150px] h-[40px] rounded-[9px] mt-[20px] ${(_id.length === 0) && "hidden"}`}
           >Delete Transaction</ButtonUI>
         </fieldset>
