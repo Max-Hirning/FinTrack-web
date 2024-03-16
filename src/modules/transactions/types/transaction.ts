@@ -1,5 +1,5 @@
+import {ICategory} from "@/types/category";
 import {ICardResponse} from "@/modules/cards";
-import {ITransactionCategoryResponse} from "./transactionCategory";
 
 export interface ITransactionsFilters {
   page?: number;
@@ -12,7 +12,7 @@ export interface ITransactionResponse {
   amount: number;
   description: string;
   card: ICardResponse;
-  category: ITransactionCategoryResponse;
+  category: Omit<ICategory, "children">;
 }
 export interface ITransactionListResponse {
   currencies: string[];

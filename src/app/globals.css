@@ -16,10 +16,10 @@ html {
 #sidebarBackdrop {
   display: none;
 }
-#sidebar-toggle:checked + #sidebar {
+#sidebarToggle:checked + #sidebar {
   transform: translateX(0);
 }
-#sidebar-toggle:checked + #sidebar + #sidebarBackdrop {
+#sidebarToggle:checked + #sidebar + #sidebarBackdrop {
   display: block;
 }
 

@@ -1,8 +1,9 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {cardFormReducer} from "@/modules/store";
+import {cardFormReducer, transactionFormReducer} from "@/modules/store";
 
 export const store = configureStore({
   reducer: {
-    cardForm: cardFormReducer
+    cardForm: cardFormReducer,
+    transactionForm: transactionFormReducer,
   },
 });

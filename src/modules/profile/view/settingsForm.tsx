@@ -5,6 +5,7 @@ import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import EditIcon from "@/UI/icons/edit";
 import {AvatarUI} from "@/UI/AvatarUI";
+import {SelectUI} from "@/UI/SelectUI";
 import {signOut} from "next-auth/react";
 import CloseIcon from "@/UI/icons/close";
 import LogOutIcon from "@/UI/icons/logout";
@@ -14,7 +15,6 @@ import {IUserSession} from "../types/user";
 import DeleteIcon from "@/UI/icons/delete";
 import {useUpdateUser} from "../hooks/updateUser";
 import {useDeleteUser} from "../hooks/deleteUser";
-import {SearchSelectUI} from "@/UI/SeacrhSelectUI";
 import {ISettingsForm} from "../types/settingsForm";
 import {useGetCurrencies} from "@/hooks/getCurrencies";
 import {settingsFormSchema} from "../schemas/settingsForm";
@@ -167,7 +167,7 @@ export function SettingsForm({user}: IProps) {
             changeText={formik.handleChange}
             error={!!(formik.errors.email && formik.errors.email)}
           />
-          <SearchSelectUI
+          <SelectUI
             type="text"
             id="currency"
             changeText={(e) => {
@@ -195,7 +195,7 @@ export function SettingsForm({user}: IProps) {
                 })
               }
             </datalist>
-          </SearchSelectUI>
+          </SelectUI>
         </fieldset>
         <div className="flex gap-[25px] justify-between items-center mt-[25px]">
           <ButtonUI

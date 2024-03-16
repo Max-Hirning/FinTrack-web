@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
+import {TransactionFormWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 
 export default function Transactions() {
@@ -36,6 +37,12 @@ export default function Transactions() {
       <section className="w-full w-max-[1110px] mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transactions</h1>
         <section className="card h-[397px]"></section>
+      </section>
+      <section className="mt-[25px] max-w-[730px]">
+        <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Transaction Form</h1>
+        <section className="card p-[20px] w-full relative">
+          <TransactionFormWrapper/>
+        </section>
       </section>
     </>
   );

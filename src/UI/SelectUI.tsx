@@ -13,12 +13,13 @@ interface IProps {
   required?: boolean;
   children: ReactNode;
   placeholder?: string;
+  inputStyles?: string;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   changeText: (e: FocusEvent<HTMLInputElement>) => void;
   type: "text"|"password"|"number"|"email"|"date"|"time"|"search"|"tel"|"color";
 }
 
-export function SearchSelectUI({id, children, styles, listId, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type}: IProps) {
+export function SelectUI({id, inputStyles, children, styles, listId, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type}: IProps) {
   return (
     <fieldset className={styles || ""}>
       <label 
@@ -35,7 +36,7 @@ export function SearchSelectUI({id, children, styles, listId, label, value, disa
         disabled={disabled}
         onChange={changeText}
         placeholder={placeholder}
-        className="focus:outline-none shadow-sm focus:border-[#DFEAF2] focus:ring-1 focus:ring-[#DFEAF2] rounded-[15px] text-[15px] placeholder-[#718EBF] text-[#718EBF] h-[50px] border border-[#DFEAF2] w-full p-[15px]"
+        className={`${inputStyles || ""} focus:outline-none shadow-sm focus:border-[#DFEAF2] focus:ring-1 focus:ring-[#DFEAF2] rounded-[15px] text-[15px] placeholder-[#718EBF] text-[#718EBF] h-[50px] border border-[#DFEAF2] w-full p-[15px]`}
       />
       {children}
       {

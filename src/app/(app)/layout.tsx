@@ -18,14 +18,14 @@ export default async function AppLayout({children}: IProps) {
       <input 
         type="checkbox" 
         className="hidden"
-        id="sidebar-toggle"
+        id="sidebarToggle"
       />
       <aside 
         id="sidebar"
-        className="bg-white fixed h-full z-30 w-[250px] border-[#E6EFF5] border-r p-[25px] pt-[30px]"
+        className="bg-white fixed h-full z-40 w-[250px] border-[#E6EFF5] border-r p-[25px] pt-[30px]"
       >
         <label 
-          htmlFor="sidebar-toggle"
+          htmlFor="sidebarToggle"
           className="cursor-pointer absolute top-[30px] right-[25px]"
         >
           <CloseIcon width={25} height={25} color="#343C6A"/>
@@ -35,10 +35,10 @@ export default async function AppLayout({children}: IProps) {
       </aside>
       <div
         id="sidebarBackdrop"
-        className="fixed inset-0 bg-black bg-opacity-50 z-20"
+        className="fixed inset-0 bg-black bg-opacity-50 z-30"
       >
         <label 
-          htmlFor="sidebar-toggle"
+          htmlFor="sidebarToggle"
           className="block w-full h-full"
         ></label>
       </div>

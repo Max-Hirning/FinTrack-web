@@ -13,7 +13,7 @@ interface IProps {
   placeholder?: string;
   onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   changeText: (e: FocusEvent<HTMLInputElement>) => void;
-  type: "text"|"password"|"number"|"email"|"date"|"time"|"search"|"tel"|"color";
+  type: "text"|"datetime-local"|"password"|"number"|"email"|"date"|"time"|"search"|"tel"|"color";
 }
 
 export function InputUI({id, styles, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type}: IProps) {

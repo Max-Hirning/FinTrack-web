@@ -32,7 +32,7 @@ export function Header({user}: IProps) {
         </li>
         <li>
           <label
-            htmlFor="sidebar-toggle"
+            htmlFor="sidebarToggle"
             className="cursor-pointer"
           >
             <AvatarUI

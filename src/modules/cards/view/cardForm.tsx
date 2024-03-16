@@ -3,13 +3,13 @@
 import {useFormik} from "formik";
 import React, {useMemo} from "react";
 import {InputUI} from "@/UI/InputUI";
+import {SelectUI} from "@/UI/SelectUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import CloseIcon from "@/UI/icons/close";
 import {ICurrency} from "@/types/currency";
 import {useUpdateCard} from "../hooks/updateCard";
 import {useCreateCard} from "../hooks/createCard";
 import {useDeleteCard} from "../hooks/deleteCard";
-import {SearchSelectUI} from "@/UI/SeacrhSelectUI";
 import {cardFormSchema} from "../schemas/cardForm";
 import {ICardForm, resetCard} from "@/modules/store";
 import {useDispatch, useSelector} from "react-redux";
@@ -69,7 +69,7 @@ export function CardForm() {
             changeText={formik.handleChange}
             error={!!(formik.errors.title && formik.errors.title)}
           />
-          <SearchSelectUI
+          <SelectUI
             type="text"
             id="currency"
             label="Card Currency"
@@ -93,7 +93,7 @@ export function CardForm() {
                 })
               }
             </datalist>
-          </SearchSelectUI>
+          </SelectUI>
         </fieldset>
         <fieldset className="flex max-lg:flex-col gap-[25px]">
           <InputUI
