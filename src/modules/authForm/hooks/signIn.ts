@@ -6,6 +6,7 @@ import {ISignIn} from "../types/signIn";
 import {useRouter} from "next/navigation";
 import {QueryKeys} from "@/configs/queryKeys";
 import {useMutation} from "@tanstack/react-query";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 
 export function useSignIn() {
   const {push} = useRouter();
@@ -32,10 +33,10 @@ export function useSignIn() {
       };
     },
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     onSuccess: (success: IResponse<undefined>) => {
-      console.log(success.message);
+      ToastifyCaller(IStatuses.success, success.message);
       push("/settings");
     },
     mutationKey: [QueryKeys.signIn],

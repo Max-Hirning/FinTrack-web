@@ -6,6 +6,7 @@ import {userAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {useMutation} from "@tanstack/react-query";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 
 export function useDeleteUserAvatar() {
   const {data: session, update} = useSession();
@@ -13,11 +14,11 @@ export function useDeleteUserAvatar() {
   return useMutation({
     mutationFn: (): Promise<IResponse<undefined>> => userAPI.deleteAvatar((session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
-      console.log(success.message);
+      ToastifyCaller(IStatuses.success, success.message);
       update();
     },
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     mutationKey: [QueryKeys.deleteUserAvatar],
   });

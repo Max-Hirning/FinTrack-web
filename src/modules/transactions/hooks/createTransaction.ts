@@ -6,6 +6,7 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {ITransactionForm} from "@/modules/store";
 import {transactionsAPI} from "../controllers/api";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export function useCreateTransaction() {
@@ -21,11 +22,11 @@ export function useCreateTransaction() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
-      console.log(success.message);
+      ToastifyCaller(IStatuses.success, success.message);
       update();
     },
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     mutationKey: [QueryKeys.createTransaction],
   });

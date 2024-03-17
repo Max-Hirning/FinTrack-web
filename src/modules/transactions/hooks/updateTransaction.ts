@@ -7,6 +7,7 @@ import {useSession} from "next-auth/react";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {transactionsAPI} from "../controllers/api";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {ITransactionForm, resetCard} from "@/modules/store";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
@@ -24,11 +25,11 @@ export function useUpdateTransaction() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
-      console.log(success.message);
+      ToastifyCaller(IStatuses.success, success.message);
       dispatch(resetCard());
     },
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     mutationKey: [QueryKeys.updateTransaction],
   });

@@ -8,6 +8,7 @@ import {cardAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {ICardForm, resetCard} from "@/modules/store";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export function useUpdateCard() {
@@ -20,11 +21,11 @@ export function useUpdateCard() {
     onSuccess: async (success: IResponse<undefined>) => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
+      ToastifyCaller(IStatuses.success, success.message);
       dispatch(resetCard());
-      console.log(success.message);
     },
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     mutationKey: [QueryKeys.updateCard],
   });

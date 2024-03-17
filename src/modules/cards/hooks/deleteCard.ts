@@ -8,6 +8,7 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export function useDeleteCard() {
@@ -23,11 +24,11 @@ export function useDeleteCard() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
-      console.log(success.message);
+      ToastifyCaller(IStatuses.success, success.message);
       dispatch(resetCard());
     },
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     mutationKey: [QueryKeys.deleteCard],
   });

@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import {authAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {useMutation} from "@tanstack/react-query";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 
 export function useSignUp() {
   const {push} = useRouter();
@@ -13,10 +14,10 @@ export function useSignUp() {
   return useMutation({
     mutationKey: [QueryKeys.signUp],
     onError: (error: IResponse<undefined>) => {
-      console.log(error.message);
+      ToastifyCaller(IStatuses.error, error.message);
     },
     onSuccess: (success: IResponse<undefined>) => {
-      console.log(success.message);
+      ToastifyCaller(IStatuses.success, success.message);
       push("/auth/sign-in");
     },
     mutationFn: (data: Omit<ISignUp, "confirmPassword">): Promise<IResponse<undefined>> => authAPI.signUp(data),

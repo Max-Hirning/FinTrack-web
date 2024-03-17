@@ -2,17 +2,32 @@
 
 import {store} from "@/store";
 import {Provider} from "react-redux";
-import React, {ReactNode} from "react";
-import {SessionProvider} from "next-auth/react";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {IResponse} from "@/types/api";
+import React, {ReactNode, useState} from "react";
+import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
+import {SessionProvider, signOut} from "next-auth/react";
+import {MutationCache, QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 interface IProps {
   children: ReactNode;
 }
 
-const queryClient = new QueryClient();
-
 export function ProviderComponent({children}: IProps) {
+  const [queryClient] = useState(() => new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error: unknown) => {
+        ToastifyCaller(IStatuses.error, "Unauthorized");
+        if((error as IResponse<undefined>)?.statusCode === 401) signOut();
+      }
+    }),
+    mutationCache: new MutationCache({
+      onError: (error: unknown) => {
+        ToastifyCaller(IStatuses.error, "Unauthorized");
+        if((error as IResponse<undefined>)?.statusCode === 401) signOut();
+      },
+    })
+  }));
+
   return (
     <SessionProvider>
       <Provider store={store}>

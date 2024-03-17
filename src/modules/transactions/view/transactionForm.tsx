@@ -41,7 +41,7 @@ export function TransactionForm({filters, session}: IProps) {
         const isoDate = dateObject.toISOString();
         createTransaction.mutate({...data, date: isoDate});
       } else {
-        console.log(data);
+        // console.log(data);
       }
       resetForm();
     },
