@@ -19,3 +19,14 @@ export function getStartEndOfMonth(): [string, string] {
   const endOfMonthString = formatDate(endOfMonth);
   return [startOfMonthString, endOfMonthString];
 }
+
+export function convertISODateToCustomFormat(isoDate: string): string {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit", 
+    month: "short", 
+    year: "numeric",
+  };
+  const date = new Date(isoDate);
+  const formattedDate = date.toLocaleDateString("en-GB", options);
+  return formattedDate;
+}

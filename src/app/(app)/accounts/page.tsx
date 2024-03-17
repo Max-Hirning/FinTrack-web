@@ -2,7 +2,9 @@ import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
 import {AccountsWrappers} from "@/modules/analytics";
+import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {TransactionSkeleton} from "@/components/skeletons/Transaction";
 import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
 
 export default function Accounts() {
@@ -19,12 +21,24 @@ export default function Accounts() {
           <AccountsWrappers/>
         </Suspense>
       </section>
-      <section className="max-lg:flex-col mt-[25px] flex gap-[25px]">
-        <section className="w-full">
+      <section className="max-1.5xl:flex-col mt-[25px] flex gap-[25px]">
+        <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Last Transaction</h1>
-          <section className="card h-[235px]"></section>
+          <section className="max-w-fit card h-[235px] p-[20px] gap-y-[20px] flex flex-col overflow-auto">
+            <Suspense fallback={
+              <>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+              </>
+            }>
+              <TransactionsListWrapper/>
+            </Suspense>
+          </section>
         </section>
-        <section className="max-lg:w-full lg:w-[350px]">
+        <section className="max-1.5xl:w-full 1.5xl:w-[350px]">
           <article className="flex items-end justify-between mb-[10px]">
             <h1 className="title font-semibold text-[22px] text-text">My Cards</h1>
             <Link 

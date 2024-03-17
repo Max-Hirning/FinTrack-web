@@ -1,7 +1,9 @@
 import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
+import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {TransactionSkeleton} from "@/components/skeletons/Transaction";
 
 export default function Home() {
   return (
@@ -30,7 +32,19 @@ export default function Home() {
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transaction</h1>
-          <section className="card max-lg:w-full lg:w-[350px] h-[235px]"></section>
+          <section className="card gap-y-[20px] max-w-fit flex flex-col p-[20px] w-[380px] h-[235px] overflow-auto">
+            <Suspense fallback={
+              <>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+                <TransactionSkeleton/>
+              </>
+            }>
+              <TransactionsListWrapper shrinked={true}/>
+            </Suspense>
+          </section>
         </section>
       </section>
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">

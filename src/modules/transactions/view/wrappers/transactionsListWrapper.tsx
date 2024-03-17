@@ -1,0 +1,39 @@
+import React from "react";
+import {getServerSession} from "next-auth";
+import {QueryKeys} from "@/configs/queryKeys";
+import {IUserSession} from "@/modules/profile";
+import {authOptions} from "@/configs/authOptions";
+import {TransactionsList} from "../transactionsList";
+import {transactionsAPI} from "../../controllers/api";
+import {ITransactionsFilters} from "../../types/transaction";
+import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
+
+interface IProps {
+  shrinked?: boolean;
+}
+
+export async function TransactionsListWrapper({shrinked}: IProps) {
+  const queryClient = new QueryClient();
+  const session = await getServerSession(authOptions);
+  const filters: Omit<ITransactionsFilters, "date"> = {
+    page: 1,
+    perPage: 5,
+    cards: (session?.user as IUserSession).cards,
+  };
+
+  await queryClient.prefetchQuery({
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: [QueryKeys.getTransactions, JSON.stringify(filters)],
+    queryFn: () => transactionsAPI.getAll(filters, (session?.user as IUserSession).jwt),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <TransactionsList
+        filters={filters}
+        shrinked={shrinked}
+        session={session?.user as IUserSession}
+      />
+    </HydrationBoundary>
+  );
+}

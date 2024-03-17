@@ -1,10 +1,10 @@
 import {IResponse} from "@/types/api";
-import {ICategory} from "@/types/category";
+import {ICategoryResponse} from "@/types/category";
 
 class CategoryAPI {
   constructor(protected readonly url: string) {}
 
-  async getAll(): Promise<IResponse<ICategory[]>> {
+  async getAll(): Promise<IResponse<ICategoryResponse[]>> {
     try {
       const response = await fetch(this.url, {
         headers: {

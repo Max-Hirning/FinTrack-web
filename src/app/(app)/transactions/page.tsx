@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
-import {TransactionFormWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {TransactionFormWrapper, TransactionsTableWrapper} from "@/modules/transactions";
 
 export default function Transactions() {
   return (
@@ -36,7 +36,11 @@ export default function Transactions() {
       </section>
       <section className="w-full w-max-[1110px] mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transactions</h1>
-        <section className="card h-[397px]"></section>
+        <Suspense fallback={<section className="bg-slate-200 card border h-[397px] p-[2px] animate-pulse"></section>}>
+          <section className="card pb-[20px] px-[20px] h-[397px] overflow-auto">
+            <TransactionsTableWrapper/>
+          </section>
+        </Suspense>
       </section>
       <section className="mt-[25px] max-w-[730px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Transaction Form</h1>

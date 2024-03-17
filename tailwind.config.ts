@@ -9,6 +9,7 @@ const config: Config = {
         "md": "426px",
         "lg": "769px",
         "xl": "1025px",
+        "1.5xl": "1125px",
         "2xl": "1441px",
       },
       colors: {

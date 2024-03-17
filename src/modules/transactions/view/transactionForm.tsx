@@ -6,8 +6,8 @@ import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {SelectUI} from "@/UI/SelectUI";
 import CloseIcon from "@/UI/icons/close";
-import {ICategory} from "@/types/category";
 import {IUserSession} from "@/modules/profile";
+import {ICategoryResponse} from "@/types/category";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
 import {useGetCategories} from "@/hooks/getCategories";
@@ -105,7 +105,7 @@ export function TransactionForm({filters, session}: IProps) {
             >
               <option value="" disabled>Choose the transaction category</option>
               {
-                (categories.data?.data || []).map(({_id, children, title}: ICategory) => {
+                (categories.data?.data || []).map(({_id, children, title}: ICategoryResponse) => {
                   if(children.length === 0) {
                     return (
                       <option 
@@ -120,7 +120,7 @@ export function TransactionForm({filters, session}: IProps) {
                         label={title}
                       >
                         {
-                          children.map((el: ICategory) => {
+                          children.map((el: ICategoryResponse) => {
                             return (
                               <option
                                 key={el._id}
