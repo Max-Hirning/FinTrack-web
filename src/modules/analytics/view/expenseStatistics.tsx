@@ -6,7 +6,7 @@ import {Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
-import {useGetCardsExpenses} from "../hooks/getCardsExpenses";
+import {useGetExpenses} from "../hooks/getExpenses";
 import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
 
 Chart.register(ArcElement);
@@ -16,8 +16,8 @@ interface IProps {
   filters: ICardsExpensesFilters;
 }
 
-export function CardExpenseStatistics({filters, session}: IProps) {
-  const {data} = useGetCardsExpenses(filters, session.jwt);
+export function ExpenseStatistics({filters, session}: IProps) {
+  const {data} = useGetExpenses(filters, session.jwt);
 
   return (
     <Doughnut

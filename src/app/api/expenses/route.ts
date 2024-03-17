@@ -1,5 +1,5 @@
 import {ICurrencyResponse} from "@/types/currency";
-import {ICardsExpensesResponse} from "@/modules/analytics";
+import {IExpensesResponse} from "@/modules/analytics/types/expenses";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
 
 export async function GET(request: Request) {
@@ -24,16 +24,16 @@ export async function GET(request: Request) {
       const response = await fetch(url);
       currenciesRates = await response.json();
     }
-    const cardsExpenses = (transactions.data?.data.data || []).reduce((res: {[key: string]: ICardsExpensesResponse}, el: ITransactionResponse) => {
+    const cardsExpenses = (transactions.data?.data.data || []).reduce((res: {[key: string]: IExpensesResponse}, el: ITransactionResponse) => {
       if(el.amount < 0) {
         const currencyRate = currenciesRates?.rates[`${el.date.split("T")[0]}T23:59:00.000Z`][el.card.currency];
         if(currencyRate) {
-          if(res[el.card._id]) {
-            res[el.card._id].amount = +(res[el.card._id].amount + +((el.amount / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+          if(res[el.category._id]) {
+            res[el.category._id].amount = +(res[el.category._id].amount + +((el.amount / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           } else {
-            res[el.card._id] = {
-              color: el.card.color,
-              label: el.card.title,
+            res[el.category._id] = {
+              color: el.category.color,
+              label: el.category.title,
               amount: +((el.amount / +(currencyRate.toFixed(2))).toFixed(2)),
             };
           }
@@ -44,12 +44,12 @@ export async function GET(request: Request) {
     return Response.json({
       statusCode: 200,
       data: Object.values(cardsExpenses),
-      message: "Cards expenses were calculated",
+      message: "Expenses were calculated",
     });
   }
   return Response.json({
     data: [],
     statusCode: 200,
-    message: "Cards expenses were calculated",
+    message: "Expenses were calculated",
   });
 }

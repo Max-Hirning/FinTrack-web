@@ -18,7 +18,7 @@ export function Accounts({filters, session}: IProps) {
   return (
     <>
       <AccountInfoCard
-        title="My Balance "
+        title="My Balance"
         iconColor="#FFBB38"
         currency={session.currency}
         ammount={(data?.data?.balance || 0).toFixed(2)}

@@ -1,9 +1,32 @@
 import {IResponse} from "@/types/api";
 import {IAccountFilters, IAccountResponse} from "../types/account";
+import {IExpensesFilters, IExpensesResponse} from "../types/expenses";
 import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
 
 class AnalyticsAPI {
   constructor(protected readonly url: string) {}
+
+  async getExpenses({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
+    try {
+      if (!(filters && token)) throw new Error("No expenses were found");
+      const queryParams = new URLSearchParams({
+        currency,
+        filters: JSON.stringify(filters),
+      });
+      const response = await fetch(`${this.url}/expenses?${queryParams.toString()}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      });
+      if (!response.ok) throw new Error("Network response was not ok");
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  }
 
   async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
     try {

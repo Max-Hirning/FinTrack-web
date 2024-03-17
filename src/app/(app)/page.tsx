@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
+import {ExpenseStatisticsWrappers} from "@/modules/analytics";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
@@ -54,7 +55,11 @@ export default function Home() {
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Expense Statistics</h1>
-          <section className="card max-lg:w-full lg:w-[350px] h-[322px]"></section>
+          <Suspense fallback={<section className="bg-slate-200 card border max-w-[350px] lg:w-[350px] w-full h-[322px] p-[25px] animate-pulse"></section>}>
+            <section className="card max-w-[350px] w-full p-[25px] lg:w-[350px] h-[322px]">
+              <ExpenseStatisticsWrappers/>
+            </section>
+          </Suspense>
         </section>
       </section>
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
