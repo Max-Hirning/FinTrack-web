@@ -25,7 +25,7 @@ export function CardExpenseStatistics({filters, session}: IProps) {
         datasets: [
           {
             borderWidth: 1,
-            label: "expenses",
+            label: "expenses ",
             data: data?.data?.map((el: ICardsExpensesResponse) => el.amount),
             borderColor: data?.data?.map((el: ICardsExpensesResponse) => el.color),
             backgroundColor: data?.data?.map((el: ICardsExpensesResponse) => hexToRgba(el.color, 0.25)),

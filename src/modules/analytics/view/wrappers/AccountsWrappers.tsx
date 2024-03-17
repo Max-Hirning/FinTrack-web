@@ -1,5 +1,5 @@
 import React from "react";
-import {Accounts} from "../Accounts";
+import {Accounts} from "../accounts";
 import {getServerSession} from "next-auth";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
