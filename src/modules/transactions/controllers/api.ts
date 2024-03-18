@@ -11,7 +11,6 @@ class TransactionsAPI {
       const response = await fetch(`${this.url}/${transactionId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
@@ -28,7 +27,6 @@ class TransactionsAPI {
       const response = await fetch(this.url, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "POST",
         body: JSON.stringify(data),
@@ -46,7 +44,6 @@ class TransactionsAPI {
       const response = await fetch(`${this.url}/${transactionId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "PUT",
         body: JSON.stringify(data),
@@ -71,12 +68,24 @@ class TransactionsAPI {
       const queryParams = new URLSearchParams(filters as Record<string, string>);
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) return ({
+        data: {
+          data: {
+            data: [],
+            currencies: [],
+          },
+          page: null,
+          next: null,
+          previous: null,
+          totalPages: null,
+        },
+        statusCode: 404,
+        message: "Something went wrong"
+      });
       const result = await response.json();
       return result;
     } catch (error) {

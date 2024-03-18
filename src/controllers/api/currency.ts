@@ -7,13 +7,14 @@ class CurrencyAPI {
   async getAll(): Promise<IResponse<ICurrency[]>> {
     try {
       const response = await fetch(this.url, {
-        headers: {
-          "Content-Type": "application/json",
-        },
         method: "GET",
         cache: "force-cache",
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if (!response.ok) return ({
+        data: [],
+        statusCode: 400,
+        message: "Something went wrong",
+      });
       const result = await response.json();
       return result;
     } catch (error) {

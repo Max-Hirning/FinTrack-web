@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
-import {ExpenseStatisticsWrappers} from "@/modules/analytics";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
+import {ExpenseStatisticsWrappers, WeeklyStatisticsWrappers} from "@/modules/analytics";
 
 export default function Home() {
   return (
@@ -33,7 +33,7 @@ export default function Home() {
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transaction</h1>
-          <section className="card max-w-fit p-[20px] w-[380px] h-[235px] overflow-auto">
+          <section className="card max-w-fit py-[10px] px-[20px] w-[380px] h-[235px] overflow-auto">
             <Suspense fallback={
               <>
                 <TransactionSkeleton/>
@@ -51,7 +51,11 @@ export default function Home() {
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
         <section className="w-full max-w-[730px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Weekly Activity</h1>
-          <section className="card w-full h-[322px]"></section>
+          <Suspense fallback={<section className="bg-slate-200 card border w-full h-[322px] p-[25px] animate-pulse"></section>}>
+            <section className="card w-full p-[25px] h-[322px]">
+              <WeeklyStatisticsWrappers/>
+            </section>
+          </Suspense>
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Expense Statistics</h1>

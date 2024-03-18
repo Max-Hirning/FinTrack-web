@@ -10,7 +10,6 @@ class CardAPI {
       const response = await fetch(`${this.url}/${cardId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
@@ -32,11 +31,17 @@ class CardAPI {
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "GET",
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if (!response.ok) return ({
+        data: {
+          cards: [],
+          currencies: [],
+        },
+        statusCode: 400,
+        message: "Something went wrong",
+      });
       const result = await response.json();
       return result;
     } catch (error) {
@@ -49,7 +54,6 @@ class CardAPI {
       const response = await fetch(`${this.url}/${cardId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "PUT",
         body: JSON.stringify(data),
@@ -67,7 +71,6 @@ class CardAPI {
       const response = await fetch(this.url, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         method: "POST",
         body: JSON.stringify({...data, ownerId}),
