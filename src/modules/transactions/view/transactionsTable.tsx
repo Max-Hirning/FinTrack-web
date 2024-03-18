@@ -2,6 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
+import {useDispatch} from "react-redux";
+import {useRouter} from "next/navigation";
+import {AppDispatch} from "@/types/store";
+import {setTransction} from "@/modules/store";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
 import {useGetTransactions} from "../hooks/getTransactions";
@@ -15,6 +19,8 @@ interface IProps {
 }
 
 export function TransactionsTable({filters, session}: IProps) {
+  const router = useRouter();
+  const dispatch: AppDispatch = useDispatch();
   const {data} = useGetTransactions(filters, session.jwt);
 
   return (
@@ -34,7 +40,18 @@ export function TransactionsTable({filters, session}: IProps) {
             return (
               <tr 
                 key={_id}
-                className={`${((data?.data?.data.data || []).length-1 !== index) && "border-b border-[#E6EFF5]"}`}
+                onClick={() => {
+                  dispatch(setTransction({
+                    _id,
+                    amount,
+                    description,
+                    cardId: card._id,
+                    categoryId: category._id,
+                    date: new Date(date).toISOString().split("T")[0],
+                  }));
+                  router.push("/transactions#date");
+                }}
+                className={`cursor-pointer hover:bg-slate-200 active:bg-slate-300 ${((data?.data?.data.data || []).length-1 !== index) && "border-b border-[#E6EFF5]"}`}
               >
                 <td className="py-[10px] h-full flex items-center">
                   <div

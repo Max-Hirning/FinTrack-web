@@ -1,10 +1,10 @@
 "use client";
 
 import {IResponse} from "@/types/api";
-import {resetCard} from "@/modules/store";
 import {useSession} from "next-auth/react";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
+import {resetTransaction} from "@/modules/store";
 import {transactionsAPI} from "../controllers/api";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
@@ -27,7 +27,7 @@ export function useDeleteTransaction() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       ToastifyCaller(IStatuses.success, success.message);
-      dispatch(resetCard());
+      dispatch(resetTransaction());
     },
     onError: (error: IResponse<undefined>) => {
       ToastifyCaller(IStatuses.error, error.message);

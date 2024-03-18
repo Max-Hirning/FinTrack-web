@@ -37,9 +37,9 @@ export function SettingsForm({user}: IProps) {
       (values.lastName.length > 0) && formData.append("lastName", values.lastName);
       (values.currency.length > 0) && formData.append("currency", values.currency);
       (values.firstName.length > 0) && formData.append("firstName", values.firstName);
-      resetForm();
-      setImageFile(null);
       updateUser.mutate(formData);
+      setImageFile(null);
+      resetForm();
     },
   });
   const {data} = useGetCurrencies();
@@ -127,31 +127,37 @@ export function SettingsForm({user}: IProps) {
           <DeleteIcon width={20} height={20} color="white"/>
         </ButtonUI>
       </div>
-      <form className="flex w-full flex-col gap-[20px] mt-[30px]">
+      <form 
+        onSubmit={(e) => {
+          e.preventDefault();
+          formik.submitForm();
+        }}
+        className="flex w-full flex-col gap-[20px] mt-[30px]"
+      >
         <fieldset className="flex max-lg:flex-col gap-[25px]">
           <InputUI
             type="text"
             id="firstName"
             label="First Name"
             onBlur={formik.handleBlur}
-            placeholder={user.firstName}
             styles="w-full max-w-[320px]"
             value={formik.values.firstName}
             changeText={formik.handleChange}
             errorMsg={formik.errors.firstName}
             error={!!(formik.errors.firstName && formik.errors.firstName)}
+            placeholder={(session?.user as IUserSession)?.firstName || user.firstName}
           />
           <InputUI
             type="text"
             id="lastName"
             label="Last Name"
             onBlur={formik.handleBlur}
-            placeholder={user.lastName}
             styles="w-full max-w-[320px]"
             value={formik.values.lastName}
             changeText={formik.handleChange}
             errorMsg={formik.errors.lastName}
             error={!!(formik.errors.lastName && formik.errors.lastName)}
+            placeholder={(session?.user as IUserSession)?.lastName || user.lastName}
           />
         </fieldset>
         <fieldset className="flex max-lg:flex-col gap-[25px]">
@@ -159,13 +165,13 @@ export function SettingsForm({user}: IProps) {
             id="email"
             type="email"
             label="Email"
-            placeholder={user.email}
             onBlur={formik.handleBlur}
             value={formik.values.email}
             styles="w-full max-w-[320px]"
             errorMsg={formik.errors.email}
             changeText={formik.handleChange}
             error={!!(formik.errors.email && formik.errors.email)}
+            placeholder={(session?.user as IUserSession)?.email || user.email}
           />
           <SelectUI
             type="text"
@@ -177,11 +183,11 @@ export function SettingsForm({user}: IProps) {
             label="Card Currency"
             listId="currencies-list"
             onBlur={formik.handleBlur}
-            placeholder={user.currency}
             styles="w-full max-w-[320px]"
             value={formik.values.currency}
             errorMsg={formik.errors.currency}
             error={!!(formik.errors.currency && formik.errors.currency)}
+            placeholder={(session?.user as IUserSession)?.currency || user.currency}
           >
             <datalist id="currencies-list">
               {

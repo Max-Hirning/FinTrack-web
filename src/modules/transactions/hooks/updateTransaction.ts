@@ -8,8 +8,8 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {transactionsAPI} from "../controllers/api";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {ITransactionForm, resetCard} from "@/modules/store";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {ITransactionForm, resetTransaction} from "@/modules/store";
 
 export function useUpdateTransaction() {
   const {data: session} = useSession();
@@ -26,7 +26,7 @@ export function useUpdateTransaction() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       ToastifyCaller(IStatuses.success, success.message);
-      dispatch(resetCard());
+      dispatch(resetTransaction());
     },
     onError: (error: IResponse<undefined>) => {
       ToastifyCaller(IStatuses.error, error.message);

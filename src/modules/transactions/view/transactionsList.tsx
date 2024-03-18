@@ -2,6 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "@/types/store";
+import {useRouter} from "next/navigation";
+import {setTransction} from "@/modules/store";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
 import {useGetTransactions} from "../hooks/getTransactions";
@@ -15,6 +19,8 @@ interface IProps {
 }
 
 export function TransactionsList({filters, session, shrinked}: IProps) {
+  const router = useRouter();
+  const dispatch: AppDispatch = useDispatch();
   const {data} = useGetTransactions(filters, session.jwt);
 
   const amountColor = (amount: number): string => {
@@ -36,12 +42,23 @@ export function TransactionsList({filters, session, shrinked}: IProps) {
           return (
             <div 
               key={_id}
-              className={`flex items-center ${!shrinked && "md:w-[630px]"}`}
+              onClick={() => {
+                dispatch(setTransction({
+                  _id,
+                  amount,
+                  description,
+                  cardId: card._id,
+                  categoryId: category._id,
+                  date: new Date(date).toISOString().split("T")[0],
+                }));
+                router.push("/transactions#date");
+              }}
+              className={`flex items-center cursor-pointer py-[10px] hover:bg-slate-200 active:bg-slate-300 ${!shrinked && "md:w-[630px]"}`}
             >
               <div className="mr-[10px] flex items-center w-[220px]">
                 <div
                   style={{backgroundColor: hexToRgba(category.color, 0.5)}}
-                  className="flex rounded-[20px] h-[55px] w-[55px] justify-center items-center"
+                  className="flex rounded-[20px] h-[55px] min-w-[55px] justify-center items-center"
                 >
                   <Image
                     width={35}
@@ -50,7 +67,7 @@ export function TransactionsList({filters, session, shrinked}: IProps) {
                     src={category.image}
                   />
                 </div>
-                <article className="ml-[20px]">
+                <article className="ml-[20px] min-w-[140px]">
                   <p className="text-text title text-[16px] font-medium">{description}</p>
                   <p className="text-secondary text-[15px] font-normal">{convertISODateToCustomFormat(date)}</p>
                 </article>

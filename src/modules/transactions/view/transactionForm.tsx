@@ -15,7 +15,7 @@ import {useGetCards} from "@/modules/cards/hooks/getCards";
 import {ICardResponse, ICardsFilters} from "@/modules/cards";
 import {useDeleteTransaction} from "../hooks/deleteTransaction";
 import {useCreateTransaction} from "../hooks/createTransaction";
-// import {useUpdateTransaction} from "../hooks/updateTransaction";
+import {useUpdateTransaction} from "../hooks/updateTransaction";
 import {transactionFormSchema} from "../schemas/transactionForm";
 import {ITransactionForm, resetTransaction} from "@/modules/store";
 
@@ -31,17 +31,17 @@ export function TransactionForm({filters, session}: IProps) {
     validationSchema: transactionFormSchema,
     initialValues: transactionFormInitialValues, 
     onSubmit: (data: Omit<ITransactionForm, "_id">, {resetForm}): void => {
+      const dateObject = new Date(data.date);
+      const currentTime = new Date();
+      dateObject.setHours(currentTime.getHours());
+      dateObject.setMinutes(currentTime.getMinutes());
+      dateObject.setSeconds(currentTime.getSeconds());
+      dateObject.setMilliseconds(currentTime.getMilliseconds());
+      const isoDate = dateObject.toISOString();
       if(_id.length === 0) {
-        const dateObject = new Date(data.date);
-        const currentTime = new Date();
-        dateObject.setHours(currentTime.getHours());
-        dateObject.setMinutes(currentTime.getMinutes());
-        dateObject.setSeconds(currentTime.getSeconds());
-        dateObject.setMilliseconds(currentTime.getMilliseconds());
-        const isoDate = dateObject.toISOString();
         createTransaction.mutate({...data, date: isoDate});
       } else {
-        // console.log(data);
+        updateTransaction.mutate({...data, date: isoDate, _id});
       }
       resetForm();
     },
@@ -50,7 +50,7 @@ export function TransactionForm({filters, session}: IProps) {
   const dispatch: AppDispatch = useDispatch();
   const cards = useGetCards(filters, session.jwt);
   const deleteTransaction = useDeleteTransaction();
-  // const updateTransaction = useUpdateTransaction();
+  const updateTransaction = useUpdateTransaction();
   const createTransaction = useCreateTransaction();
 
   useMemo(() => {
@@ -99,7 +99,12 @@ export function TransactionForm({filters, session}: IProps) {
           >
             <select 
               id="categoryId"
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                const selectedOption = e.target.options[e.target.selectedIndex];
+                const selectedTitle = selectedOption.getAttribute("data-title");
+                formik.setFieldValue("description", selectedTitle);
+                formik.handleChange(e);
+              }}
               value={formik.values.categoryId}
               className="focus:outline-none shadow-sm focus:border-[#DFEAF2] focus:ring-1 focus:ring-[#DFEAF2] rounded-[15px] text-[15px] placeholder-[#718EBF] text-[#718EBF] h-[50px] border border-[#DFEAF2] w-full p-[15px]"
             >
@@ -111,6 +116,7 @@ export function TransactionForm({filters, session}: IProps) {
                       <option 
                         key={_id}
                         value={_id}
+                        data-title={title}
                       >{title}</option>
                     );
                   } else {
@@ -118,6 +124,7 @@ export function TransactionForm({filters, session}: IProps) {
                       <optgroup 
                         key={_id}
                         label={title}
+                        data-title={title}
                       >
                         {
                           children.map((el: ICategoryResponse) => {
@@ -125,6 +132,7 @@ export function TransactionForm({filters, session}: IProps) {
                               <option
                                 key={el._id}
                                 value={el._id}
+                                data-title={el.title}
                               >{el.title}</option>
                             );
                           })
@@ -211,14 +219,14 @@ export function TransactionForm({filters, session}: IProps) {
             }
             type="submit"
             variant="contained"
-            styles="w-[150px] h-[40px] rounded-[9px] mt-[20px]"
+            styles="w-[175px] h-[40px] rounded-[9px] mt-[20px]"
           >{(_id.length > 0) ? "Update" : "Add"} Transaction</ButtonUI>
           <ButtonUI
             type="button"
             color="danger"
             variant="outlined"
             onClick={() => deleteTransaction.mutate()}
-            styles={`w-[150px] h-[40px] rounded-[9px] mt-[20px] ${(_id.length === 0) && "hidden"}`}
+            styles={`w-[175px] h-[40px] rounded-[9px] mt-[20px] ${(_id.length === 0) && "hidden"}`}
           >Delete Transaction</ButtonUI>
         </fieldset>
       </form>

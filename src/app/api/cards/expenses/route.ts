@@ -37,6 +37,16 @@ export async function GET(request: Request) {
               amount: +((el.amount / +(currencyRate.toFixed(2))).toFixed(2)),
             };
           }
+        } else {
+          if(res[el.card._id]) {
+            res[el.card._id].amount = +(res[el.card._id].amount + +((el.amount).toFixed(2))).toFixed(2);
+          } else {
+            res[el.card._id] = {
+              color: el.card.color,
+              label: el.card.title,
+              amount: +((el.amount).toFixed(2)),
+            };
+          }
         }
       }
       return res;

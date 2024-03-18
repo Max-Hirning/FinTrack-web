@@ -33,7 +33,7 @@ export default function Home() {
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transaction</h1>
-          <section className="card gap-y-[20px] max-w-fit flex flex-col p-[20px] w-[380px] h-[235px] overflow-auto">
+          <section className="card max-w-fit p-[20px] w-[380px] h-[235px] overflow-auto">
             <Suspense fallback={
               <>
                 <TransactionSkeleton/>

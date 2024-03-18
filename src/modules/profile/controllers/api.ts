@@ -61,7 +61,6 @@ class UserAPI {
       const response = await fetch(`${this.url}/profile/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
         body: data,
         method: "PUT",

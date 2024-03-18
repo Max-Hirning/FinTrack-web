@@ -37,6 +37,16 @@ export async function GET(request: Request) {
               amount: +((el.amount / +(currencyRate.toFixed(2))).toFixed(2)),
             };
           }
+        } else {
+          if(res[el.category._id]) {
+            res[el.category._id].amount = +(res[el.category._id].amount + +((el.amount).toFixed(2))).toFixed(2);
+          } else {
+            res[el.category._id] = {
+              color: el.category.color,
+              label: el.category.title,
+              amount: +((el.amount).toFixed(2)),
+            };
+          }
         }
       }
       return res;

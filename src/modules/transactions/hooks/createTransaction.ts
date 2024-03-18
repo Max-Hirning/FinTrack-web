@@ -11,7 +11,7 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export function useCreateTransaction() {
   const queryClient = useQueryClient();
-  const {data: session, update} = useSession();
+  const {data: session} = useSession();
   
   return useMutation({
     mutationFn: (data: Omit<ITransactionForm, "_id">): Promise<IResponse<undefined>> => transactionsAPI.create(data, (session?.user as IUserSession).jwt),
@@ -23,7 +23,6 @@ export function useCreateTransaction() {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       ToastifyCaller(IStatuses.success, success.message);
-      update();
     },
     onError: (error: IResponse<undefined>) => {
       ToastifyCaller(IStatuses.error, error.message);
