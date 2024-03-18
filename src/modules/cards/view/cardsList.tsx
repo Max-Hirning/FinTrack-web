@@ -33,6 +33,7 @@ export function CardsList({elStyle, filters, session}: IProps) {
         }
         <Link 
           href="/cards#title"
+          aria-label="Card form"
           className="bg-white border items-center justify-center border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px] p-[20px] flex flex-col relative"
         >
           <AddIcon width={50} height={50} color="#343C6A"/>
@@ -57,6 +58,7 @@ export function CardsList({elStyle, filters, session}: IProps) {
         }
         <Link
           href="/cards#title"
+          aria-label="Card form"
           className="bg-white border border-[#DFEAF2] rounded-[25px] items-center w-full min-w-[700px] h-[90px] p-[20px] flex justify-center relative"
         >
           <AddIcon width={50} height={50} color="#343C6A"/>

@@ -21,6 +21,7 @@ export function Navigation() {
             <Link 
               key={index} 
               href={href}
+              aria-label={`${title} page`}
               className={`h-[25px] ${(pathName === href) ? "text-main" : "text-disabled"} flex font-medium text-[18px] ml-[30px]`}
             >
               {icon({width: 25, height: 25, color: (pathName === href) ? "#2D60FF" : "#B1B1B1"})}

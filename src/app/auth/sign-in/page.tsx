@@ -1,6 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import {Metadata} from "next";
 import {SignInForm} from "@/modules/authForm";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  description: "Log in to your account"
+};
 
 export default function SignIn() {
   return (
@@ -14,6 +20,7 @@ export default function SignIn() {
         <p>Don&lsquo;t have an account?</p>
         <Link 
           href="/auth/sign-up"
+          aria-label="Sign up page"
           className="ml-[5px] text-main text-[14px]"
         >Sign up</Link>
       </article>

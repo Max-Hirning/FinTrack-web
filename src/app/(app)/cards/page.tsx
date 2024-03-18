@@ -1,8 +1,13 @@
+import {Metadata} from "next";
 import React, {Suspense} from "react";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {CardExpenseStatisticsWrappers} from "@/modules/analytics";
 import {CardFormWrapper, CardsListWrapper} from "@/modules/cards";
 import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
+
+export const metadata: Metadata = {
+  description: "Overview you cards"
+};
 
 export default function Cards() {
   return (

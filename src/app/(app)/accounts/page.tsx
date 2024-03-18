@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {Metadata} from "next";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
 import {AccountsWrappers} from "@/modules/analytics";
@@ -6,6 +7,10 @@ import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
 import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
+
+export const metadata: Metadata = {
+  description: "Overview you finance info"
+};
 
 export default function Accounts() {
   return (
@@ -43,6 +48,7 @@ export default function Accounts() {
             <h1 className="title font-semibold text-[22px] text-text">My Cards</h1>
             <Link 
               href="/cards"
+              aria-label="See all cards"
               className="title font-semibold text-[17px] text-text mb-[2px] ml-[10px]"
             >See All</Link>
           </article>

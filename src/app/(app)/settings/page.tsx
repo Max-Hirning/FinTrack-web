@@ -1,5 +1,10 @@
 import React from "react";
+import {Metadata} from "next";
 import {SettingsFormWrappers} from "@/modules/profile";
+
+export const metadata: Metadata = {
+  description: "Check you profile settings"
+};
 
 export default function Settings() {
   return (

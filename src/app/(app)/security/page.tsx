@@ -1,5 +1,10 @@
 import React from "react";
+import {Metadata} from "next";
 import {SecurityForm} from "@/modules/profile";
+
+export const metadata: Metadata = {
+  description: "Check you security settings"
+};
 
 export default function Security() {
   return (

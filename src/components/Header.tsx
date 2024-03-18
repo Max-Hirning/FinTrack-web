@@ -25,6 +25,7 @@ export function Header({user}: IProps) {
         <li>
           <Link 
             href="/security"
+            aria-label="Security settings"
             className="bg-[#F5F7FA] flex w-[50px] h-[50px] rounded-full items-center justify-center"
           >
             <SecurityIcon width={25} height={25} color="#343C6A"/>

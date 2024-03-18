@@ -53,6 +53,7 @@ export function SignInForm() {
       />
       <Link 
         href="/auth/forgot-password"
+        aria-label="Forgot password page"
         className="text-end block text-main-auth-pages-link text-main"
       >Forgot password?</Link>
       <ButtonUI

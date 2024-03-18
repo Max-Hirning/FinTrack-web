@@ -1,8 +1,13 @@
 import Link from "next/link";
+import {Metadata} from "next";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionFormWrapper, TransactionsTableWrapper} from "@/modules/transactions";
+
+export const metadata: Metadata = {
+  description: "Overview you transactions"
+};
 
 export default function Transactions() {
   return (
@@ -13,6 +18,7 @@ export default function Transactions() {
             <h1 className="title font-semibold text-[22px] text-text">My Cards</h1>
             <Link 
               href="/cards#title"
+              aria-label="Card form"
               className="title font-semibold text-[17px] text-text mb-[2px] ml-[10px]"
             >+ Add Card</Link>
           </article>

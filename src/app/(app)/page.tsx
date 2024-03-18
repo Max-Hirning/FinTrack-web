@@ -1,10 +1,15 @@
 import Link from "next/link";
+import {Metadata} from "next";
 import React, {Suspense} from "react";
 import {CardsListWrapper} from "@/modules/cards";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
 import {ExpenseStatisticsWrappers, WeeklyStatisticsWrappers} from "@/modules/analytics";
+
+export const metadata: Metadata = {
+  description: "Overview you finances"
+};
 
 export default function Home() {
   return (

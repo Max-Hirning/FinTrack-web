@@ -100,6 +100,7 @@ export function SignUpForm() {
         />
         <Link 
           href="/privacy-policy"
+          aria-label="Privacy policy page"
           className="text-main ml-[5px] text-[14px]"
         >I&lsquo;ve read privacy policy and agree</Link>
       </fieldset>
