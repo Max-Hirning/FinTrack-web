@@ -82,20 +82,6 @@ class AnalyticsAPI {
       });
       const result = await response.json();
       return result;
-
-      // return ({
-      //   statusCode: 200,
-      //   message: "",
-      //   data: {
-      //     '2024-03-18': {incomes: 1038, expenses: 827},
-      //     '2024-03-19': {incomes: 87, expenses: 938},
-      //     '2024-03-20': {incomes: 384, expenses: 635},
-      //     '2024-03-21': {incomes: 43, expenses: 72},
-      //     '2024-03-22': {incomes: 9, expenses: 54},
-      //     '2024-03-23': {incomes: 0, expenses: 82},
-      //     '2024-03-24': {incomes: 0, expenses: 0}
-      //   }
-      // });
     } catch (error) {
       throw new Error(error as string);
     }

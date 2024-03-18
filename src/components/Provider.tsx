@@ -6,6 +6,7 @@ import {IResponse} from "@/types/api";
 import React, {ReactNode, useState} from "react";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {SessionProvider, signOut} from "next-auth/react";
+// import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {MutationCache, QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 interface IProps {
@@ -31,7 +32,10 @@ export function ProviderComponent({children}: IProps) {
   return (
     <SessionProvider>
       <Provider store={store}>
-        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        </QueryClientProvider>
       </Provider>
     </SessionProvider>
   );

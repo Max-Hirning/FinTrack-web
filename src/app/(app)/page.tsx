@@ -60,7 +60,7 @@ export default function Home() {
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Expense Statistics</h1>
           <Suspense fallback={<section className="bg-slate-200 card border max-w-[350px] lg:w-[350px] w-full h-[322px] p-[25px] animate-pulse"></section>}>
-            <section className="card max-w-[350px] w-full p-[25px] lg:w-[350px] h-[322px]">
+            <section className="card max-w-[350px] w-full p-[25px] flex justify-center items-center lg:w-[350px] h-[322px]">
               <ExpenseStatisticsWrappers/>
             </section>
           </Suspense>

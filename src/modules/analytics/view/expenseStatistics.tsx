@@ -19,6 +19,8 @@ interface IProps {
 export function ExpenseStatistics({filters, session}: IProps) {
   const {data} = useGetExpenses(filters, session.jwt);
 
+  if(!data?.data || data?.data?.length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;
+
   return (
     <Doughnut
       data={{
@@ -26,12 +28,12 @@ export function ExpenseStatistics({filters, session}: IProps) {
           {
             borderWidth: 1,
             label: "expenses",
-            data: data?.data?.map((el: ICardsExpensesResponse) => el.amount),
-            borderColor: data?.data?.map((el: ICardsExpensesResponse) => el.color),
-            backgroundColor: data?.data?.map((el: ICardsExpensesResponse) => hexToRgba(el.color, 0.25)),
+            data: data.data.map((el: ICardsExpensesResponse) => el.amount),
+            borderColor: data.data.map((el: ICardsExpensesResponse) => el.color),
+            backgroundColor: data.data.map((el: ICardsExpensesResponse) => hexToRgba(el.color, 0.25)),
           },
         ],
-        labels: data?.data?.map((el: ICardsExpensesResponse) => el.label),
+        labels: data.data.map((el: ICardsExpensesResponse) => el.label),
       }}
       options={{
         plugins: {
