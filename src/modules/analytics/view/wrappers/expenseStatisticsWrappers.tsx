@@ -4,18 +4,18 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
 import {analyticsAPI} from "../../controllers/api";
-import {getStartEndOfMonth} from "@/controllers/dates";
+import {IExpensesFilters} from "../../types/expenses";
 import {ExpenseStatistics} from "../expenseStatistics";
-import {ICardsExpensesFilters} from "../../types/cardsExpenses";
+import {getCurrentMonthRange} from "@/controllers/dates";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
 export async function ExpenseStatisticsWrappers() {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
 
-  const filters: ICardsExpensesFilters = {
+  const filters: IExpensesFilters = {
     currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, date: getStartEndOfMonth()}
+    filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
   };
 
   await queryClient.prefetchQuery({

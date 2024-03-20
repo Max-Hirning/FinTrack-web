@@ -3,9 +3,9 @@
 import {QueryKeys} from "@/configs/queryKeys";
 import {useQuery} from "@tanstack/react-query";
 import {analyticsAPI} from "../controllers/api";
-import {ICardsExpensesFilters} from "../types/cardsExpenses";
+import {IExpensesFilters} from "../types/expenses";
 
-export function useGetExpenses(filters: ICardsExpensesFilters, token: string) {
+export function useGetExpenses(filters: IExpensesFilters, token: string) {
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getExpenses, JSON.stringify(filters)],

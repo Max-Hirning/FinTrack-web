@@ -11,6 +11,7 @@ class TransactionsAPI {
       const response = await fetch(`${this.url}/${transactionId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
@@ -27,6 +28,7 @@ class TransactionsAPI {
       const response = await fetch(this.url, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "POST",
         body: JSON.stringify(data),
@@ -44,6 +46,7 @@ class TransactionsAPI {
       const response = await fetch(`${this.url}/${transactionId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "PUT",
         body: JSON.stringify(data),
@@ -69,6 +72,7 @@ class TransactionsAPI {
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "GET",
       });

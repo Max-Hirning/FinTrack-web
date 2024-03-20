@@ -71,15 +71,9 @@ export default function Home() {
           </Suspense>
         </section>
       </section>
-      <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
-        <section>
-          <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Quick Transfer</h1>
-          <section className="card max-lg:w-full lg:w-[445px] h-[276px]"></section>
-        </section>
-        <section className="w-full max-w-[635px]">
-          <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Debit & Credit Overview</h1>
-          <section className="card w-full h-[276px]"></section>
-        </section>
+      <section className="w-full max-w-[635px] mt-[25px]">
+        <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Balance History</h1>
+        <section className="card w-full h-[276px]"></section>
       </section>
     </>
   );

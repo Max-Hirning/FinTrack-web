@@ -26,6 +26,8 @@ export enum QueryKeys {
 
   getWeeklyStatistics = "get-weekly-statistics",
 
+  getYearlyStatistics = "get-yearly-statistics",
+
   getCardsExpenses = "get-cards-expenses",
 
   getCurrencies = "get-currencies",

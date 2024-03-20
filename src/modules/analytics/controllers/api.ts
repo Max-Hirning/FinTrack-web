@@ -1,6 +1,7 @@
 import {IResponse} from "@/types/api";
 import {IAccountFilters, IAccountResponse} from "../types/account";
 import {IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
+import {IYearlyStatisticsResponse} from "../types/yearlyStatistics";
 import {IExpensesFilters, IExpensesResponse} from "../types/expenses";
 import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
 
@@ -17,6 +18,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/expenses?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "GET",
       });
@@ -43,6 +45,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "GET",
       });
@@ -72,6 +75,33 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/transactions/weekly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method: "GET",
+      });
+      if (!response.ok) return ({
+        data: {},
+        statusCode: 400,
+        message: "Something went wrong",
+      });
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  }
+
+  async getYearlyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IYearlyStatisticsResponse}>> {
+    try {
+      if (!(filters && token)) throw new Error("No expenses were found");
+      const queryParams = new URLSearchParams({
+        currency,
+        filters: JSON.stringify(filters),
+      });
+      const response = await fetch(`${this.url}/transactions/yearly?${queryParams.toString()}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`, 
+          "Content-Type": "application/json",
         },
         method: "GET",
       });

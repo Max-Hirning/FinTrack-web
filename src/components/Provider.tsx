@@ -17,14 +17,18 @@ export function ProviderComponent({children}: IProps) {
   const [queryClient] = useState(() => new QueryClient({
     queryCache: new QueryCache({
       onError: (error: unknown) => {
-        ToastifyCaller(IStatuses.error, "Unauthorized");
-        if((error as IResponse<undefined>)?.statusCode === 401) signOut();
+        if((error as IResponse<undefined>)?.statusCode === 401) {
+          ToastifyCaller(IStatuses.error, "Unauthorized");
+          signOut();
+        }
       }
     }),
     mutationCache: new MutationCache({
       onError: (error: unknown) => {
-        ToastifyCaller(IStatuses.error, "Unauthorized");
-        if((error as IResponse<undefined>)?.statusCode === 401) signOut();
+        if((error as IResponse<undefined>)?.statusCode === 401) {
+          ToastifyCaller(IStatuses.error, "Unauthorized");
+          signOut();
+        }
       },
     })
   }));

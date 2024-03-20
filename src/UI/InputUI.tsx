@@ -7,6 +7,7 @@ interface IProps {
   value: string;
   error?: boolean;
   styles?: string;
+  maxDate?: string;
   errorMsg?: string;
   disabled?: boolean;
   required?: boolean;
@@ -16,7 +17,7 @@ interface IProps {
   type: "text"|"datetime-local"|"password"|"number"|"email"|"date"|"time"|"search"|"tel"|"color";
 }
 
-export function InputUI({id, styles, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type}: IProps) {
+export function InputUI({id, maxDate, styles, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type}: IProps) {
   return (
     <fieldset className={styles || ""}>
       <label 
@@ -27,6 +28,7 @@ export function InputUI({id, styles, label, value, disabled, error, errorMsg, re
         id={id}
         type={type}
         value={value}
+        max={maxDate}
         onBlur={onBlur}
         required={required}
         disabled={disabled}

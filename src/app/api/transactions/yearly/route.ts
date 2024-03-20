@@ -1,7 +1,7 @@
 import {ICurrencyResponse} from "@/types/currency";
 import {getDateRangeObject} from "@/controllers/dates";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
-import {IWeeklyStatisticsResponse} from "@/modules/analytics/types/weeklyStatistics";
+import {IYearlyStatisticsResponse} from "@/modules/analytics/types/yearlyStatistics";
 
 export async function GET(request: Request) {
   const {searchParams} = new URL(request.url);
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   const token = authHeader.split(" ")[1];
   if(bearer !== "Bearer" || !token) throw new Error("Invalid token");
   if(currency && filters) {
-    const responseObj = getDateRangeObject(JSON.parse(filters).date[0], JSON.parse(filters).date[1], "d", {incomes: 0, expenses: 0});
+    const responseObj = getDateRangeObject(JSON.parse(filters).date[0], JSON.parse(filters).date[1], "m", {incomes: 0, expenses: 0});
     let currenciesRates: ICurrencyResponse<{[key: string]: {[key: string]: number}}>|null = null;
     const transactions = await transactionsAPI.getAll(JSON.parse(filters), token);
     const currencies = new Set(transactions.data?.data.currencies);
@@ -28,19 +28,20 @@ export async function GET(request: Request) {
     }
     (transactions.data?.data.data || []).map((el: ITransactionResponse) => {
       const date = new Date(el.date).toISOString().split("T")[0];
-      if(responseObj[date]) {
+      const month = new Date(date).getMonth()+1;
+      if(responseObj[month]) {
         const currencyRate = currenciesRates?.rates[`${date}T23:59:00.000Z`]?.[el.card.currency];
         if(currencyRate) {
           if(el.amount < 0) {
-            (responseObj[date] as IWeeklyStatisticsResponse).expenses = +((responseObj[date] as IWeeklyStatisticsResponse).expenses + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+            (responseObj[month] as IYearlyStatisticsResponse).expenses = +((responseObj[month] as IYearlyStatisticsResponse).expenses + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           } else if(el.amount > 0) {
-            (responseObj[date] as IWeeklyStatisticsResponse).incomes = +((responseObj[date] as IWeeklyStatisticsResponse).incomes + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+            (responseObj[month] as IYearlyStatisticsResponse).incomes = +((responseObj[month] as IYearlyStatisticsResponse).incomes + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           }
         } else {
           if(el.amount < 0) {
-            (responseObj[date] as IWeeklyStatisticsResponse).expenses = +((responseObj[date] as IWeeklyStatisticsResponse).expenses + Math.abs(el.amount)).toFixed(2);
+            (responseObj[month] as IYearlyStatisticsResponse).expenses = +((responseObj[month] as IYearlyStatisticsResponse).expenses + Math.abs(el.amount)).toFixed(2);
           } else if(el.amount > 0) {
-            (responseObj[date] as IWeeklyStatisticsResponse).incomes = +((responseObj[date] as IWeeklyStatisticsResponse).incomes + Math.abs(el.amount)).toFixed(2);
+            (responseObj[month] as IYearlyStatisticsResponse).incomes = +((responseObj[month] as IYearlyStatisticsResponse).incomes + Math.abs(el.amount)).toFixed(2);
           }
         }
       }
@@ -48,12 +49,12 @@ export async function GET(request: Request) {
     return Response.json({
       statusCode: 200,
       data: responseObj,
-      message: "Weekly statistics were calculated",
+      message: "Yearly statistics were calculated",
     });
   }
   return Response.json({
     data: [],
     statusCode: 200,
-    message: "Weekly statistics were calculated",
+    message: "Yearly statistics were calculated",
   });
 }

@@ -1,10 +1,10 @@
 import {ITransactionsFilters} from "@/modules/transactions";
 
-export interface IWeeklyStatisticsFilters {
+export interface IYearlyStatisticsFilters {
   currency: string;
   filters: ITransactionsFilters;
 }
-export interface IWeeklyStatisticsResponse { 
+export interface IYearlyStatisticsResponse { 
   incomes: number;
   expenses: number;
 }

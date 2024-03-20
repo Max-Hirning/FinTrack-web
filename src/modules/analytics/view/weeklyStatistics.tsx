@@ -6,15 +6,14 @@ import {Bar} from "react-chartjs-2";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {getWeekDayName} from "@/controllers/dates";
-import {ICardsExpensesFilters} from "../types/cardsExpenses";
-import {IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
 import {useGetWeeklyStatistics} from "../hooks/getWeeklyStatistics";
+import {IWeeklyStatisticsFilters, IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
 
 Chart.register(ArcElement);
 
 interface IProps {
   session: IUserSession;
-  filters: ICardsExpensesFilters;
+  filters: IWeeklyStatisticsFilters;
 }
 
 export function WeeklyStatistics({filters, session}: IProps) {
@@ -23,16 +22,16 @@ export function WeeklyStatistics({filters, session}: IProps) {
   return (
     <Bar
       data={{
-        labels: (data?.data) ? Object.keys(data.data as {[key: string]: IWeeklyStatisticsResponse}).map((el: string) => getWeekDayName(el)) : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getWeekDayName(el)) : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
         datasets: [
           {
             label: "Incomes",
-            data: (data?.data) ? Object.values(data.data as {[key: string]: IWeeklyStatisticsResponse}).map((el: IWeeklyStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0],
+            data: (data?.data) ? Object.values(data.data).map((el: IWeeklyStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0],
             backgroundColor: "#41D4A8",
           },
           {
             label: "Expenses",
-            data: (data?.data) ? Object.values(data.data as {[key: string]: IWeeklyStatisticsResponse}).map((el: IWeeklyStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0],
+            data: (data?.data) ? Object.values(data.data).map((el: IWeeklyStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0],
             backgroundColor: "#FF4B4A",
           },
         ],

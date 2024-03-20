@@ -10,6 +10,7 @@ class UserAPI {
       const response = await fetch(`${this.url}/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
@@ -26,6 +27,7 @@ class UserAPI {
       const response = await fetch(`${this.url}/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "GET",
       });
@@ -42,6 +44,7 @@ class UserAPI {
       const response = await fetch(`${this.url}/avatar/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
@@ -75,6 +78,7 @@ class UserAPI {
       const response = await fetch(`${this.url}/security/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         method: "PUT",
         body: JSON.stringify(data),

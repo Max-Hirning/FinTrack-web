@@ -6,14 +6,15 @@ import {Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
+import {IExpensesFilters} from "../types/expenses";
 import {useGetExpenses} from "../hooks/getExpenses";
-import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
+import {ICardsExpensesResponse} from "../types/cardsExpenses";
 
 Chart.register(ArcElement);
 
 interface IProps {
   session: IUserSession;
-  filters: ICardsExpensesFilters;
+  filters: IExpensesFilters;
 }
 
 export function ExpenseStatistics({filters, session}: IProps) {
