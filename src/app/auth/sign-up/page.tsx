@@ -13,7 +13,7 @@ export default function SignUp() {
     <>
       <article className="max-w-[450px] w-full">
         <h1 className="text-text text-[28px] mb-[5px] font-semibold">Create an account</h1>
-        <h5 className="text-disabled text-[14px] font-normal">Create an account to get an easy access to your dream shopping</h5>
+        <p className="text-disabled text-[14px] font-normal">Create an account to get an easy access to your dream shopping</p>
       </article>
       <SignUpForm/>
       <article className="flex text-[14px]">

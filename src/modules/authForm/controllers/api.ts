@@ -9,7 +9,7 @@ class AuthAPI {
     try {
       const response = await fetch(`${this.url}/sign-in`, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "POST",
         body: JSON.stringify(data),
@@ -26,7 +26,7 @@ class AuthAPI {
     try {
       const response = await fetch(`${this.url}/sign-up`, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "POST",
         body: JSON.stringify(data),

@@ -8,7 +8,7 @@ class CategoryAPI {
     try {
       const response = await fetch(this.url, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
         cache: "force-cache",

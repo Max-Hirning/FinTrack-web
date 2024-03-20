@@ -13,7 +13,7 @@ export default function SignIn() {
     <>
       <article className="max-w-[450px] w-full">
         <h1 className="text-text text-[28px] mb-[5px] font-semibold">Welcome back</h1>
-        <h5 className="text-disabled text-[14px] font-normal">Welcome back! Please enter your details to log into your account.</h5>
+        <p className="text-disabled text-[14px] font-normal">Welcome back! Please enter your details to log into your account.</p>
       </article>
       <SignInForm/>
       <article className="flex text-[14px]">

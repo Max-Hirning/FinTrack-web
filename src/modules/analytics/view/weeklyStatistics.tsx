@@ -46,6 +46,7 @@ export function WeeklyStatistics({filters, session}: IProps) {
         },
       }}
       className='w-full h-full'
+      aria-label="Transactions weekly statistics(current week)"
     />
   );
 }

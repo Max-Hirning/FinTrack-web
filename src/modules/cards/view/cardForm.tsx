@@ -44,6 +44,7 @@ export function CardForm() {
   return (
     <>
       <button 
+        title="Cancel card editing"
         onClick={() => dispatch(resetCard())}
         className={`absolute top-[20px] right-[20px] ${_id.length === 0 && "hidden"}`}
       >
@@ -136,11 +137,13 @@ export function CardForm() {
             type="submit"
             variant="contained"
             styles="w-[130px] h-[40px] rounded-[9px] mt-[20px]"
+            title={`${(_id.length > 0) ? "Update" : "Add"} Card`}
           >{(_id.length > 0) ? "Update" : "Add"} Card</ButtonUI>
           <ButtonUI
             type="button"
             color="danger"
             variant="outlined"
+            title="Delete card"
             onClick={() => deleteCard.mutate()}
             styles={`w-[130px] h-[40px] rounded-[9px] mt-[20px] ${(_id.length === 0) && "hidden"}`}
           >Delete Card</ButtonUI>

@@ -44,6 +44,7 @@ export function ExpenseStatistics({filters, session}: IProps) {
         }
       }}
       className='w-full h-full'
+      aria-label="Expenses statistics(current month)"
     />
   );
 }

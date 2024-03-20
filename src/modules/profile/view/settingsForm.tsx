@@ -73,6 +73,7 @@ export function SettingsForm({user}: IProps) {
         type="button"
         variant="text"
         color="danger"
+        title="Log out"
         onClick={() => signOut()}
         onMouseEnter={() => setIconColor("white")}
         onMouseLeave={() => setIconColor("#ef4444")}
@@ -99,6 +100,7 @@ export function SettingsForm({user}: IProps) {
         />
         <ButtonUI
           type="button"
+          title="Edit avatar"
           variant="contained"
           onClick={handleButtonClick}
           styles="w-[30px] h-[30px] absolute top-0 right-0 rounded-full"
@@ -113,6 +115,7 @@ export function SettingsForm({user}: IProps) {
             avatarHasBeenChanged.current = false;
           }}
           variant="contained"
+          title="Cancel avatar choice"
           styles={`w-[30px] h-[30px] top-0 left-0 absolute rounded-full ${!(imageFile) && "hidden"}`}
         >
           <CloseIcon width={20} height={20} color="white"/>
@@ -121,6 +124,7 @@ export function SettingsForm({user}: IProps) {
           type="button"
           color="danger"
           variant="contained"
+          title="Delete avatar"
           onClick={() => deleteAvatarUser.mutate()}
           styles={`w-[30px] h-[30px] bottom-0 right-0 absolute rounded-full ${!((session?.user as IUserSession)?.avatar) && "hidden"}`}
         >
@@ -139,6 +143,7 @@ export function SettingsForm({user}: IProps) {
             type="text"
             id="firstName"
             label="First Name"
+            autoComplete="given-name"
             onBlur={formik.handleBlur}
             styles="w-full max-w-[320px]"
             value={formik.values.firstName}
@@ -151,6 +156,7 @@ export function SettingsForm({user}: IProps) {
             type="text"
             id="lastName"
             label="Last Name"
+            autoComplete="family-name"
             onBlur={formik.handleBlur}
             styles="w-full max-w-[320px]"
             value={formik.values.lastName}
@@ -165,6 +171,7 @@ export function SettingsForm({user}: IProps) {
             id="email"
             type="email"
             label="Email"
+            autoComplete="email"
             onBlur={formik.handleBlur}
             value={formik.values.email}
             styles="w-full max-w-[320px]"
@@ -180,6 +187,7 @@ export function SettingsForm({user}: IProps) {
               formik.handleChange(e);
               currencyHasBeenChanged.current = true;
             }}
+            autoComplete="off"
             label="Card Currency"
             listId="currencies-list"
             onBlur={formik.handleBlur}
@@ -208,12 +216,14 @@ export function SettingsForm({user}: IProps) {
             type="button"
             color="danger"
             variant="outlined"
+            title="Delete profile"
             styles="w-full max-w-[190px] h-[50px]"
             onClick={() => deleteUser.mutate()}
           >Delete</ButtonUI>
           <ButtonUI
             type="submit"
             variant="contained"
+            title="Save profile changes"
             styles="w-full max-w-[190px] h-[50px]"
             disabled={!((formik.isValid && Object.values(formik.values).some((el) => el.length > 0)) || (currencyHasBeenChanged.current) || (avatarHasBeenChanged.current))}
           >Save</ButtonUI>

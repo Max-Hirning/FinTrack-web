@@ -39,6 +39,7 @@ export function SignUpForm() {
         required={true}
         label="First name"
         placeholder="Otto"
+        autoComplete="given-name"
         onBlur={formik.handleBlur}
         changeText={formik.handleChange}
         errorMsg={formik.errors.firstName}
@@ -51,6 +52,7 @@ export function SignUpForm() {
         required={true}
         label="Last name"
         placeholder="Melnburg"
+        autoComplete="family-name"
         onBlur={formik.handleBlur}
         changeText={formik.handleChange}
         errorMsg={formik.errors.lastName}
@@ -62,6 +64,7 @@ export function SignUpForm() {
         type="email"
         label="Email"
         required={true}
+        autoComplete="email"
         onBlur={formik.handleBlur}
         placeholder="example@mail.com"
         errorMsg={formik.errors.email}
@@ -94,18 +97,25 @@ export function SignUpForm() {
       <fieldset className="flex flex-row items-center mb-[10px]">
         <input 
           type="checkbox"
+          id="privacyPolicy"
           onChange={handleChange}
           checked={agreedToPolicy}
           className="w-[16px] h-[16px]"
         />
-        <Link 
-          href="/privacy-policy"
-          aria-label="Privacy policy page"
-          className="text-main ml-[5px] text-[14px]"
-        >I&lsquo;ve read privacy policy and agree</Link>
+        <label 
+          htmlFor="privacyPolicy"
+          className=" ml-[10px] text-[14px] text-text"
+        >
+          I&lsquo;ve read <Link 
+            href="/privacy-policy"
+            aria-label="Privacy policy page"
+            className="text-main text-[14px]"
+          >privacy policy</Link> and agree
+        </label>
       </fieldset>
       <ButtonUI
         type="submit"
+        title="Sign up"
         variant="contained"
         styles="m-auto h-[50px] w-[190px] mt-[25px]"
         disabled={!formik.isValid || !agreedToPolicy || !Object.values(formik.values).some((value: string) => value.length)}

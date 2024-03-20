@@ -43,6 +43,7 @@ export function CardExpenseStatistics({filters, session}: IProps) {
         }
       }}
       className='w-full h-full'
+      aria-label="Card expenses statistics(current month)"
     />
   );
 }

@@ -60,6 +60,7 @@ export function TransactionForm({filters, session}: IProps) {
   return (
     <>
       <button 
+        title="Close edit transaction form"
         onClick={() => dispatch(resetTransaction())}
         className={`absolute top-[20px] right-[20px] ${_id.length === 0 && "hidden"}`}
       >
@@ -87,9 +88,9 @@ export function TransactionForm({filters, session}: IProps) {
           />
           <SelectUI
             type="text"
-            id="categoryId"
-            inputStyles="hidden"
             listId="categoryId"
+            id="categoryIdInput"
+            inputStyles="hidden"
             onBlur={formik.handleBlur}
             label="Transaction Category"
             styles="w-full max-w-[320px]"
@@ -106,6 +107,7 @@ export function TransactionForm({filters, session}: IProps) {
                 const selectedTitle = selectedOption.getAttribute("data-title");
                 formik.setFieldValue("description", selectedTitle);
               }}
+              title="Transaction categories"
               value={formik.values.categoryId}
               className="focus:outline-none shadow-sm focus:border-[#DFEAF2] focus:ring-1 focus:ring-[#DFEAF2] rounded-[15px] text-[15px] placeholder-[#718EBF] text-[#718EBF] h-[50px] border border-[#DFEAF2] w-full p-[15px]"
             >
@@ -149,8 +151,8 @@ export function TransactionForm({filters, session}: IProps) {
         <fieldset className="flex max-lg:flex-col gap-[25px]">
           <SelectUI
             type="text"
-            id="cardId"
             listId="cardId"
+            id="cardIdInput"
             inputStyles="hidden"
             label="Transaction Card"
             onBlur={formik.handleBlur}
@@ -162,6 +164,7 @@ export function TransactionForm({filters, session}: IProps) {
           >
             <select 
               id="cardId"
+              title="Transaction cards"
               value={formik.values.cardId}
               onChange={formik.handleChange}
               className="focus:outline-none shadow-sm focus:border-[#DFEAF2] focus:ring-1 focus:ring-[#DFEAF2] rounded-[15px] text-[15px] placeholder-[#718EBF] text-[#718EBF] h-[50px] border border-[#DFEAF2] w-full p-[15px]"

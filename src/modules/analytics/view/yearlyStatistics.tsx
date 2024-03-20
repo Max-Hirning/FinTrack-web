@@ -46,6 +46,7 @@ export function YearlyStatistics({filters, session}: IProps) {
         },
       }}
       className='w-full h-full'
+      aria-label="Transactions yearly statistics(current year)"
     />
   );
 }

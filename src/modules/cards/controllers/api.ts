@@ -10,7 +10,7 @@ class CardAPI {
       const response = await fetch(`${this.url}/${cardId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "DELETE",
       });
@@ -32,7 +32,7 @@ class CardAPI {
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
       });
@@ -56,7 +56,7 @@ class CardAPI {
       const response = await fetch(`${this.url}/${cardId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "PUT",
         body: JSON.stringify(data),
@@ -74,7 +74,7 @@ class CardAPI {
       const response = await fetch(this.url, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "POST",
         body: JSON.stringify({...data, ownerId}),

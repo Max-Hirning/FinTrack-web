@@ -18,7 +18,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/expenses?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
       });
@@ -45,7 +45,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
       });
@@ -75,7 +75,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/transactions/weekly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
       });
@@ -101,7 +101,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/transactions/yearly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`, 
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
       });
@@ -127,6 +127,7 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/cards/expenses?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
       });

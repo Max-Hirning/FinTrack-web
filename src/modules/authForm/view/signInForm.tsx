@@ -33,6 +33,7 @@ export function SignInForm() {
         type="email"
         label="Email"
         required={true}
+        autoComplete="email"
         onBlur={formik.handleBlur}
         placeholder="example@mail.com"
         errorMsg={formik.errors.email}
@@ -58,6 +59,7 @@ export function SignInForm() {
       >Forgot password?</Link>
       <ButtonUI
         type="submit"
+        title="Sign in"
         variant="contained"
         styles="m-auto h-[50px] w-[190px] mt-[25px]"
         disabled={!formik.isValid || !Object.values(formik.values).some((value: string) => value.length)}
