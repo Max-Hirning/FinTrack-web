@@ -3,7 +3,7 @@
 import {QueryKeys} from "@/configs/queryKeys";
 import {useQuery} from "@tanstack/react-query";
 import {analyticsAPI} from "../controllers/api";
-import {IExpensesFilters} from "../types/expenses";
+import {IExpensesFilters} from "../types/expensesStatistics";
 
 export function useGetExpenses(filters: IExpensesFilters, token: string) {
   return useQuery({

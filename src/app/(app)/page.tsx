@@ -5,7 +5,7 @@ import {CardsListWrapper} from "@/modules/cards";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
-import {ExpenseStatisticsWrappers, WeeklyStatisticsWrappers} from "@/modules/analytics";
+import {BalancesStatisticsWrappers, ExpenseStatisticsWrappers, WeeklyStatisticsWrappers} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   description: "Overview you finances"
@@ -73,7 +73,12 @@ export default function Home() {
       </section>
       <section className="w-full max-w-[635px] mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Balance History</h1>
-        <section className="card w-full h-[276px]"></section>
+        {/* <section className="card w-full h-[276px]"></section> */}
+        <Suspense fallback={<section className="bg-slate-200 card border max-w-[1440px] w-full h-[276px] p-[25px] animate-pulse"></section>}>
+          <section className="card max-w-[1440px] w-full p-[25px] flex justify-center items-center h-[376px]">
+            <BalancesStatisticsWrappers/>
+          </section>
+        </Suspense>
       </section>
     </>
   );

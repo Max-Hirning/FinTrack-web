@@ -1,5 +1,5 @@
 import {ICurrencyResponse} from "@/types/currency";
-import {IExpensesResponse} from "@/modules/analytics/types/expenses";
+import {IExpensesResponse} from "@/modules/analytics/types/expensesStatistics";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
 
 export async function GET(request: Request) {

@@ -4,7 +4,7 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
 import {analyticsAPI} from "../../controllers/api";
-import {IExpensesFilters} from "../../types/expenses";
+import {IExpensesFilters} from "../../types/expensesStatistics";
 import {ExpenseStatistics} from "../expenseStatistics";
 import {getCurrentMonthRange} from "@/controllers/dates";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";

@@ -7,7 +7,7 @@ import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
 import {useGetCardsExpenses} from "../hooks/getCardsExpenses";
-import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpenses";
+import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpensesStatistics";
 
 Chart.register(ArcElement);
 

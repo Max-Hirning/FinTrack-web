@@ -1,14 +1,14 @@
-"use client";
 
+"use client";
 import "chart.js/auto";
 import React from "react";
 import {Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
-import {IExpensesFilters} from "../types/expenses";
 import {useGetExpenses} from "../hooks/getExpenses";
-import {ICardsExpensesResponse} from "../types/cardsExpenses";
+import {IExpensesFilters} from "../types/expensesStatistics";
+import {ICardsExpensesResponse} from "../types/cardsExpensesStatistics";
 
 Chart.register(ArcElement);
 
