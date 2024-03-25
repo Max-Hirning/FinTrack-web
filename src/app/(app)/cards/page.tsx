@@ -3,6 +3,7 @@ import React, {Suspense} from "react";
 import {getServerSession} from "next-auth";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
+import {currencyAPI} from "@/controllers/api/currency";
 import {getCurrentMonthRange} from "@/controllers/dates";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {CardForm, CardsList, ICardsFilters} from "@/modules/cards";
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  const currencies = await currencyAPI.getAll();
   const session = await getServerSession(authOptions);
 
   const cardsExpensesFilters: ICardsExpensesFilters = {
@@ -82,7 +84,7 @@ export default async function Page() {
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card Form</h1>
         <section className="card p-[20px] w-full relative">
           <p className="font-normal text-[16px] text-secondary">Credit Card generally means a plastic card issued by Scheduled Commercial Banks assigned to a Cardholder, with a credit limit, that can be used to purchase goods and services on credit or obtain cash advances.</p>
-          <CardForm/>
+          <CardForm currencies={currencies.data || []}/>
         </section>
       </section>
     </>

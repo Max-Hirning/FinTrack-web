@@ -10,7 +10,6 @@ import {IUserSession} from "@/modules/profile";
 import {ICategoryResponse} from "@/types/category";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
-import {useGetCategories} from "@/hooks/getCategories";
 import {useGetCards} from "@/modules/cards/hooks/getCards";
 import {ICardResponse, ICardsFilters} from "@/modules/cards";
 import {useDeleteTransaction} from "../hooks/deleteTransaction";
@@ -21,10 +20,11 @@ import {ITransactionForm, resetTransaction} from "@/modules/store";
 
 interface IProps {
   session: IUserSession;
+  categories: ICategoryResponse[];
   filters: Pick<ICardsFilters, "ownerId">;
 }
 
-export function TransactionForm({filters, session}: IProps) {
+export function TransactionForm({filters, session, categories}: IProps) {
   const {_id, ...transactionFormInitialValues} = useSelector((state: RootState) => state.transactionForm);
 
   const formik = useFormik({
@@ -46,7 +46,6 @@ export function TransactionForm({filters, session}: IProps) {
       resetForm();
     },
   });
-  const categories = useGetCategories();
   const dispatch: AppDispatch = useDispatch();
   const cards = useGetCards(filters, session.jwt);
   const deleteTransaction = useDeleteTransaction();
@@ -113,7 +112,7 @@ export function TransactionForm({filters, session}: IProps) {
             >
               <option value="" disabled>Choose the transaction category</option>
               {
-                (categories.data?.data || []).map(({_id, children, title}: ICategoryResponse) => {
+                categories.map(({_id, children, title}: ICategoryResponse) => {
                   if(children.length === 0) {
                     return (
                       <option 

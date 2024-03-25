@@ -4,6 +4,7 @@ import React, {Suspense} from "react";
 import {getServerSession} from "next-auth";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
+import {categoryAPI} from "@/controllers/api/category";
 import {CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {ITransactionsFilters, TransactionForm, TransactionsTable} from "@/modules/transactions";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  const categories = await categoryAPI.getAll();
   const session = await getServerSession(authOptions);
 
   const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
@@ -73,6 +75,7 @@ export default async function Page() {
         <section className="card p-[20px] w-full relative">
           <TransactionForm
             filters={cardsFilters}
+            categories={categories.data || []}
             session={session?.user as IUserSession}
           />
         </section>

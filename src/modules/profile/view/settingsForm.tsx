@@ -16,7 +16,6 @@ import DeleteIcon from "@/UI/icons/delete";
 import {useUpdateUser} from "../hooks/updateUser";
 import {useDeleteUser} from "../hooks/deleteUser";
 import {ISettingsForm} from "../types/settingsForm";
-import {useGetCurrencies} from "@/hooks/getCurrencies";
 import {settingsFormSchema} from "../schemas/settingsForm";
 import React, {useRef, ChangeEvent, useState} from "react";
 import {useDeleteUserAvatar} from "../hooks/deleteUserAvatar";
@@ -24,9 +23,10 @@ import {settingsFormInitialValues} from "../models/settingsForm";
 
 interface IProps {
   session: IUserSession;
+  currencies: ICurrency[];
 }
 
-export function SettingsForm({session}: IProps) {
+export function SettingsForm({session, currencies}: IProps) {
   const formik = useFormik({
     validationSchema: settingsFormSchema, 
     initialValues: settingsFormInitialValues,
@@ -45,7 +45,6 @@ export function SettingsForm({session}: IProps) {
   const {data} = useSession();
   const deleteUser = useDeleteUser();
   const updateUser = useUpdateUser();
-  const currencies = useGetCurrencies();
   const avatarHasBeenChanged = useRef(false);
   const currencyHasBeenChanged = useRef(false);
   const deleteAvatarUser = useDeleteUserAvatar();
@@ -199,7 +198,7 @@ export function SettingsForm({session}: IProps) {
           >
             <datalist id="currencies-list">
               {
-                (currencies.data?.data || []).map(({code, name}: ICurrency) => {
+                currencies.map(({code, name}: ICurrency) => {
                   return (
                     <option 
                       key={code}

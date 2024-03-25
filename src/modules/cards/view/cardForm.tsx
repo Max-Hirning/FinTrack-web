@@ -14,9 +14,12 @@ import {cardFormSchema} from "../schemas/cardForm";
 import {ICardForm, resetCard} from "@/modules/store";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
-import {useGetCurrencies} from "@/hooks/getCurrencies";
 
-export function CardForm() {
+interface IProps {
+  currencies: ICurrency[];
+}
+
+export function CardForm({currencies}: IProps) {
   const {_id, ...cardFormInitialValues} = useSelector((state: RootState) => state.cardForm);
 
   const formik = useFormik({
@@ -31,7 +34,6 @@ export function CardForm() {
       resetForm();
     },
   });
-  const {data} = useGetCurrencies();
   const updateCard = useUpdateCard();
   const createCard = useCreateCard();
   const deleteCard = useDeleteCard();
@@ -84,7 +86,7 @@ export function CardForm() {
           >
             <datalist id="currencies-list">
               {
-                (data?.data || []).map(({code, name}: ICurrency) => {
+                currencies.map(({code, name}: ICurrency) => {
                   return (
                     <option 
                       key={code}
