@@ -88,4 +88,4 @@ class CardAPI {
   }
 }
 
-export const cardAPI = new CardAPI(`${process.env.NEXT_PUBLIC_URL}/card`);
+export const cardAPI = new CardAPI(`${process.env.NEXT_PUBLIC_API_URL}/card`);

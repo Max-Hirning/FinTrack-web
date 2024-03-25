@@ -26,4 +26,4 @@ class CurrencyAPI {
   }
 }
 
-export const currencyAPI = new CurrencyAPI(`${process.env.NEXT_PUBLIC_URL}/currencies`);
+export const currencyAPI = new CurrencyAPI(`${process.env.NEXT_PUBLIC_API_URL}/currencies`);

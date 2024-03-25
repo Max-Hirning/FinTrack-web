@@ -92,4 +92,4 @@ class UserAPI {
   }
 }
 
-export const userAPI = new UserAPI(`${process.env.NEXT_PUBLIC_URL}/user`);
+export const userAPI = new UserAPI(`${process.env.NEXT_PUBLIC_API_URL}/user`);

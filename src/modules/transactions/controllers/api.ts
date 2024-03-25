@@ -98,4 +98,4 @@ class TransactionsAPI {
   }
 }
 
-export const transactionsAPI = new TransactionsAPI(`${process.env.NEXT_PUBLIC_URL}/transaction`);
+export const transactionsAPI = new TransactionsAPI(`${process.env.NEXT_PUBLIC_API_URL}/transaction`);

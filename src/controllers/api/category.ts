@@ -22,4 +22,4 @@ class CategoryAPI {
   }
 }
 
-export const categoryAPI = new CategoryAPI(`${process.env.NEXT_PUBLIC_URL}/category`);
+export const categoryAPI = new CategoryAPI(`${process.env.NEXT_PUBLIC_API_URL}/category`);

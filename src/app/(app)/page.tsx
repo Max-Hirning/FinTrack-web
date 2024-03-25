@@ -41,11 +41,11 @@ export default function Home() {
           <section className="card max-w-fit py-[10px] px-[20px] w-[380px] h-[235px] overflow-auto">
             <Suspense fallback={
               <>
-                <TransactionSkeleton/>
-                <TransactionSkeleton/>
-                <TransactionSkeleton/>
-                <TransactionSkeleton/>
-                <TransactionSkeleton/>
+                <TransactionSkeleton shrinked={true}/>
+                <TransactionSkeleton shrinked={true}/>
+                <TransactionSkeleton shrinked={true}/>
+                <TransactionSkeleton shrinked={true}/>
+                <TransactionSkeleton shrinked={true}/>
               </>
             }>
               <TransactionsListWrapper shrinked={true}/>

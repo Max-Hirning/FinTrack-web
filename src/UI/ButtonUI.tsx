@@ -24,7 +24,7 @@ export function ButtonUI({children, styles, color, variant, ...props}: IProps) {
     return (
       <button 
         {...props}
-        className={`${styles || ""} text-white rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disabled focus:outline-none focus:ring ${componentStyles()}`}
+        className={`${styles || ""} text-white rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disabled disabled:text-white focus:outline-none focus:ring ${componentStyles()}`}
       >{children}</button>
     );
   }
@@ -42,7 +42,7 @@ export function ButtonUI({children, styles, color, variant, ...props}: IProps) {
     return (
       <button 
         {...props}
-        className={`${styles || ""} rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disabled hover:text-white focus:outline-none focus:ring ${componentStyles()}`}
+        className={`${styles || ""} rounded-[15px] flex items-center justify-center cursor-pointer disabled:bg-disabled disabled:text-white hover:text-white focus:outline-none focus:ring ${componentStyles()}`}
       >{children}</button>
     );
   }

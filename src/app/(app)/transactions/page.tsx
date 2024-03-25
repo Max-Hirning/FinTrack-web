@@ -40,15 +40,13 @@ export default function Transactions() {
           <section className="card max-lg:w-full lg:w-[350px] h-[235px]"></section>
         </section>
       </section>
-      <section className="w-full w-max-[1110px] mt-[25px]">
+      <section className="max-w-fit mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transactions</h1>
         <Suspense fallback={<section className="bg-slate-200 card border h-[397px] p-[2px] animate-pulse"></section>}>
-          <section className="card pb-[20px] px-[20px] h-[397px] overflow-auto">
-            <TransactionsTableWrapper/>
-          </section>
+          <TransactionsTableWrapper/>
         </Suspense>
       </section>
-      <section className="mt-[25px] max-w-[730px]">
+      <section className="mt-[55px] max-w-[730px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Transaction Form</h1>
         <section className="card p-[20px] w-full relative">
           <TransactionFormWrapper/>

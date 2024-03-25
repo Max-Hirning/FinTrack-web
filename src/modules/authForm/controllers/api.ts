@@ -40,4 +40,4 @@ class AuthAPI {
   }
 }
 
-export const authAPI = new AuthAPI(`${process.env.NEXT_PUBLIC_URL}/auth`);
+export const authAPI = new AuthAPI(`${process.env.NEXT_PUBLIC_API_URL}/auth`);
