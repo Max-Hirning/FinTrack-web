@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Check you security settings"
 };
 
-export default function Security() {
+export default function Page() {
   return (
     <>
       <section className="card max-w-[1110px] p-[25px] w-fit">

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 };
 
-export default function Investments() {
+export default function Page() {
   return (
     <>
       <h1>Comming soon...</h1>

@@ -1,15 +1,30 @@
 import Link from "next/link";
 import {Metadata} from "next";
 import React, {Suspense} from "react";
-import {CardsListWrapper} from "@/modules/cards";
+import {getServerSession} from "next-auth";
+import {IUserSession} from "@/modules/profile";
+import {authOptions} from "@/configs/authOptions";
+import {CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
-import {TransactionFormWrapper, TransactionsTableWrapper} from "@/modules/transactions";
+import {ITransactionsFilters, TransactionForm, TransactionsTable} from "@/modules/transactions";
 
 export const metadata: Metadata = {
   description: "Overview you transactions"
 };
 
-export default function Transactions() {
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+
+  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
+    ownerId: (session?.user as IUserSession).id
+  };
+
+  const transactionsFilters: Omit<ITransactionsFilters, "date"> = {
+    page: 1,
+    perPage: 10,
+    cards: (session?.user as IUserSession).cards,
+  };
+
   return (
     <>
       <section className="max-lg:flex-col flex gap-[25px]">
@@ -31,7 +46,11 @@ export default function Transactions() {
                 <BankCardSkeleton/>
               </>
             }>
-              <CardsListWrapper elStyle="card"/>
+              <CardsList 
+                elStyle="card"
+                filters={cardsFilters}
+                session={session?.user as IUserSession}
+              />
             </Suspense>
           </section>
         </section>
@@ -43,13 +62,19 @@ export default function Transactions() {
       <section className="max-w-fit mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transactions</h1>
         <Suspense fallback={<section className="bg-slate-200 card border h-[397px] p-[2px] animate-pulse"></section>}>
-          <TransactionsTableWrapper/>
+          <TransactionsTable 
+            filters={transactionsFilters}
+            session={session?.user as IUserSession}
+          />
         </Suspense>
       </section>
       <section className="mt-[55px] max-w-[730px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Transaction Form</h1>
         <section className="card p-[20px] w-full relative">
-          <TransactionFormWrapper/>
+          <TransactionForm
+            filters={cardsFilters}
+            session={session?.user as IUserSession}
+          />
         </section>
       </section>
     </>

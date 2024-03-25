@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Log in to your account"
 };
 
-export default function SignIn() {
+export default function Page() {
   return (
     <>
       <article className="max-w-[450px] w-full">

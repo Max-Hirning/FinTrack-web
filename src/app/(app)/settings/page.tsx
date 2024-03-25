@@ -1,16 +1,20 @@
 import React from "react";
 import {Metadata} from "next";
-import {SettingsFormWrappers} from "@/modules/profile";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/configs/authOptions";
+import {IUserSession, SettingsForm} from "@/modules/profile";
 
 export const metadata: Metadata = {
   description: "Check you profile settings"
 };
 
-export default function Settings() {
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <section className="card max-w-[1110px] p-[25px] w-fit relative">
-        <SettingsFormWrappers/>
+        <SettingsForm session={session?.user as IUserSession}/>
       </section>
     </>
   );

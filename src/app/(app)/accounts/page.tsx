@@ -1,18 +1,45 @@
 import Link from "next/link";
 import {Metadata} from "next";
 import React, {Suspense} from "react";
-import {CardsListWrapper} from "@/modules/cards";
-import {TransactionsListWrapper} from "@/modules/transactions";
+import {getServerSession} from "next-auth";
+import {IUserSession} from "@/modules/profile";
+import {authOptions} from "@/configs/authOptions";
+import {CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
-import {AccountsWrappers, YearlyStatisticsWrappers} from "@/modules/analytics";
+import {getCurrentMonthRange, getCurrentYearRange} from "@/controllers/dates";
+import {ITransactionsFilters, TransactionsList} from "@/modules/transactions";
 import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
+import {Accounts, IAccountFilters, IYearlyStatisticsFilters, YearlyStatistics} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   description: "Overview you finance info"
 };
 
-export default function Accounts() {
+export default async function Page() {
+  const session = await getServerSession(authOptions);
+
+  const accountsfilters: IAccountFilters = {
+    currency: (session?.user as IUserSession).currency, 
+    cards: {cards: (session?.user as IUserSession).cards}, 
+    transactions: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()},
+  };
+
+  const yearlyFilters: IYearlyStatisticsFilters = {
+    currency: (session?.user as IUserSession).currency,
+    filters: {cards: (session?.user as IUserSession).cards, date: getCurrentYearRange()}
+  };
+
+  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
+    ownerId: (session?.user as IUserSession).id
+  };
+
+  const transactionsFilters: Omit<ITransactionsFilters, "date"> = {
+    page: 1,
+    perPage: 10,
+    cards: (session?.user as IUserSession).cards,
+  };
+
   return (
     <>
       <section className="flex gap-[25px] pb-[5px] overflow-auto max-w-fit">
@@ -23,7 +50,10 @@ export default function Accounts() {
             <AccountInfoCardSkeleton/>
           </>
         }>
-          <AccountsWrappers/>
+          <Accounts
+            filters={accountsfilters}
+            session={session?.user as IUserSession}
+          />
         </Suspense>
       </section>
       <section className="max-1.5xl:flex-col mt-[25px] flex gap-[25px]">
@@ -39,7 +69,10 @@ export default function Accounts() {
                 <TransactionSkeleton/>
               </>
             }>
-              <TransactionsListWrapper/>
+              <TransactionsList
+                filters={transactionsFilters}
+                session={session?.user as IUserSession}
+              />
             </Suspense>
           </section>
         </section>
@@ -61,7 +94,11 @@ export default function Accounts() {
                 <BankCardSkeleton/>
               </>
             }>
-              <CardsListWrapper elStyle="card"/>
+              <CardsList 
+                elStyle="card"
+                filters={cardsFilters}
+                session={session?.user as IUserSession}
+              />
             </Suspense>
           </section>
         </section>
@@ -70,7 +107,10 @@ export default function Accounts() {
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Debit & Credit Overview</h1>
         <Suspense fallback={<section className="bg-slate-200 card border w-full h-[364px] animate-pulse"></section>}>
           <section className="card w-full p-[25px] h-[364px]">
-            <YearlyStatisticsWrappers/>
+            <YearlyStatistics
+              filters={yearlyFilters}
+              session={session?.user as IUserSession}
+            />
           </section>
         </Suspense>
       </section>

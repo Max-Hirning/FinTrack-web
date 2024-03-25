@@ -11,7 +11,7 @@ interface IProps {
   children: ReactNode;
 }
 
-export default async function AppLayout({children}: IProps) {
+export default async function Layout({children}: IProps) {
   const session = await getServerSession(authOptions);
 
   return (

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 const inter = Inter({subsets: ["latin"]});
 
-export default function RootLayout({children}: IProps) {
+export default function Layout({children}: IProps) {
   return (
     <html lang="en">
       <ProviderComponent>

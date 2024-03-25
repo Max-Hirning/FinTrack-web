@@ -1,7 +1,10 @@
-export type {IAccountResponse} from "./types/account";
-export {AccountsWrappers} from "./view/wrappers/accountsWrappers";
-export type {ICardsExpensesResponse} from "./types/cardsExpensesStatistics";
-export {WeeklyStatisticsWrappers} from "./view/wrappers/weeklyStatisticsWrappers";
-export {YearlyStatisticsWrappers} from "./view/wrappers/yearlyStatisticsWrappers";
-export {ExpenseStatisticsWrappers} from "./view/wrappers/expenseStatisticsWrappers";
-export {CardExpenseStatisticsWrappers} from "./view/wrappers/cardExpenseStatisticsWrappers";
+export {Accounts} from "./view/accounts";
+export {WeeklyStatistics} from "./view/weeklyStatistics";
+export {YearlyStatistics} from "./view/yearlyStatistics";
+export {ExpenseStatistics} from "./view/expenseStatistics";
+export type {IExpensesFilters} from "./types/expensesStatistics";
+export {CardExpenseStatistics} from "./view/cardExpenseStatistics";
+export type {IYearlyStatisticsFilters} from "./types/yearlyStatistics";
+export type {IAccountResponse, IAccountFilters} from "./types/account";
+export type {IWeeklyStatisticsFilters} from "./types/weeklyStatistics";
+export type {ICardsExpensesResponse, ICardsExpensesFilters} from "./types/cardsExpensesStatistics";

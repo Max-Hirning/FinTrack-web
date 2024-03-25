@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "FinTrack privacy policy"
 };
 
-export default function PrivacyPolicy() {
+export default function Page() {
   return (
     <main className="text-text text-[15px] p-[25px]">
       <h1 className="text-[28px] font-semibold">Privacy Policy</h1>

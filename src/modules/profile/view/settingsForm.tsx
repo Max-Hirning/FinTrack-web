@@ -23,10 +23,10 @@ import {useDeleteUserAvatar} from "../hooks/deleteUserAvatar";
 import {settingsFormInitialValues} from "../models/settingsForm";
 
 interface IProps {
-  user: IUserSession;
+  session: IUserSession;
 }
 
-export function SettingsForm({user}: IProps) {
+export function SettingsForm({session}: IProps) {
   const formik = useFormik({
     validationSchema: settingsFormSchema, 
     initialValues: settingsFormInitialValues,
@@ -42,10 +42,10 @@ export function SettingsForm({user}: IProps) {
       resetForm();
     },
   });
-  const {data} = useGetCurrencies();
+  const {data} = useSession();
   const deleteUser = useDeleteUser();
   const updateUser = useUpdateUser();
-  const {data: session} = useSession();
+  const currencies = useGetCurrencies();
   const avatarHasBeenChanged = useRef(false);
   const currencyHasBeenChanged = useRef(false);
   const deleteAvatarUser = useDeleteUserAvatar();
@@ -89,7 +89,7 @@ export function SettingsForm({user}: IProps) {
       <div className="relative w-fit">
         <AvatarUI
           size={150}
-          avatar={imageFile ? URL.createObjectURL(imageFile) : ((session?.user as IUserSession)?.avatar || user.avatar)}
+          avatar={imageFile ? URL.createObjectURL(imageFile) : ((data?.user as IUserSession)?.avatar || session.avatar)}
         />
         <input 
           type="file" 
@@ -126,7 +126,7 @@ export function SettingsForm({user}: IProps) {
           variant="contained"
           title="Delete avatar"
           onClick={() => deleteAvatarUser.mutate()}
-          styles={`w-[30px] h-[30px] bottom-0 right-0 absolute rounded-full ${!((session?.user as IUserSession)?.avatar) && "hidden"}`}
+          styles={`w-[30px] h-[30px] bottom-0 right-0 absolute rounded-full ${!((data?.user as IUserSession)?.avatar) && "hidden"}`}
         >
           <DeleteIcon width={20} height={20} color="white"/>
         </ButtonUI>
@@ -150,7 +150,7 @@ export function SettingsForm({user}: IProps) {
             changeText={formik.handleChange}
             errorMsg={formik.errors.firstName}
             error={!!(formik.errors.firstName && formik.errors.firstName)}
-            placeholder={(session?.user as IUserSession)?.firstName || user.firstName}
+            placeholder={(data?.user as IUserSession)?.firstName || session.firstName}
           />
           <InputUI
             type="text"
@@ -163,7 +163,7 @@ export function SettingsForm({user}: IProps) {
             changeText={formik.handleChange}
             errorMsg={formik.errors.lastName}
             error={!!(formik.errors.lastName && formik.errors.lastName)}
-            placeholder={(session?.user as IUserSession)?.lastName || user.lastName}
+            placeholder={(data?.user as IUserSession)?.lastName || session.lastName}
           />
         </fieldset>
         <fieldset className="flex max-lg:flex-col gap-[25px]">
@@ -178,7 +178,7 @@ export function SettingsForm({user}: IProps) {
             errorMsg={formik.errors.email}
             changeText={formik.handleChange}
             error={!!(formik.errors.email && formik.errors.email)}
-            placeholder={(session?.user as IUserSession)?.email || user.email}
+            placeholder={(data?.user as IUserSession)?.email || session.email}
           />
           <SelectUI
             type="text"
@@ -195,11 +195,11 @@ export function SettingsForm({user}: IProps) {
             value={formik.values.currency}
             errorMsg={formik.errors.currency}
             error={!!(formik.errors.currency && formik.errors.currency)}
-            placeholder={(session?.user as IUserSession)?.currency || user.currency}
+            placeholder={(data?.user as IUserSession)?.currency || session.currency}
           >
             <datalist id="currencies-list">
               {
-                (data?.data || []).map(({code, name}: ICurrency) => {
+                (currencies.data?.data || []).map(({code, name}: ICurrency) => {
                   return (
                     <option 
                       key={code}

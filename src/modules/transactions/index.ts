@@ -1,6 +1,6 @@
 export {transactionsAPI} from "./controllers/api";
+export {TransactionForm} from "./view/transactionForm";
+export {TransactionsList} from "./view/transactionsList";
+export {TransactionsTable} from "./view/transactionsTable";
 export {useGetTransactions} from "./hooks/getTransactions";
-export {TransactionFormWrapper} from "./view/wrappers/transactionFormWrapper";
-export {TransactionsListWrapper} from "./view/wrappers/transactionsListWrapper";
-export {TransactionsTableWrapper} from "./view/wrappers/transactionsTableWrapper";
 export type {ITransactionsFilters, ITransactionResponse} from "./types/transaction";

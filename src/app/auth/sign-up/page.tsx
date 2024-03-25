@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Create your account in FinTrack"
 };
 
-export default function SignUp() {
+export default function Page() {
   return (
     <>
       <article className="max-w-[450px] w-full">
