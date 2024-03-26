@@ -28,9 +28,15 @@ export const routes: IRoute[] = [
     icon: (props: IIconProps) => <AccountsIcon width={props.width} height={props.height} color={props.color}/>,
   },
   {
-    href: "/investments",
-    title: "Investments",
-    pageTitle: "Investments",
+    title: "Stocks",
+    pageTitle: "Stocks",
+    href: "/investments/stocks",
+    icon: (props: IIconProps) => <InvestmentsIcon width={props.width} height={props.height} color={props.color}/>,
+  },
+  {
+    title: "Cryptos",
+    pageTitle: "Cryptos",
+    href: "/investments/cryptos",
     icon: (props: IIconProps) => <InvestmentsIcon width={props.width} height={props.height} color={props.color}/>,
   },
   {

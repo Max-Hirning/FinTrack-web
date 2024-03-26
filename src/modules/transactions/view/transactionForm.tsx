@@ -79,9 +79,9 @@ export function TransactionForm({filters, session, categories}: IProps) {
             label="Transaction Date"
             onBlur={formik.handleBlur}
             value={formik.values.date}
-            styles="w-full max-w-[320px]"
             errorMsg={formik.errors.date}
             changeText={formik.handleChange}
+            styles="w-full lg:max-w-[320px]"
             maxDate={new Date().toISOString().split("T")[0]}
             error={!!(formik.errors.date && formik.errors.date)}
           />
@@ -92,7 +92,7 @@ export function TransactionForm({filters, session, categories}: IProps) {
             inputStyles="hidden"
             onBlur={formik.handleBlur}
             label="Transaction Category"
-            styles="w-full max-w-[320px]"
+            styles="w-full lg:max-w-[320px]"
             value={formik.values.categoryId}
             changeText={formik.handleChange}
             errorMsg={formik.errors.categoryId}
@@ -156,8 +156,8 @@ export function TransactionForm({filters, session, categories}: IProps) {
             label="Transaction Card"
             onBlur={formik.handleBlur}
             value={formik.values.cardId}
-            styles="w-full max-w-[320px]"
             errorMsg={formik.errors.cardId}
+            styles="w-full lg:max-w-[320px]"
             changeText={formik.handleChange}
             error={!!(formik.errors.cardId && formik.errors.cardId)}
           >
@@ -186,9 +186,9 @@ export function TransactionForm({filters, session, categories}: IProps) {
             type="number"
             label="Transaction Amount"
             onBlur={formik.handleBlur}
-            styles="w-full max-w-[320px]"
             errorMsg={formik.errors.amount}
             changeText={formik.handleChange}
+            styles="w-full lg:max-w-[320px]"
             value={formik.values.amount.toString() || ""}
             error={!!(formik.errors.amount && formik.errors.amount)}
           />

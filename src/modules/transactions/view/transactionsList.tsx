@@ -10,6 +10,7 @@ import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
 import {useGetTransactions} from "../hooks/getTransactions";
 import {convertISODateToCustomFormat} from "@/controllers/dates";
+import {TransactionSkeleton} from "@/components/skeletons/Transaction";
 import {ITransactionResponse, ITransactionsFilters} from "../types/transaction";
 
 interface IProps {
@@ -21,7 +22,7 @@ interface IProps {
 export function TransactionsList({filters, session, shrinked}: IProps) {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
-  const {data} = useGetTransactions(filters, session.jwt);
+  const {data, isLoading, isError} = useGetTransactions(filters, session.jwt);
 
   const amountColor = (amount: number): string => {
     if(amount < 0) return "text-danger";
@@ -34,6 +35,18 @@ export function TransactionsList({filters, session, shrinked}: IProps) {
     if(amount > 0) return "+";
     return "";
   };
+
+  if(isLoading || isError) {
+    return (
+      <>
+        <TransactionSkeleton shrinked={shrinked}/>
+        <TransactionSkeleton shrinked={shrinked}/>
+        <TransactionSkeleton shrinked={shrinked}/>
+        <TransactionSkeleton shrinked={shrinked}/>
+        <TransactionSkeleton shrinked={shrinked}/>
+      </>
+    );
+  }
 
   return (
     <>

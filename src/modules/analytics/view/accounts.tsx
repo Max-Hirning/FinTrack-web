@@ -6,6 +6,7 @@ import {IAccountFilters} from "../types/account";
 import TransactionsIcon from "@/UI/icons/transaction";
 import {useGetAccountInfo} from "../hooks/getAccountInfo";
 import {AccountInfoCard} from "@/components/AccountInfoCard";
+import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
 
 interface IProps {
   session: IUserSession;
@@ -13,7 +14,19 @@ interface IProps {
 }
 
 export function Accounts({filters, session}: IProps) {
-  const {data} = useGetAccountInfo(filters, session.jwt);
+  const {data, isLoading, isError} = useGetAccountInfo(filters, session.jwt);
+
+  if(isLoading) {
+    return (
+      <>
+        <AccountInfoCardSkeleton/>
+        <AccountInfoCardSkeleton/>
+        <AccountInfoCardSkeleton/>
+      </>
+    );
+  }
+
+  if(isError) return <></>;
 
   return (
     <>

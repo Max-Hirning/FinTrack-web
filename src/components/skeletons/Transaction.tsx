@@ -6,7 +6,7 @@ interface IProps {
 
 export function TransactionSkeleton({shrinked}: IProps) {
   return (
-    <div className={`flex items-center ${!shrinked && "md:w-[630px]"} animate-pulse`}>
+    <div className={`flex items-center ${!shrinked && "md:w-[630px]"} py-[10px] animate-pulse`}>
       <div className="mr-[10px] flex items-center w-[220px]">
         <div className="bg-slate-200 rounded-[20px] h-[55px] w-full max-w-[55px] col-span-2"></div>
         <article className="ml-[20px] w-full">
