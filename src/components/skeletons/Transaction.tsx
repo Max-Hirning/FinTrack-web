@@ -1,10 +1,10 @@
-import React from "react";
+import React, {ReactElement} from "react";
 
 interface IProps {
   shrinked?: boolean;
 }
 
-export function TransactionSkeleton({shrinked}: IProps) {
+export function TransactionSkeleton({shrinked}: IProps): ReactElement {
   return (
     <div className={`flex items-center ${!shrinked && "md:w-[630px]"} py-[10px] animate-pulse`}>
       <div className="mr-[10px] flex items-center w-[220px]">

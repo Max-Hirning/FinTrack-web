@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {Metadata} from "next";
-import React, {Suspense} from "react";
 import {getServerSession} from "next-auth";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
+import React, {ReactElement, Suspense} from "react";
 import {CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
@@ -16,24 +16,21 @@ export const metadata: Metadata = {
   description: "Overview you finance info"
 };
 
-export default async function Page() {
+export default async function Page(): Promise<ReactElement> {
   const session = await getServerSession(authOptions);
 
+  const cardsFilters: ICardsFilters = {
+    cards: (session?.user as IUserSession).cards
+  };
   const accountsfilters: IAccountFilters = {
     currency: (session?.user as IUserSession).currency, 
     cards: {cards: (session?.user as IUserSession).cards}, 
     transactions: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()},
   };
-
   const yearlyFilters: IYearlyStatisticsFilters = {
     currency: (session?.user as IUserSession).currency,
     filters: {cards: (session?.user as IUserSession).cards, date: getCurrentYearRange()}
   };
-
-  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
-    ownerId: (session?.user as IUserSession).id
-  };
-
   const transactionsFilters: Omit<ITransactionsFilters, "date"> = {
     page: 1,
     perPage: 10,

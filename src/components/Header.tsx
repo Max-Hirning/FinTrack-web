@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import {IRoute} from "@/types/routes";
 import {AvatarUI} from "@/UI/AvatarUI";
 import {routes} from "@/configs/routes";
+import React, {ReactElement} from "react";
 import {useSession} from "next-auth/react";
 import {usePathname} from "next/navigation";
 import SecurityIcon from "@/UI/icons/security";
@@ -14,7 +14,7 @@ interface IProps {
   user: IUserSession;
 }
 
-export function Header({user}: IProps) {
+export function Header({user}: IProps): ReactElement {
   const pathName = usePathname();
   const {data: session} = useSession();
 

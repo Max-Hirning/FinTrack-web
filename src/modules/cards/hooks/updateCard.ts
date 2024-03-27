@@ -9,9 +9,9 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {ICardForm, resetCard} from "@/modules/store";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useUpdateCard() {
+export function useUpdateCard(): UseMutationResult<IResponse<undefined>, unknown, ICardForm, unknown> {
   const {data: session} = useSession();
   const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();

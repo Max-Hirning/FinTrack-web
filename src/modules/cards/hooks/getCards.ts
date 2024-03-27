@@ -1,14 +1,15 @@
 "use client";
 
+import {IResponse} from "@/types/api";
 import {cardAPI} from "../controllers/api";
-import {ICardsFilters} from "../types/card";
 import {QueryKeys} from "@/configs/queryKeys";
-import {useSuspenseQuery} from "@tanstack/react-query";
+import {ICardsFilters, ICardsListResponse} from "../types/card";
+import {UseSuspenseQueryResult, useSuspenseQuery} from "@tanstack/react-query";
 
-export function useGetCards(filters: Pick<ICardsFilters, "ownerId">, token: string) {
+export function useGetCards(filters: ICardsFilters, token: string): UseSuspenseQueryResult<IResponse<ICardsListResponse>, unknown> {
   return useSuspenseQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getCards, JSON.stringify(filters)],
-    queryFn: () => cardAPI.getAll(filters, token),
+    queryFn: (): Promise<IResponse<ICardsListResponse>> => cardAPI.getAll(filters, token),
   });
 }

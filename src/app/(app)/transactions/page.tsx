@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {Metadata} from "next";
-import React, {Suspense} from "react";
 import {getServerSession} from "next-auth";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
+import React, {Suspense, ReactElement} from "react";
 import {categoryAPI} from "@/controllers/api/category";
 import {CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
@@ -13,14 +13,13 @@ export const metadata: Metadata = {
   description: "Overview you transactions"
 };
 
-export default async function Page() {
+export default async function Page(): Promise<ReactElement> {
   const categories = await categoryAPI.getAll();
   const session = await getServerSession(authOptions);
 
-  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
-    ownerId: (session?.user as IUserSession).id
+  const cardsFilters: ICardsFilters = {
+    cards: (session?.user as IUserSession).cards
   };
-
   const transactionsFilters: Omit<ITransactionsFilters, "date"> = {
     page: 1,
     perPage: 10,

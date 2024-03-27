@@ -1,5 +1,5 @@
-import React, {ReactNode} from "react";
 import {hexToRgba} from "@/controllers/colors";
+import React, {ReactElement, ReactNode} from "react";
 
 interface IProps {
   title: string;
@@ -9,7 +9,7 @@ interface IProps {
   ammount: string|number;
 }
 
-export function AccountInfoCard({title, iconColor, ammount, currency, children}: IProps) {
+export function AccountInfoCard({title, iconColor, ammount, currency, children}: IProps): ReactElement {
   return (
     <div className="bg-white border border-[#DFEAF2] rounded-[25px] h-[120px] flex gap-[10px] p-[20px] items-center">
       <div

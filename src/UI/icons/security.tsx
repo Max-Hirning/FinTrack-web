@@ -1,7 +1,7 @@
-import React from "react";
 import {SVGProps} from "react";
+import React, {ReactElement} from "react";
 
-const SvgComponent = (props: SVGProps<SVGSVGElement>) => (
+const SvgComponent = (props: SVGProps<SVGSVGElement>): ReactElement => (
   <svg
     {...props}
     fill="none"

@@ -1,8 +1,8 @@
 import {Metadata} from "next";
-import React, {Suspense} from "react";
 import {getServerSession} from "next-auth";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
+import React, {Suspense, ReactElement} from "react";
 import {currencyAPI} from "@/controllers/api/currency";
 import {getCurrentMonthRange} from "@/controllers/dates";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
@@ -14,17 +14,16 @@ export const metadata: Metadata = {
   description: "Overview you cards"
 };
 
-export default async function Page() {
+export default async function Page(): Promise<ReactElement> {
   const currencies = await currencyAPI.getAll();
   const session = await getServerSession(authOptions);
 
+  const cardsFilters: ICardsFilters = {
+    cards: (session?.user as IUserSession).cards
+  };
   const cardsExpensesFilters: ICardsExpensesFilters = {
     currency: (session?.user as IUserSession).currency,
     filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
-  };
-
-  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
-    ownerId: (session?.user as IUserSession).id
   };
 
   return (

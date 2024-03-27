@@ -1,6 +1,6 @@
-import React from "react";
+import React, {ReactElement} from "react";
 
-export function BankCardLineSkeleton() {
+export function BankCardLineSkeleton(): ReactElement {
   return (
     <div className="bg-white border animate-pulse border-[#DFEAF2] rounded-[25px] items-center w-fit min-w-[700px] h-[90px] p-[20px] flex justify-between relative">
       <div className="bg-slate-200 col-span-2 rounded-[20px] w-[60px] h-[60px] flex items-center justify-center"></div>

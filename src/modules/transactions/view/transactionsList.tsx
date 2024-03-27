@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/types/store";
 import {useRouter} from "next/navigation";
+import React, {ReactElement} from "react";
 import {setTransction} from "@/modules/store";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
@@ -19,7 +19,7 @@ interface IProps {
   filters: Omit<ITransactionsFilters, "date">;
 }
 
-export function TransactionsList({filters, session, shrinked}: IProps) {
+export function TransactionsList({filters, session, shrinked}: IProps): ReactElement {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const {data, isLoading, isError} = useGetTransactions(filters, session.jwt);

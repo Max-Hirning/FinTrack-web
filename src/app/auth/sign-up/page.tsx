@@ -1,6 +1,6 @@
-import React from "react";
 import Link from "next/link";
 import {Metadata} from "next";
+import React, {ReactElement} from "react";
 import {SignUpForm} from "@/modules/authForm";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Create your account in FinTrack"
 };
 
-export default function Page() {
+export default function Page(): ReactElement {
   return (
     <>
       <article className="max-w-[450px] w-full">

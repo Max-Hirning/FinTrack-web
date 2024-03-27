@@ -3,13 +3,13 @@
 import Link from "next/link";
 import {useFormik} from "formik";
 import {InputUI} from "@/UI/InputUI";
-import React, {useState} from "react";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {useSignUp} from "../hooks/signUp";
 import {signUpModel} from "../models/signUp";
 import {signUpSchema} from "../schemas/signUp";
+import React, {ReactElement, useState} from "react";
 
-export function SignUpForm() {
+export function SignUpForm(): ReactElement {
   const formik = useFormik({
     initialValues: signUpModel,
     validationSchema: signUpSchema,
@@ -21,7 +21,7 @@ export function SignUpForm() {
   const {mutate} = useSignUp();
   const [agreedToPolicy, setAgreedToPolicy] = useState<boolean>(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setAgreedToPolicy(event.target.checked);
   };
 

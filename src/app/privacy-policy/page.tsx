@@ -1,13 +1,13 @@
-import React from "react";
 import Link from "next/link";
 import {Metadata} from "next";
+import React, {ReactElement} from "react";
 
 export const metadata: Metadata = {
   title: "Privacy policy",
   description: "FinTrack privacy policy"
 };
 
-export default function Page() {
+export default function Page(): ReactElement {
   return (
     <main className="text-text text-[15px] p-[25px]">
       <h1 className="text-[28px] font-semibold">Privacy Policy</h1>

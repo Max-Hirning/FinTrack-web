@@ -1,4 +1,4 @@
-import React, {ButtonHTMLAttributes, ReactNode} from "react";
+import React, {ButtonHTMLAttributes, ReactElement, ReactNode} from "react";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   styles?: string;
@@ -7,7 +7,7 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: "contained"|"text"|"outlined";
 }
 
-export function ButtonUI({children, styles, color, variant, ...props}: IProps) {
+export function ButtonUI({children, styles, color, variant, ...props}: IProps): ReactElement {
   const componentStyles = (): string => {
     if(color === "danger") {
       if(variant === "contained") return "bg-red-500 hover:bg-red-600 active:bg-red-700 focus:ring-red-300";
@@ -46,4 +46,6 @@ export function ButtonUI({children, styles, color, variant, ...props}: IProps) {
       >{children}</button>
     );
   }
+
+  throw new Error("Provide variant prop: contained, outlined or text");
 }

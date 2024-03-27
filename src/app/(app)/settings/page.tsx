@@ -1,5 +1,5 @@
-import React from "react";
 import {Metadata} from "next";
+import React, {ReactElement} from "react";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/configs/authOptions";
 import {currencyAPI} from "@/controllers/api/currency";
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Check you profile settings"
 };
 
-export default async function Page() {
+export default async function Page(): Promise<ReactElement> {
   const currencies = await currencyAPI.getAll();
   const session = await getServerSession(authOptions);
 

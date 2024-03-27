@@ -1,5 +1,5 @@
 import WarningIcon from "@/UI/icons/warning";
-import React, {FocusEvent, InputHTMLAttributes, ReactNode} from "react";
+import React, {FocusEvent, InputHTMLAttributes, ReactElement, ReactNode} from "react";
 
 interface IProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id: string;
@@ -19,7 +19,7 @@ interface IProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" 
   type: "text" | "password" | "number" | "email" | "date" | "time" | "search" | "tel" | "color";
 }
 
-export function SelectUI({id, inputStyles, children, styles, listId, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type, ...props}: IProps) {
+export function SelectUI({id, inputStyles, children, styles, listId, label, value, disabled, error, errorMsg, required, placeholder, onBlur, changeText, type, ...props}: IProps): ReactElement {
   return (
     <fieldset className={styles || ""}>
       <label 

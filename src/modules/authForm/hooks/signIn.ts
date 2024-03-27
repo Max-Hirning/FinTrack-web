@@ -5,23 +5,23 @@ import {signIn} from "next-auth/react";
 import {ISignIn} from "../types/signIn";
 import {useRouter} from "next/navigation";
 import {QueryKeys} from "@/configs/queryKeys";
-import {useMutation} from "@tanstack/react-query";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
+import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
-export function useSignIn() {
+export function useSignIn(): UseMutationResult<IResponse<undefined>, unknown, ISignIn, unknown> {
   const {push} = useRouter();
 
   return useMutation({
     mutationFn: async (data: ISignIn): Promise<IResponse<undefined>> => {
       const response = await signIn("credentials", {...data, redirect: false});
       if(response?.ok) {
-        return({
+        return ({
           statusCode: 200,
           message: "You've been authorized"
         });
       } else {
         if(response?.error) {
-          throw({
+          throw ({
             statusCode: 404,
             message: response.error
           });

@@ -14,7 +14,7 @@ class CardAPI {
         },
         method: "DELETE",
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -22,12 +22,11 @@ class CardAPI {
     }
   }
 
-  async getAll({ownerId, cards}: Partial<ICardsFilters>, token: string): Promise<IResponse<ICardsListResponse>> {
+  async getAll({cards}: ICardsFilters, token: string): Promise<IResponse<ICardsListResponse>> {
     try {
-      if (!((ownerId || cards) && token)) throw new Error("No cards were found");
+      if(!(cards && token)) throw new Error("No cards were found");
       const filters: { ownerId?: string, cards?: string } = {};
-      if (ownerId) filters.ownerId = ownerId;
-      if (cards) filters.cards = JSON.stringify(cards);
+      if(cards) filters.cards = JSON.stringify(cards);
       const queryParams = new URLSearchParams(filters as Record<string, string>);
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
@@ -36,14 +35,7 @@ class CardAPI {
         },
         method: "GET",
       });
-      if (!response.ok) return ({
-        data: {
-          cards: [],
-          currencies: [],
-        },
-        statusCode: 400,
-        message: "Something went wrong",
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -61,7 +53,7 @@ class CardAPI {
         method: "PUT",
         body: JSON.stringify(data),
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -79,7 +71,7 @@ class CardAPI {
         method: "POST",
         body: JSON.stringify({...data, ownerId}),
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {

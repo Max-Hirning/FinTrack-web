@@ -15,7 +15,7 @@ class TransactionsAPI {
         },
         method: "DELETE",
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -33,7 +33,7 @@ class TransactionsAPI {
         method: "POST",
         body: JSON.stringify(data),
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -51,7 +51,7 @@ class TransactionsAPI {
         method: "PUT",
         body: JSON.stringify(data),
       });
-      if (!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -62,12 +62,12 @@ class TransactionsAPI {
   async getAll({page, cards, perPage, date}: Partial<ITransactionsFilters>, token: string): Promise<IResponse<IPagination<ITransactionListResponse>>> {
     try {
       const filters: { perPage?: string, page?: string, date?: string, cards?: string } = {};
-      if (page && perPage) {
+      if(page && perPage) {
         filters.page = JSON.stringify(page);
         filters.perPage = JSON.stringify(perPage);
       }
-      if (date) filters.date = JSON.stringify(date);
-      if (cards) filters.cards = JSON.stringify(cards);
+      if(date) filters.date = JSON.stringify(date);
+      if(cards) filters.cards = JSON.stringify(cards);
       const queryParams = new URLSearchParams(filters as Record<string, string>);
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {
@@ -76,20 +76,7 @@ class TransactionsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) return ({
-        data: {
-          data: {
-            data: [],
-            currencies: [],
-          },
-          page: null,
-          next: null,
-          previous: null,
-          totalPages: null,
-        },
-        statusCode: 404,
-        message: "Something went wrong"
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {

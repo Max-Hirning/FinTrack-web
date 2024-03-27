@@ -5,7 +5,7 @@ import type {NextRequest} from "next/server";
 const isUnAuthed = ["/auth/sign-in", "/auth/sign-up"];
 const isAuthed = ["/transactions", "/settings", "/security", "/investments", "/cards", "/accounts"];
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest): Promise<NextResponse|void> {
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,

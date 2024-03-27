@@ -1,4 +1,3 @@
-import React, {ReactNode} from "react";
 import CloseIcon from "@/UI/icons/close";
 import {Header} from "@/components/Header";
 import {getServerSession} from "next-auth";
@@ -6,12 +5,13 @@ import {appVersion} from "@/configs/appInfo";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
 import {Navigation} from "@/components/Navigation";
+import React, {ReactElement, ReactNode} from "react";
 
 interface IProps {
   children: ReactNode;
 }
 
-export default async function Layout({children}: IProps) {
+export default async function Layout({children}: IProps): Promise<ReactElement> {
   const session = await getServerSession(authOptions);
 
   return (

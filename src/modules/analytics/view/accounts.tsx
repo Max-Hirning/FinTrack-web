@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {ReactElement} from "react";
 import {IUserSession} from "@/modules/profile";
 import {IAccountFilters} from "../types/account";
 import TransactionsIcon from "@/UI/icons/transaction";
@@ -13,7 +13,7 @@ interface IProps {
   filters: IAccountFilters;
 }
 
-export function Accounts({filters, session}: IProps) {
+export function Accounts({filters, session}: IProps): ReactElement {
   const {data, isLoading, isError} = useGetAccountInfo(filters, session.jwt);
 
   if(isLoading) {

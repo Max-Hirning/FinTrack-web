@@ -17,22 +17,22 @@ import {useUpdateUser} from "../hooks/updateUser";
 import {useDeleteUser} from "../hooks/deleteUser";
 import {ISettingsForm} from "../types/settingsForm";
 import {settingsFormSchema} from "../schemas/settingsForm";
-import React, {useRef, ChangeEvent, useState} from "react";
 import {useDeleteUserAvatar} from "../hooks/deleteUserAvatar";
 import {settingsFormInitialValues} from "../models/settingsForm";
+import React, {useRef, ChangeEvent, useState, ReactElement} from "react";
 
 interface IProps {
   session: IUserSession;
   currencies: ICurrency[];
 }
 
-export function SettingsForm({session, currencies}: IProps) {
+export function SettingsForm({session, currencies}: IProps): ReactElement {
   const formik = useFormik({
     validationSchema: settingsFormSchema, 
     initialValues: settingsFormInitialValues,
     onSubmit: async (values: ISettingsForm, {resetForm}): Promise<void> => {
       const formData: FormData = new FormData();
-      (imageFile) && formData.append("image", imageFile);
+      (imageFile) && formData.append("file", imageFile);
       (values.email.length > 0) && formData.append("email", values.email);
       (values.lastName.length > 0) && formData.append("lastName", values.lastName);
       (values.currency.length > 0) && formData.append("currency", values.currency);

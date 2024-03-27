@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import AddIcon from "@/UI/icons/add";
+import React, {ReactElement} from "react";
 import {useGetCards} from "../hooks/getCards";
 import {IUserSession} from "@/modules/profile";
 import {BankCard} from "@/components/BankCard";
@@ -13,11 +13,11 @@ import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
 
 interface IProps {
   session: IUserSession;
+  filters: ICardsFilters;
   elStyle: "card"|"line";
-  filters: Pick<ICardsFilters, "ownerId">;
 }
 
-export function CardsList({elStyle, filters, session}: IProps) {
+export function CardsList({elStyle, filters, session}: IProps): ReactElement {
   const {data, isError, isLoading} = useGetCards(filters, session.jwt);
 
   if(isLoading) {

@@ -9,9 +9,9 @@ import {IUserSession} from "@/modules/profile";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useDeleteCard() {
+export function useDeleteCard(): UseMutationResult<IResponse<undefined>, unknown, void, unknown> {
   const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();
   const {data: session, update} = useSession();

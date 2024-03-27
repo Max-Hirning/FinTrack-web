@@ -7,9 +7,9 @@ import {IUserSession} from "@/modules/profile";
 import {ITransactionForm} from "@/modules/store";
 import {transactionsAPI} from "../controllers/api";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useCreateTransaction() {
+export function useCreateTransaction(): UseMutationResult<IResponse<undefined>, unknown, Omit<ITransactionForm, "_id">, unknown> {
   const queryClient = useQueryClient();
   const {data: session} = useSession();
   

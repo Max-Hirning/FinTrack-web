@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
 import {useFormik} from "formik";
 import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
+import React, {ReactElement} from "react";
 import {ISecurityForm} from "../types/securityForm";
 import {useUpdateSecurity} from "../hooks/updateSecurity";
 import {securityFormSchema} from "../schemas/securityForm";
 import {securityFormInitialValues} from "../models/securityForm";
 
-export function SecurityForm() {
+export function SecurityForm(): ReactElement {
   const formik = useFormik({
     validationSchema: securityFormSchema, 
     initialValues: securityFormInitialValues,

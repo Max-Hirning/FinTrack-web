@@ -1,8 +1,8 @@
 
 "use client";
 import "chart.js/auto";
-import React from "react";
 import {Doughnut} from "react-chartjs-2";
+import React, {ReactElement} from "react";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
@@ -17,7 +17,7 @@ interface IProps {
   filters: IExpensesFilters;
 }
 
-export function ExpenseStatistics({filters, session}: IProps) {
+export function ExpenseStatistics({filters, session}: IProps): ReactElement {
   const {data} = useGetExpenses(filters, session.jwt);
 
   if(!data?.data || data?.data?.length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;

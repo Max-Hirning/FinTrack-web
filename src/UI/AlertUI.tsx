@@ -1,6 +1,6 @@
 "use client";
 
-import {toast} from "react-toastify";
+import {Id, toast} from "react-toastify";
 
 export enum IStatuses {
   info = "info",
@@ -9,6 +9,6 @@ export enum IStatuses {
   warning = "warning",
 }
 
-export function ToastifyCaller(status: IStatuses, message: string) {
+export function ToastifyCaller(status: IStatuses, message: string): Id {
   return toast[status](message);
 }

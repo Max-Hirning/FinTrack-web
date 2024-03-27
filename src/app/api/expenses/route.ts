@@ -1,8 +1,8 @@
 import {ICurrencyResponse} from "@/types/currency";
-import {IExpensesResponse} from "@/modules/analytics/types/expensesStatistics";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
+import {IExpensesResponse} from "@/modules/analytics/types/expensesStatistics";
 
-export async function GET(request: Request) {
+export async function GET(request: Request): Promise<Response> {
   const {searchParams} = new URL(request.url);
 
   const filters = searchParams.get("filters");

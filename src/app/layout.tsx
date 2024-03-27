@@ -1,10 +1,10 @@
 import "./globals.css";
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
-import React, {ReactNode} from "react";
 import {Loader} from "@/components/Loader";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React, {ReactElement, ReactNode} from "react";
 import {ProviderComponent} from "@/components/Provider";
 
 interface IProps {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 const inter = Inter({subsets: ["latin"]});
 
-export default function Layout({children}: IProps) {
+export default function Layout({children}: IProps): ReactElement {
   return (
     <html lang="en">
       <ProviderComponent>

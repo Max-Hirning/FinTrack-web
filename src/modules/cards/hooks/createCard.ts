@@ -7,9 +7,9 @@ import {cardAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useCreateCard() {
+export function useCreateCard(): UseMutationResult<IResponse<undefined>, unknown, Omit<ICardForm, "_id">, unknown> {
   const queryClient = useQueryClient();
   const {data: session, update} = useSession();
   

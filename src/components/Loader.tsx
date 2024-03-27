@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
 import {LoaderUI} from "@/UI/LoaderUI";
+import React, {ReactElement} from "react";
 import {QueryKeys} from "@/configs/queryKeys";
 import {useIsMutating} from "@tanstack/react-query";
 
-export function Loader() {
+export function Loader(): ReactElement {
   const isSignIn = useIsMutating({mutationKey: [QueryKeys.signIn]});
   const isSignUp = useIsMutating({mutationKey: [QueryKeys.signUp]});
 

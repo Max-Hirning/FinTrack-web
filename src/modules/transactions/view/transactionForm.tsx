@@ -1,12 +1,12 @@
 "use client";
 
 import {useFormik} from "formik";
-import React, {useMemo} from "react";
 import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {SelectUI} from "@/UI/SelectUI";
 import CloseIcon from "@/UI/icons/close";
 import {IUserSession} from "@/modules/profile";
+import React, {ReactElement, useMemo} from "react";
 import {ICategoryResponse} from "@/types/category";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
@@ -20,11 +20,11 @@ import {ITransactionForm, resetTransaction} from "@/modules/store";
 
 interface IProps {
   session: IUserSession;
+  filters: ICardsFilters;
   categories: ICategoryResponse[];
-  filters: Pick<ICardsFilters, "ownerId">;
 }
 
-export function TransactionForm({filters, session, categories}: IProps) {
+export function TransactionForm({filters, session, categories}: IProps): ReactElement {
   const {_id, ...transactionFormInitialValues} = useSelector((state: RootState) => state.transactionForm);
 
   const formik = useFormik({
@@ -214,7 +214,7 @@ export function TransactionForm({filters, session, categories}: IProps) {
                 formik.isValid &&
               Object.entries(formik.values).every(
                 ([key, value]: [string, string | number]) => {
-                  if (key === "id") return true;
+                  if(key === "id") return true;
                   return value.toString().length !== 0;
                 }
               )

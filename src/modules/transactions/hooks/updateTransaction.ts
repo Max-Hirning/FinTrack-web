@@ -8,10 +8,10 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {transactionsAPI} from "../controllers/api";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {ITransactionForm, resetTransaction} from "@/modules/store";
+import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useUpdateTransaction() {
+export function useUpdateTransaction(): UseMutationResult<IResponse<undefined>, unknown, ITransactionForm, unknown> {
   const {data: session} = useSession();
   const queryClient = useQueryClient();
   const dispatch: AppDispatch = useDispatch();

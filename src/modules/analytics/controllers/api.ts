@@ -10,7 +10,7 @@ class AnalyticsAPI {
 
   async getExpenses({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
     try {
-      if (!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw new Error("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -22,11 +22,7 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if (!response.ok) return ({
-        data: [],
-        statusCode: 400,
-        message: "Something went wrong",
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -36,7 +32,7 @@ class AnalyticsAPI {
 
   async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
     try {
-      if (!(cards && transactions && token)) throw new Error("No account info was found");
+      if(!(cards && transactions && token)) throw new Error("No account info was found");
       const queryParams = new URLSearchParams({
         currency,
         cards: JSON.stringify(cards),
@@ -49,15 +45,7 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if (!response.ok) return ({
-        data: {
-          incomes: 0,
-          balance: 0,
-          expenses: 0,
-        },
-        statusCode: 400,
-        message: "Something went wrong",
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -67,7 +55,7 @@ class AnalyticsAPI {
 
   async getCardsExpenses({currency, filters}: ICardsExpensesFilters, token: string): Promise<IResponse<ICardsExpensesResponse[]>> {
     try {
-      if (!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw new Error("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -79,11 +67,7 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if (!response.ok) return ({
-        data: [],
-        statusCode: 400,
-        message: "Something went wrong",
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -93,7 +77,7 @@ class AnalyticsAPI {
 
   async getWeeklyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IWeeklyStatisticsResponse}>> {
     try {
-      if (!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw new Error("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -105,11 +89,7 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if (!response.ok) return ({
-        data: {},
-        statusCode: 400,
-        message: "Something went wrong",
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -119,7 +99,7 @@ class AnalyticsAPI {
 
   async getYearlyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IYearlyStatisticsResponse}>> {
     try {
-      if (!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw new Error("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -131,11 +111,7 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if (!response.ok) return ({
-        data: {},
-        statusCode: 400,
-        message: "Something went wrong",
-      });
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {

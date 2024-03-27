@@ -1,7 +1,6 @@
 "use client";
 
 import {useFormik} from "formik";
-import React, {useMemo} from "react";
 import {InputUI} from "@/UI/InputUI";
 import {SelectUI} from "@/UI/SelectUI";
 import {ButtonUI} from "@/UI/ButtonUI";
@@ -11,6 +10,7 @@ import {useUpdateCard} from "../hooks/updateCard";
 import {useCreateCard} from "../hooks/createCard";
 import {useDeleteCard} from "../hooks/deleteCard";
 import {cardFormSchema} from "../schemas/cardForm";
+import React, {ReactElement, useMemo} from "react";
 import {ICardForm, resetCard} from "@/modules/store";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/types/store";
@@ -19,7 +19,7 @@ interface IProps {
   currencies: ICurrency[];
 }
 
-export function CardForm({currencies}: IProps) {
+export function CardForm({currencies}: IProps): ReactElement {
   const {_id, ...cardFormInitialValues} = useSelector((state: RootState) => state.cardForm);
 
   const formik = useFormik({
@@ -130,7 +130,7 @@ export function CardForm({currencies}: IProps) {
                 formik.isValid &&
               Object.entries(formik.values).every(
                 ([key, value]: [string, string | number]) => {
-                  if (key === "id") return true;
+                  if(key === "id") return true;
                   return value.toString().length !== 0;
                 }
               )

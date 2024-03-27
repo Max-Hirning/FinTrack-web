@@ -6,9 +6,9 @@ import {userAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {UseMutationResult, useMutation, useQueryClient} from "@tanstack/react-query";
 
-export function useUpdateUser() {
+export function useUpdateUser(): UseMutationResult<IResponse<undefined>, unknown, FormData, unknown> {
   const queryClient = useQueryClient();
   const {data: session, update} = useSession();
 

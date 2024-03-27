@@ -5,10 +5,10 @@ import {useSession} from "next-auth/react";
 import {userAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
-import {useMutation} from "@tanstack/react-query";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
+import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
-export function useDeleteUserAvatar() {
+export function useDeleteUserAvatar(): UseMutationResult<IResponse<undefined>, unknown, void, unknown> {
   const {data: session, update} = useSession();
 
   return useMutation({

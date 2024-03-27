@@ -1,9 +1,9 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {ICardResponse} from "@/modules/cards";
 
 interface IProps extends ICardResponse {}
 
-export function BankCard({_id, title, currency, balance, owner}: IProps) {
+export function BankCard({_id, title, currency, balance, owner}: IProps): ReactElement {
   return (
     <div className="bg-white border border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px] p-[20px] flex flex-col justify-between relative">
       <article>

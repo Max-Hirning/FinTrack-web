@@ -1,14 +1,14 @@
-import React from "react";
 import CardIcon from "@/UI/icons/card";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {setCard} from "@/modules/store";
 import {useDispatch} from "react-redux";
+import React, {ReactElement} from "react";
 import {ICardResponse} from "@/modules/cards";
 import {hexToRgba} from "@/controllers/colors";
 
 interface IProps extends ICardResponse {}
 
-export function BankCardLine({_id, title, color, currency, balance, owner}: IProps) {
+export function BankCardLine({_id, title, color, currency, balance, owner}: IProps): ReactElement {
   const dispatch = useDispatch();
 
   return (

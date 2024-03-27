@@ -10,11 +10,11 @@ class UserAPI {
       const response = await fetch(`${this.url}/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json; charset=utf-8",
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
-      if(!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -27,11 +27,11 @@ class UserAPI {
       const response = await fetch(`${this.url}/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json; charset=utf-8",
+          "Content-Type": "application/json",
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -44,11 +44,11 @@ class UserAPI {
       const response = await fetch(`${this.url}/avatar/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json; charset=utf-8",
+          "Content-Type": "application/json",
         },
         method: "DELETE",
       });
-      if(!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -60,12 +60,12 @@ class UserAPI {
     try {
       const response = await fetch(`${this.url}/profile/${userId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Bearer ${token}`,
         },
         body: data,
         method: "PUT",
       });
-      if(!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
@@ -78,12 +78,12 @@ class UserAPI {
       const response = await fetch(`${this.url}/security/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json; charset=utf-8",
+          "Content-Type": "application/json",
         },
         method: "PUT",
         body: JSON.stringify(data),
       });
-      if(!response.ok) throw new Error("Network response was not ok");
+      if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {

@@ -13,7 +13,7 @@ class CurrencyAPI {
         method: "GET",
         cache: "force-cache",
       });
-      if (!response.ok) return ({
+      if(!response.ok) return ({
         data: [],
         statusCode: 400,
         message: "Something went wrong",

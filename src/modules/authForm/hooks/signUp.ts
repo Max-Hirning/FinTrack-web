@@ -5,10 +5,10 @@ import {ISignUp} from "../types/signUp";
 import {useRouter} from "next/navigation";
 import {authAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
-import {useMutation} from "@tanstack/react-query";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
+import {UseMutationResult, useMutation} from "@tanstack/react-query";
 
-export function useSignUp() {
+export function useSignUp(): UseMutationResult<IResponse<undefined>, unknown, Omit<ISignUp, "confirmPassword">, unknown> {
   const {push} = useRouter();
 
   return useMutation({

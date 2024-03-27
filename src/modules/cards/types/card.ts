@@ -2,7 +2,6 @@ import {IUserResponse} from "@/modules/profile";
 
 export interface ICardsFilters {
   cards: string[];
-  ownerId: string;
 }
 export interface ICardResponse {
   _id: string;

@@ -1,5 +1,5 @@
 import WarningIcon from "@/UI/icons/warning";
-import React, {InputHTMLAttributes} from "react";
+import React, {InputHTMLAttributes, ReactElement} from "react";
 
 interface IProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   id: string;
@@ -12,7 +12,7 @@ interface IProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" 
   changeText: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function InputUI({id, maxDate, styles, label, value, error, errorMsg, changeText, ...props}: IProps) {
+export function InputUI({id, maxDate, styles, label, value, error, errorMsg, changeText, ...props}: IProps): ReactElement {
   return (
     <fieldset className={styles || ""}>
       <label

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import {Metadata} from "next";
-import React, {Suspense} from "react";
 import {getServerSession} from "next-auth";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
+import React, {ReactElement, Suspense} from "react";
 import {CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
@@ -15,23 +15,20 @@ export const metadata: Metadata = {
   description: "Overview you finances"
 };
 
-export default async function Page() {
+export default async function Page(): Promise<ReactElement> {
   const session = await getServerSession(authOptions);
 
+  const cardsFilters: ICardsFilters = {
+    cards: (session?.user as IUserSession).cards
+  };
   const expensesFilters: IExpensesFilters = {
     currency: (session?.user as IUserSession).currency,
     filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
   };
-
   const weeklyFilters: IWeeklyStatisticsFilters = {
     currency: (session?.user as IUserSession).currency,
     filters: {cards: (session?.user as IUserSession).cards, date: getCurrentWeekRange()}
   };
-
-  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
-    ownerId: (session?.user as IUserSession).id
-  };
-
   const transactionsFilters: Omit<ITransactionsFilters, "date"> = {
     page: 1,
     perPage: 10,

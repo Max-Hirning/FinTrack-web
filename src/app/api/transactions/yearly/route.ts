@@ -3,7 +3,7 @@ import {getDateRangeObject} from "@/controllers/dates";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
 import {IYearlyStatisticsResponse} from "@/modules/analytics/types/yearlyStatistics";
 
-export async function GET(request: Request) {
+export async function GET(request: Request): Promise<Response> {
   const {searchParams} = new URL(request.url);
 
   const filters = searchParams.get("filters");

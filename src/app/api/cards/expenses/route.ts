@@ -2,7 +2,7 @@ import {ICurrencyResponse} from "@/types/currency";
 import {ICardsExpensesResponse} from "@/modules/analytics";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
 
-export async function GET(request: Request) {
+export async function GET(request: Request): Promise<Response> {
   const {searchParams} = new URL(request.url);
 
   const filters = searchParams.get("filters");

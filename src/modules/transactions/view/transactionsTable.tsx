@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {LoaderUI} from "@/UI/LoaderUI";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
@@ -20,7 +20,7 @@ interface IProps {
   filters: Omit<ITransactionsFilters, "date">;
 }
 
-export function TransactionsTable({filters, session}: IProps) {
+export function TransactionsTable({filters, session}: IProps): ReactElement {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const [page, setPage] = useState<number>(1);
@@ -66,7 +66,7 @@ export function TransactionsTable({filters, session}: IProps) {
                           <td className="py-[10px] w-[350px] h-full flex items-center">
                             <div
                               style={{backgroundColor: hexToRgba(category.color, 0.5)}}
-                              className="flex rounded-[20px] h-[55px] w-[55px] justify-center items-center"
+                              className="flex rounded-[20px] h-[55px] min-w-[55px] min-h-[55px] w-[55px] justify-center items-center"
                             >
                               <Image
                                 width={35}

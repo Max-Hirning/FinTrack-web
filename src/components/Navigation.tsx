@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import {IRoute} from "@/types/routes";
 import {routes} from "@/configs/routes";
+import React, {ReactElement} from "react";
 import {usePathname} from "next/navigation";
 
-export function Navigation() {
+export function Navigation(): ReactElement {
   const pathName = usePathname();
 
   return (

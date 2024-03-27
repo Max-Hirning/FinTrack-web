@@ -1,5 +1,5 @@
-import React from "react";
 import {ButtonUI} from "@/UI/ButtonUI";
+import React, {ReactElement} from "react";
 
 interface IProps {
   page: number;
@@ -8,7 +8,7 @@ interface IProps {
   onChange: (value: number) => void;
 }
 
-export function Pagination({page, count, disabled, onChange}: IProps) {
+export function Pagination({page, count, disabled, onChange}: IProps): ReactElement {
   return (
     <div className="float-right flex gap-x-[10px] mt-[15px]">
       <ButtonUI

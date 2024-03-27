@@ -10,12 +10,24 @@
         "semi": ["error", "always"],
         "no-multi-spaces": ["error"],
         "quotes": ["error", "double"],
+        "keyword-spacing": ["error", {
+            "before": true,
+            "after": true,
+            "overrides": {
+                "if": { "after": false },
+                "for": { "after": false }
+            }
+        }],
         "linebreak-style": ["error", "windows"],
         "object-curly-spacing": ["error", "never"],
         "@tanstack/query/exhaustive-deps": "error",
+        "@typescript-eslint/no-explicit-any": "error",
         "@tanstack/query/stable-query-client": "error",
         "@tanstack/query/no-rest-destructuring": "warn",
-        "@typescript-eslint/space-before-blocks": "error"
+        "@typescript-eslint/space-before-blocks": "error",
+        "@typescript-eslint/interface-name-prefix": "off",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "error"
     },
     "plugins": [
         "react",

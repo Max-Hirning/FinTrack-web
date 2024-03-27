@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import {useFormik} from "formik";
 import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {useSignIn} from "../hooks/signIn";
+import React, {ReactElement} from "react";
 import {signInModel} from "../models/signIn";
 import {signInSchema} from "../schemas/signIn";
 
-export function SignInForm() {
+export function SignInForm(): ReactElement {
   const formik = useFormik({
     initialValues: signInModel,
     validationSchema: signInSchema,

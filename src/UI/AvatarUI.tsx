@@ -1,5 +1,5 @@
-import React from "react";
 import Image from "next/image";
+import React, {ReactElement} from "react";
 import ProfileIcon from "@/UI/icons/profile";
 
 interface IProps {
@@ -7,7 +7,7 @@ interface IProps {
   avatar: string|null|undefined;
 }
 
-export function AvatarUI({avatar, size}: IProps) {
+export function AvatarUI({avatar, size}: IProps): ReactElement {
   if(avatar) {
     return (
       <Image

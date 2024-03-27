@@ -1,6 +1,6 @@
-import React from "react";
+import React, {ReactElement} from "react";
 
-export function AccountInfoCardSkeleton() {
+export function AccountInfoCardSkeleton(): ReactElement {
   return (
     <div className="bg-white border border-[#DFEAF2] rounded-[25px] h-[120px] flex gap-[10px] p-[20px] items-center">
       <div className="bg-slate-200 rounded-full col-span-2 min-w-[70px] w-[70px] h-[70px]"></div>

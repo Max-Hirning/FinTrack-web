@@ -1,8 +1,8 @@
 "use client";
 
 import "chart.js/auto";
-import React from "react";
 import {Bar} from "react-chartjs-2";
+import React, {ReactElement} from "react";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {getWeekDayName} from "@/controllers/dates";
@@ -16,7 +16,7 @@ interface IProps {
   filters: IWeeklyStatisticsFilters;
 }
 
-export function WeeklyStatistics({filters, session}: IProps) {
+export function WeeklyStatistics({filters, session}: IProps): ReactElement {
   const {data} = useGetWeeklyStatistics(filters, session.jwt);
 
   return (

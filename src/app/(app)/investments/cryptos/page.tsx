@@ -1,5 +1,5 @@
-import React from "react";
 import {Metadata} from "next";
+import React, {ReactElement} from "react";
 
 export const metadata: Metadata = {
   title: "Crypto investments",
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 };
 
-export default function Page() {
+export default function Page(): ReactElement {
   return (
     <>
       <h1>Comming soon...</h1>
