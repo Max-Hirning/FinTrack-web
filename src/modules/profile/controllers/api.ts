@@ -1,6 +1,7 @@
 import {IResponse} from "@/types/api";
 import {IUserResponse} from "../types/user";
 import {ISecurityForm} from "../types/securityForm";
+import {IContactUsForm} from "../types/contactUsFrom";
 
 class UserAPI {
   constructor(protected readonly url: string) {}
@@ -64,6 +65,24 @@ class UserAPI {
         },
         body: data,
         method: "PUT",
+      });
+      if(!response.ok) throw new Error(response.statusText);
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  }
+
+  async contactUs(data: IContactUsForm, userId: string, token: string): Promise<IResponse<undefined>> {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact-us`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({...data, userId}),
       });
       if(!response.ok) throw new Error(response.statusText);
       const result = await response.json();
