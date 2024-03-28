@@ -28,22 +28,22 @@ export function TransactionsTable({filters, session}: IProps): ReactElement {
 
   return (
     <>
-      <section className="card pb-[20px] relative max-w-fit px-[20px] h-[397px] overflow-auto">
-        <table className="w-full h-full min-w-[1000px]">
-          <thead className="sticky top-0 left-0 bg-[white]">
-            <tr>
-              <th className="w-[350px] text-start pt-[20px] pb-[10px]">Description</th>
-              <th className="w-[250px] text-start pt-[20px] pb-[10px]">Category</th>
-              <th className="w-[130px] text-start pt-[20px] pb-[10px]">Date</th>
-              <th className="w-[150px] text-start pt-[20px] pb-[10px]">Amount</th>
-              <th className="w-[100px] text-start pt-[20px] pb-[10px]">Card</th>
-            </tr>
-          </thead>
-          {
-            (isLoading) ?
-              <LoaderUI styles="absolute left-[calc(50%-88px)] mt-[75px]"/> :
-              (isError || !data?.data || data?.data.data.data.length === 0) ?
-                <p className="text-danger absolute left-[calc(50%-92.58px)] mt-[75px] text-[24px] font-bold">No Data</p> :
+      <section className="card flex pb-[20px] w-full px-[20px] h-[397px] overflow-auto">
+        {
+          (isLoading) ?
+            <LoaderUI styles="m-auto"/> :
+            (isError) ?
+              <p className="text-danger m-auto text-[24px] font-bold">No Data</p>:
+              <table className="w-full h-full min-w-[1000px]">
+                <thead className="sticky top-0 left-0 bg-[white]">
+                  <tr>
+                    <th className="w-[350px] text-start pt-[20px] pb-[10px]">Description</th>
+                    <th className="w-[250px] text-start pt-[20px] pb-[10px]">Category</th>
+                    <th className="w-[130px] text-start pt-[20px] pb-[10px]">Date</th>
+                    <th className="w-[150px] text-start pt-[20px] pb-[10px]">Amount</th>
+                    <th className="w-[100px] text-start pt-[20px] pb-[10px]">Card</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {
                     (data?.data?.data.data || []).map(({_id, category, card, description, date, amount}: ITransactionResponse, index: number) => {
@@ -86,8 +86,8 @@ export function TransactionsTable({filters, session}: IProps): ReactElement {
                     })
                   }
                 </tbody>
-          }
-        </table>
+              </table>
+        }
       </section>
       {
         (data?.data?.page && data?.data?.totalPages) &&

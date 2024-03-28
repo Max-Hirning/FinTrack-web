@@ -10,7 +10,7 @@ interface IProps {
 
 export function Pagination({page, count, disabled, onChange}: IProps): ReactElement {
   return (
-    <div className="float-right flex gap-x-[10px] mt-[15px]">
+    <div className="flex gap-x-[10px] mt-[15px]">
       <ButtonUI
         variant="text"
         title="Previous pages"
