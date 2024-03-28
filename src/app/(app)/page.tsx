@@ -1,39 +1,23 @@
 import Link from "next/link";
 import {Metadata} from "next";
-import {getServerSession} from "next-auth";
-import {IUserSession} from "@/modules/profile";
-import {authOptions} from "@/configs/authOptions";
+import {CardsListWrapper} from "@/modules/cards";
 import React, {ReactElement, Suspense} from "react";
-import {CardsList, ICardsFilters} from "@/modules/cards";
+import {ExpenseStatisticsWrapper} from "@/modules/analytics";
+import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
-import {getCurrentMonthRange, getCurrentWeekRange} from "@/controllers/dates";
-import {ITransactionsFilters, TransactionsList} from "@/modules/transactions";
-import {ExpenseStatistics, IExpensesFilters, IWeeklyStatisticsFilters, WeeklyStatistics} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   description: "Overview you finances"
 };
 
-export default async function Page(): Promise<ReactElement> {
-  const session = await getServerSession(authOptions);
+export default function Page(): ReactElement {
+  // const session = await getServerSession(authOptions);
 
-  const cardsFilters: ICardsFilters = {
-    cards: (session?.user as IUserSession).cards
-  };
-  const expensesFilters: IExpensesFilters = {
-    currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
-  };
-  const weeklyFilters: IWeeklyStatisticsFilters = {
-    currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, date: getCurrentWeekRange()}
-  };
-  const transactionsFilters: Omit<ITransactionsFilters, "date"> = {
-    page: 1,
-    perPage: 10,
-    cards: (session?.user as IUserSession).cards,
-  };
+  // const weeklyFilters: IWeeklyStatisticsFilters = {
+  //   currency: (session?.user as IUserSession).currency,
+  //   filters: {cards: (session?.user as IUserSession).cards, date: getCurrentWeekRange()}
+  // };
 
   return (
     <>
@@ -55,17 +39,13 @@ export default async function Page(): Promise<ReactElement> {
                 <BankCardSkeleton/>
               </>
             }>
-              <CardsList 
-                elStyle="card"
-                filters={cardsFilters}
-                session={session?.user as IUserSession}
-              />
+              <CardsListWrapper elStyle="card"/>
             </Suspense>
           </section>
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transaction</h1>
-          <section className="card max-w-fit py-[10px] px-[20px] w-[380px] h-[235px] overflow-auto">
+          <section className="card flex flex-col py-[10px] px-[20px] w-[380px] h-[235px] overflow-auto">
             <Suspense fallback={
               <>
                 <TransactionSkeleton shrinked={true}/>
@@ -75,17 +55,13 @@ export default async function Page(): Promise<ReactElement> {
                 <TransactionSkeleton shrinked={true}/>
               </>
             }>
-              <TransactionsList 
-                shrinked={true}
-                filters={transactionsFilters}
-                session={session?.user as IUserSession}
-              />
+              <TransactionsListWrapper shrinked={true}/>
             </Suspense>
           </section>
         </section>
       </section>
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
-        <section className="w-full max-w-[730px]">
+        {/* <section className="w-full max-w-[730px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Weekly Activity</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[322px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full p-[25px] h-[322px]">
@@ -95,15 +71,12 @@ export default async function Page(): Promise<ReactElement> {
               />
             </section>
           </Suspense>
-        </section>
+        </section>*/}
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Expense Statistics</h1>
           <Suspense fallback={<section className="bg-slate-200 card border max-w-[350px] lg:w-[350px] w-full h-[322px] p-[25px] animate-pulse"></section>}>
             <section className="card max-w-[350px] w-full p-[25px] flex justify-center items-center lg:w-[350px] h-[322px]">
-              <ExpenseStatistics
-                filters={expensesFilters}
-                session={session?.user as IUserSession}
-              />
+              <ExpenseStatisticsWrapper/>
             </section>
           </Suspense>
         </section>

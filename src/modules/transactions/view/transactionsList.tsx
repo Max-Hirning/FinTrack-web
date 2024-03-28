@@ -36,7 +36,7 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
     return "";
   };
 
-  if(isLoading || isError) {
+  if(isLoading) {
     return (
       <>
         <TransactionSkeleton shrinked={shrinked}/>
@@ -47,6 +47,8 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
       </>
     );
   }
+
+  if(isError) return <p className={`m-auto text-danger text-[24px] font-bold ${!shrinked && "md:w-[630px]"} text-center`}>No Data</p>;
 
   return (
     <>

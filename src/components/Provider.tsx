@@ -15,6 +15,11 @@ interface IProps {
 
 export function ProviderComponent({children}: IProps): ReactElement {
   const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        throwOnError: false,
+      },
+    },
     queryCache: new QueryCache({
       onError: (error: unknown): void => {
         if((error as IResponse<undefined>)?.statusCode === 401) {

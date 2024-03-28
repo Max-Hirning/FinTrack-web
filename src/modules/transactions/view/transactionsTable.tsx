@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import React, {ReactElement, useState} from "react";
 import {LoaderUI} from "@/UI/LoaderUI";
 import {useDispatch} from "react-redux";
 import {useRouter} from "next/navigation";
@@ -10,6 +9,7 @@ import {setTransction} from "@/modules/store";
 import {IUserSession} from "@/modules/profile";
 import {hexToRgba} from "@/controllers/colors";
 import {Pagination} from "@/components/Pagination";
+import React, {ReactElement, useState} from "react";
 import {useGetTransactions} from "../hooks/getTransactions";
 import {amountColor, amountSymbol} from "../controllers/styles";
 import {convertISODateToCustomFormat} from "@/controllers/dates";

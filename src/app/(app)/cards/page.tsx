@@ -1,14 +1,9 @@
 import {Metadata} from "next";
-import {getServerSession} from "next-auth";
-import {IUserSession} from "@/modules/profile";
-import {authOptions} from "@/configs/authOptions";
 import React, {Suspense, ReactElement} from "react";
 import {currencyAPI} from "@/controllers/api/currency";
-import {getCurrentMonthRange} from "@/controllers/dates";
+import {CardForm, CardsListWrapper} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
-import {CardForm, CardsList, ICardsFilters} from "@/modules/cards";
 import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
-import {CardExpenseStatistics, ICardsExpensesFilters} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   description: "Overview you cards"
@@ -16,15 +11,12 @@ export const metadata: Metadata = {
 
 export default async function Page(): Promise<ReactElement> {
   const currencies = await currencyAPI.getAll();
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
-  const cardsFilters: ICardsFilters = {
-    cards: (session?.user as IUserSession).cards
-  };
-  const cardsExpensesFilters: ICardsExpensesFilters = {
-    currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
-  };
+  // const cardsExpensesFilters: ICardsExpensesFilters = {
+  //   currency: (session?.user as IUserSession).currency,
+  //   filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
+  // };
 
   return (
     <>
@@ -39,16 +31,12 @@ export default async function Page(): Promise<ReactElement> {
               <BankCardSkeleton/>
             </>
           }>
-            <CardsList 
-              elStyle="card"
-              filters={cardsFilters}
-              session={session?.user as IUserSession}
-            />
+            <CardsListWrapper elStyle="card"/>
           </Suspense>
         </section>
       </section>
       <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
-        <section className="w-full max-w-[350px]">
+        {/* <section className="w-full max-w-[350px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card Expense Statistics</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[350px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full h-[350px] flex items-center justify-center p-[25px]">
@@ -58,7 +46,7 @@ export default async function Page(): Promise<ReactElement> {
               />
             </section>
           </Suspense>
-        </section>
+        </section> */}
         <section className="max-w-fit max-lg:w-full lg:w-[calc(100%-375px)]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card List</h1>
           <section className="flex flex-col h-[350px] gap-[25px] pb-[5px] pr-[5px] overflow-auto">
@@ -70,11 +58,7 @@ export default async function Page(): Promise<ReactElement> {
                 <BankCardLineSkeleton/>
               </>
             }>
-              <CardsList 
-                elStyle="line"
-                filters={cardsFilters}
-                session={session?.user as IUserSession}
-              />
+              <CardsListWrapper elStyle="line"/>
             </Suspense>
           </section>
         </section>

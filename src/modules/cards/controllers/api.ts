@@ -14,17 +14,17 @@ class CardAPI {
         },
         method: "DELETE",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
   async getAll({cards}: ICardsFilters, token: string): Promise<IResponse<ICardsListResponse>> {
     try {
-      if(!(cards && token)) throw new Error("No cards were found");
+      if(!(cards && token)) throw ("No cards were found");
       const filters: { ownerId?: string, cards?: string } = {};
       if(cards) filters.cards = JSON.stringify(cards);
       const queryParams = new URLSearchParams(filters as Record<string, string>);
@@ -35,11 +35,11 @@ class CardAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
@@ -53,11 +53,11 @@ class CardAPI {
         method: "PUT",
         body: JSON.stringify(data),
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
@@ -71,11 +71,11 @@ class CardAPI {
         method: "POST",
         body: JSON.stringify({...data, ownerId}),
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 }

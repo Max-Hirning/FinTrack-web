@@ -9,10 +9,10 @@ export async function GET(request: Request): Promise<Response> {
   const currency = searchParams.get("currency");
   
   const authHeader = request.headers.get("authorization");
-  if(!authHeader) throw new Error("Invalid token");
+  if(!authHeader) throw ("Invalid token");
   const bearer = authHeader.split(" ")[0];
   const token = authHeader.split(" ")[1];
-  if(bearer !== "Bearer" || !token) throw new Error("Invalid token");
+  if(bearer !== "Bearer" || !token) throw ("Invalid token");
   if(currency && filters) {
     let currenciesRates: ICurrencyResponse<{[key: string]: {[key: string]: number}}>|null = null;
     const transactions = await transactionsAPI.getAll(JSON.parse(filters), token);

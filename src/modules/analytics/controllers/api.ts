@@ -10,7 +10,7 @@ class AnalyticsAPI {
 
   async getExpenses({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
     try {
-      if(!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -22,17 +22,17 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
   async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
     try {
-      if(!(cards && transactions && token)) throw new Error("No account info was found");
+      if(!(cards && transactions && token)) throw ("No account info was found");
       const queryParams = new URLSearchParams({
         currency,
         cards: JSON.stringify(cards),
@@ -45,17 +45,17 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
   async getCardsExpenses({currency, filters}: ICardsExpensesFilters, token: string): Promise<IResponse<ICardsExpensesResponse[]>> {
     try {
-      if(!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -67,17 +67,17 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
   async getWeeklyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IWeeklyStatisticsResponse}>> {
     try {
-      if(!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -89,17 +89,17 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 
   async getYearlyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IYearlyStatisticsResponse}>> {
     try {
-      if(!(filters && token)) throw new Error("No expenses were found");
+      if(!(filters && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
@@ -111,11 +111,11 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw new Error(response.statusText);
+      if(!response.ok) throw (response.statusText);
       const result = await response.json();
       return result;
     } catch (error) {
-      throw new Error(error as string);
+      throw (error as string);
     }
   }
 }
