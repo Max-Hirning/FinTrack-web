@@ -26,7 +26,6 @@ interface IProps {
 
 export function TransactionForm({filters, session, categories}: IProps): ReactElement {
   const {_id, ...transactionFormInitialValues} = useSelector((state: RootState) => state.transactionForm);
-
   const formik = useFormik({
     validationSchema: transactionFormSchema,
     initialValues: transactionFormInitialValues, 

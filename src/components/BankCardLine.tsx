@@ -6,9 +6,11 @@ import React, {ReactElement} from "react";
 import {ICardResponse} from "@/modules/cards";
 import {hexToRgba} from "@/controllers/colors";
 
-interface IProps extends ICardResponse {}
+interface IProps extends ICardResponse {
+  userId: string;
+}
 
-export function BankCardLine({_id, title, color, currency, balance, owner}: IProps): ReactElement {
+export function BankCardLine({_id, userId, title, color, currency, balance, owner}: IProps): ReactElement {
   const dispatch = useDispatch();
 
   return (
@@ -35,7 +37,8 @@ export function BankCardLine({_id, title, color, currency, balance, owner}: IPro
         type="button"
         variant="text"
         styles="h-[40px] w-[120px]"
-        onClick={() => dispatch(setCard({_id, title, color, currency, balance}))}
+        disabled={userId !== owner._id}
+        onClick={() => (userId === owner._id) && dispatch(setCard({_id, title, color, currency, balance}))}
       >View Details</ButtonUI>
     </div>
   );

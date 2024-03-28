@@ -58,17 +58,19 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
             <div 
               key={_id}
               onClick={() => {
-                dispatch(setTransction({
-                  _id,
-                  amount,
-                  description,
-                  cardId: card._id,
-                  categoryId: category._id,
-                  date: new Date(date).toISOString().split("T")[0],
-                }));
-                router.push("/transactions#date");
+                if(card.owner._id === session.id) {
+                  dispatch(setTransction({
+                    _id,
+                    amount,
+                    description,
+                    cardId: card._id,
+                    categoryId: category._id,
+                    date: new Date(date).toISOString().split("T")[0],
+                  }));
+                  router.push("/transactions#date");
+                }
               }}
-              className={`flex items-center cursor-pointer py-[10px] hover:bg-slate-200 active:bg-slate-300 ${!shrinked && "md:w-[630px]"}`}
+              className={`flex items-center cursor-pointer py-[10px] hover:bg-slate-200 ${(card.owner._id === session.id) && "active:bg-slate-300"} ${!shrinked && "md:w-[630px]"}`}
             >
               <div className="mr-[10px] flex items-center w-[220px]">
                 <div

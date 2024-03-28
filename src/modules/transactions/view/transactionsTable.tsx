@@ -51,17 +51,19 @@ export function TransactionsTable({filters, session}: IProps): ReactElement {
                         <tr 
                           key={_id}
                           onClick={() => {
-                            dispatch(setTransction({
-                              _id,
-                              amount,
-                              description,
-                              cardId: card._id,
-                              categoryId: category._id,
-                              date: new Date(date).toISOString().split("T")[0],
-                            }));
-                            router.push("/transactions#date");
+                            if(card.owner._id === session.id) {
+                              dispatch(setTransction({
+                                _id,
+                                amount,
+                                description,
+                                cardId: card._id,
+                                categoryId: category._id,
+                                date: new Date(date).toISOString().split("T")[0],
+                              }));
+                              router.push("/transactions#date");
+                            }
                           }}
-                          className={`cursor-pointer hover:bg-slate-200 active:bg-slate-300 ${((data?.data?.data.data || []).length-1 !== index) && "border-b border-[#E6EFF5]"}`}
+                          className={`cursor-pointer hover:bg-slate-200 ${(card.owner._id === session.id) && "active:bg-slate-300"} ${((data?.data?.data.data || []).length-1 !== index) && "border-b border-[#E6EFF5]"}`}
                         >
                           <td className="py-[10px] w-[350px] h-full flex items-center">
                             <div

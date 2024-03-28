@@ -42,7 +42,7 @@ export default async function Page(): Promise<ReactElement> {
       </section>
       <section className="mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Recent Transactions</h1>
-        <section className="max-w-[1040px] flex flex-col w-full h-[452px]">
+        <section className="max-w-[1055px] flex flex-col w-full h-[452px]">
           <Suspense fallback={<section className="bg-slate-200 max-w-[1055.2px] w-full card border h-[397px] p-[2px] animate-pulse"></section>}>
             <TransactionsTableWrapper/>
           </Suspense>

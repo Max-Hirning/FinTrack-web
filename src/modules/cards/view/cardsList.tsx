@@ -104,6 +104,7 @@ export function CardsList({elStyle, filters, session}: IProps): ReactElement {
               <BankCardLine 
                 {...card}
                 key={card._id}
+                userId={session.id}
               />
             );
           })
