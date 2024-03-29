@@ -5,3 +5,4 @@ export {WeeklyStatisticsWrapper} from "./view/wrappers/weeklyStatisticsWrapper";
 export {YearlyStatisticsWrapper} from "./view/wrappers/yearlyStatisticsWrapper";
 export {ExpenseStatisticsWrapper} from "./view/wrappers/expenseStatisticsWrapper";
 export {CardsExpenseStatisticsWrapper} from "./view/wrappers/cardsExpenseStatisticsWrapper";
+export {MonthlyExpensesStatisticsWrapper} from "./view/wrappers/monthlyExpensesStatisticsWrapper";

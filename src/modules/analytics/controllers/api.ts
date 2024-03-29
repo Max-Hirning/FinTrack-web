@@ -3,19 +3,20 @@ import {IAccountFilters, IAccountResponse} from "../types/account";
 import {IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
 import {IYearlyStatisticsResponse} from "../types/yearlyStatistics";
 import {IExpensesFilters, IExpensesResponse} from "../types/expensesStatistics";
+import {IMonthlyExpensesStatisticsFilters, IMonthlyExpensesStatisticsResponse} from "../types/monthlyExpensesStatistics";
 import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpensesStatistics";
 
 class AnalyticsAPI {
   constructor(protected readonly url: string) {}
 
-  async getExpenses({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
+  async getExpensesCategories({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
     try {
       if(!(filters && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/expenses?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/expenses/category?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -60,7 +61,7 @@ class AnalyticsAPI {
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/cards/expenses?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/expenses/cards?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -107,6 +108,28 @@ class AnalyticsAPI {
       const response = await fetch(`${this.url}/transactions/yearly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`, 
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        method: "GET",
+      });
+      const result = await response.json();
+      if(!response.ok) throw (result);
+      return result;
+    } catch (error) {
+      throw (error as string);
+    }
+  }
+
+  async getExpenses({currency, filters}: IMonthlyExpensesStatisticsFilters, token: string): Promise<IResponse<{[key: string]: IMonthlyExpensesStatisticsResponse}>> {
+    try {
+      if(!(filters && token)) throw ("No expenses were found");
+      const queryParams = new URLSearchParams({
+        currency,
+        filters: JSON.stringify(filters),
+      });
+      const response = await fetch(`${this.url}/expenses?${queryParams.toString()}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",

@@ -15,13 +15,13 @@ export async function ExpenseStatisticsWrapper(): Promise<ReactElement> {
 
   const expensesFilters: IExpensesFilters = {
     currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, date: getCurrentMonthRange()}
+    filters: {cards: (session?.user as IUserSession).cards, onlyExpenses: true, date: getCurrentMonthRange()}
   };
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getExpenses, JSON.stringify(expensesFilters)],
-    queryFn: () => analyticsAPI.getExpenses(expensesFilters, (session?.user as IUserSession).jwt),
+    queryFn: () => analyticsAPI.getExpensesCategories(expensesFilters, (session?.user as IUserSession).jwt),
   });
 
   return (

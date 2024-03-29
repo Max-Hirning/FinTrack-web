@@ -22,17 +22,19 @@ export function YearlyStatistics({filters, session}: IProps): ReactElement {
   return (
     <Bar
       data={{
-        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getMonthName(+el)) : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getMonthName(el)) : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"],
         datasets: [
           {
             label: "Incomes",
-            data: (data?.data) ? Object.values(data.data).map((el: IYearlyStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0,0,0,0,0,0],
+            data: (data?.data) ? Object.values(data.data).map((el: IYearlyStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0,0,0,0,0,0,0],
             backgroundColor: "#41D4A8",
+            borderRadius: 5,
           },
           {
             label: "Expenses",
-            data: (data?.data) ? Object.values(data.data).map((el: IYearlyStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0,0,0,0,0,0],
+            data: (data?.data) ? Object.values(data.data).map((el: IYearlyStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0,0,0,0,0,0,0],
             backgroundColor: "#FF4B4A",
+            borderRadius: 5,
           },
         ],
       }}

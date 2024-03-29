@@ -28,11 +28,13 @@ export function WeeklyStatistics({filters, session}: IProps): ReactElement {
             label: "Incomes",
             data: (data?.data) ? Object.values(data.data).map((el: IWeeklyStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0],
             backgroundColor: "#41D4A8",
+            borderRadius: 5,
           },
           {
             label: "Expenses",
             data: (data?.data) ? Object.values(data.data).map((el: IWeeklyStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0],
             backgroundColor: "#FF4B4A",
+            borderRadius: 5,
           },
         ],
       }}

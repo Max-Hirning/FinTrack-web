@@ -1,13 +1,13 @@
 import {ICurrencyResponse} from "@/types/currency";
-import {getDateRangeObject} from "@/controllers/dates";
 import {ITransactionResponse, transactionsAPI} from "@/modules/transactions";
+import {IExpensesResponse} from "@/modules/analytics/types/expensesStatistics";
 
 export async function GET(request: Request): Promise<Response> {
   const {searchParams} = new URL(request.url);
 
   const filters = searchParams.get("filters");
   const currency = searchParams.get("currency");
-
+  
   const authHeader = request.headers.get("authorization");
   if(!authHeader) throw ("Invalid token");
   const bearer = authHeader.split(" ")[0];
@@ -24,29 +24,41 @@ export async function GET(request: Request): Promise<Response> {
       const response = await fetch(url);
       currenciesRates = await response.json();
     }
-    const responseObj = getDateRangeObject(JSON.parse(filters).date[0], JSON.parse(filters).date[1], "m", 0);
-    (transactions.data?.data.data || []).map((el: ITransactionResponse) => {
-      const date = new Date(el.date);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString(); // Month is zero-indexed
-      const yearMonth = `${year}-${month}`;
-      if(responseObj[yearMonth] !== undefined) {
-        const currencyRate = currenciesRates?.rates[`${date.toISOString().split("T")[0]}T23:59:00.000Z`]?.[el.card.currency];
+    const cardsExpenses = (transactions.data?.data.data || []).reduce((res: {[key: string]: IExpensesResponse}, el: ITransactionResponse) => {
+      if(el.amount < 0) {
+        const currencyRate = currenciesRates?.rates[`${el.date.split("T")[0]}T23:59:00.000Z`]?.[el.card.currency];
         if(currencyRate) {
-          responseObj[yearMonth] = +(((responseObj[yearMonth] as number) + (Math.abs(el.amount)/currencyRate)).toFixed(2));
+          if(res[el.category._id]) {
+            res[el.category._id].amount = +(res[el.category._id].amount + +((el.amount / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+          } else {
+            res[el.category._id] = {
+              color: el.category.color,
+              label: el.category.title,
+              amount: +((el.amount / +(currencyRate.toFixed(2))).toFixed(2)),
+            };
+          }
         } else {
-          responseObj[yearMonth] = +(((responseObj[yearMonth] as number) + Math.abs(el.amount)).toFixed(2));
+          if(res[el.category._id]) {
+            res[el.category._id].amount = +(res[el.category._id].amount + +((el.amount).toFixed(2))).toFixed(2);
+          } else {
+            res[el.category._id] = {
+              color: el.category.color,
+              label: el.category.title,
+              amount: +((el.amount).toFixed(2)),
+            };
+          }
         }
       }
-    });
+      return res;
+    }, {});
     return Response.json({
       statusCode: 200,
-      data: responseObj,
+      data: Object.values(cardsExpenses),
       message: "Expenses were calculated",
     });
   }
   return Response.json({
-    data: {},
+    data: [],
     statusCode: 200,
     message: "Expenses were calculated",
   });

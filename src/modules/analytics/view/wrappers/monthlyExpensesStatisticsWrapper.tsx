@@ -4,30 +4,30 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
 import {analyticsAPI} from "../../controllers/api";
-import {getCurrentMonthRange} from "@/controllers/dates";
-import {CardExpenseStatistics} from "../cardExpenseStatistics";
-import {ICardsExpensesFilters} from "../../types/cardsExpensesStatistics";
+import {getSixPrevMonthsRange} from "@/controllers/dates";
+import {MonthlyExpensesStatistics} from "../monthlyExpensesStatistics";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
+import {IMonthlyExpensesStatisticsFilters} from "../../types/monthlyExpensesStatistics";
 
-export async function CardsExpenseStatisticsWrapper(): Promise<ReactElement> {
+export async function MonthlyExpensesStatisticsWrapper(): Promise<ReactElement> {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
 
-  const cardsExpensesFilters: ICardsExpensesFilters = {
+  const monthlyFilters: IMonthlyExpensesStatisticsFilters = {
     currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, onlyExpenses: true, date: getCurrentMonthRange()}
+    filters: {cards: (session?.user as IUserSession).cards, onlyExpenses: true, date: getSixPrevMonthsRange()}
   };
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCardsExpenses, JSON.stringify(cardsExpensesFilters)],
-    queryFn: () => analyticsAPI.getCardsExpenses(cardsExpensesFilters, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getMonthlyExpenses, JSON.stringify(monthlyFilters)],
+    queryFn: () => analyticsAPI.getExpenses(monthlyFilters, (session?.user as IUserSession).jwt),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardExpenseStatistics
-        filters={cardsExpensesFilters}
+      <MonthlyExpensesStatistics
+        filters={monthlyFilters}
         session={session?.user as IUserSession}
       />
     </HydrationBoundary>

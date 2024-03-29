@@ -27,25 +27,28 @@ export async function GET(request: Request): Promise<Response> {
       currenciesRates = await response.json();
     }
     (transactions.data?.data.data || []).map((el: ITransactionResponse) => {
-      const date = new Date(el.date).toISOString().split("T")[0];
-      const month = new Date(date).getMonth()+1;
-      if(responseObj[month]) {
-        const currencyRate = currenciesRates?.rates[`${date}T23:59:00.000Z`]?.[el.card.currency];
+      const date = new Date(el.date);
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString();
+      const yearMonth = `${year}-${month}`;
+      if(responseObj[yearMonth] !== undefined) {
+        const currencyRate = currenciesRates?.rates[`${date.toISOString().split("T")[0]}T23:59:00.000Z`]?.[el.card.currency];
         if(currencyRate) {
           if(el.amount < 0) {
-            (responseObj[month] as IYearlyStatisticsResponse).expenses = +((responseObj[month] as IYearlyStatisticsResponse).expenses + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+            (responseObj[yearMonth] as IYearlyStatisticsResponse).expenses = +((responseObj[yearMonth] as IYearlyStatisticsResponse).expenses + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           } else if(el.amount > 0) {
-            (responseObj[month] as IYearlyStatisticsResponse).incomes = +((responseObj[month] as IYearlyStatisticsResponse).incomes + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+            (responseObj[yearMonth] as IYearlyStatisticsResponse).incomes = +((responseObj[yearMonth] as IYearlyStatisticsResponse).incomes + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           }
         } else {
           if(el.amount < 0) {
-            (responseObj[month] as IYearlyStatisticsResponse).expenses = +((responseObj[month] as IYearlyStatisticsResponse).expenses + Math.abs(el.amount)).toFixed(2);
+            (responseObj[yearMonth] as IYearlyStatisticsResponse).expenses = +((responseObj[yearMonth] as IYearlyStatisticsResponse).expenses + Math.abs(el.amount)).toFixed(2);
           } else if(el.amount > 0) {
-            (responseObj[month] as IYearlyStatisticsResponse).incomes = +((responseObj[month] as IYearlyStatisticsResponse).incomes + Math.abs(el.amount)).toFixed(2);
+            (responseObj[yearMonth] as IYearlyStatisticsResponse).incomes = +((responseObj[yearMonth] as IYearlyStatisticsResponse).incomes + Math.abs(el.amount)).toFixed(2);
           }
         }
       }
     });
+    // console.log(responseObj);
     return Response.json({
       statusCode: 200,
       data: responseObj,

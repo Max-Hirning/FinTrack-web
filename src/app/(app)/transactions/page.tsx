@@ -3,6 +3,7 @@ import {Metadata} from "next";
 import {CardsListWrapper} from "@/modules/cards";
 import React, {ReactElement, Suspense} from "react";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {MonthlyExpensesStatisticsWrapper} from "@/modules/analytics";
 import {TransactionFormWrapper, TransactionsTableWrapper} from "@/modules/transactions";
 
 export const metadata: Metadata = {
@@ -37,7 +38,11 @@ export default async function Page(): Promise<ReactElement> {
         </section>
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">My Expense</h1>
-          <section className="card max-lg:w-full lg:w-[350px] h-[235px]"></section>
+          <Suspense fallback={<section className="bg-slate-200 card max-lg:w-full lg:w-[350px] h-[235px] border p-[2px] animate-pulse"></section>}>
+            <section className="card max-lg:w-full lg:w-[350px] p-[25px] h-[235px]">
+              <MonthlyExpensesStatisticsWrapper/>
+            </section>
+          </Suspense>
         </section>
       </section>
       <section className="mt-[25px]">

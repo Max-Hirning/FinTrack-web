@@ -5,7 +5,9 @@ export interface ITransactionsFilters {
   page?: number;
   cards: string[];
   perPage?: number;
+  onlyIncomes?: boolean;
   date: [string, string];
+  onlyExpenses?: boolean;
 }
 export interface ITransactionResponse {
   _id: string;

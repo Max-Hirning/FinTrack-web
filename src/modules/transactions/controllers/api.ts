@@ -59,15 +59,17 @@ class TransactionsAPI {
     }
   }
 
-  async getAll({page, cards, perPage, date}: Partial<ITransactionsFilters>, token: string): Promise<IResponse<IPagination<ITransactionListResponse>>> {
+  async getAll({page, cards, perPage, date, onlyExpenses, onlyIncomes}: Partial<ITransactionsFilters>, token: string): Promise<IResponse<IPagination<ITransactionListResponse>>> {
     try {
-      const filters: { perPage?: string, page?: string, date?: string, cards?: string } = {};
+      const filters: { perPage?: string, page?: string, onlyExpenses?: string; onlyIncomes?: string; date?: string, cards?: string } = {};
       if(page && perPage) {
         filters.page = JSON.stringify(page);
         filters.perPage = JSON.stringify(perPage);
       }
       if(date) filters.date = JSON.stringify(date);
       if(cards) filters.cards = JSON.stringify(cards);
+      if(onlyIncomes) filters.onlyIncomes = JSON.stringify(onlyIncomes);
+      if(onlyExpenses) filters.onlyExpenses = JSON.stringify(onlyExpenses);
       const queryParams = new URLSearchParams(filters as Record<string, string>);
       const response = await fetch(`${this.url}?${queryParams.toString()}`, {
         headers: {

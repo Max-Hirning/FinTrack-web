@@ -10,6 +10,6 @@ export function useGetExpenses(filters: IExpensesFilters, token: string): UseQue
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getExpenses, JSON.stringify(filters)],
-    queryFn: (): Promise<IResponse<IExpensesResponse[]>> => analyticsAPI.getExpenses(filters, token),
+    queryFn: (): Promise<IResponse<IExpensesResponse[]>> => analyticsAPI.getExpensesCategories(filters, token),
   });
 }

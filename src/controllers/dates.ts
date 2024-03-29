@@ -38,6 +38,21 @@ export function getCurrentMonthRange(): [string, string] {
   return [startOfMonthString, endOfMonthString];
 }
 
+export function getSixPrevMonthsRange(): [string, string] {
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+  let startMonth = currentMonth - 5;
+  let startYear = currentYear;
+  if(startMonth < 0) {
+    startMonth += 12;
+    startYear -= 1;
+  }
+  const startDate = new Date(startYear, startMonth, 2).toISOString().split("T")[0];
+  const endDate = new Date(currentYear, currentMonth + 1, 0).toISOString().split("T")[0];
+  return [startDate, endDate];
+}
+
 export function getWeekDayName(dateString: string): string {
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const date = new Date(dateString);
@@ -46,13 +61,13 @@ export function getWeekDayName(dateString: string): string {
   return dayOfWeekName;
 }
 
-export function getMonthName(monthNumber: number): string {
+export function getMonthName(dateString: string): string {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const adjustedMonth = monthNumber - 1;
+  const adjustedMonth = new Date(dateString).getMonth();
   if(adjustedMonth >= 0 && adjustedMonth < months.length) {
     return months[adjustedMonth];
   } else {
-    throw new Error("Invalid month number. Month number should be between 1 and 12.");
+    throw new Error("Invalid arg. Must be date string");
   }
 }
 
@@ -72,7 +87,7 @@ export function getDateRangeObject(startDate: string, endDate: string, frequency
   const dateObj: {[key: string]: unknown} = {};
   const getDateKey = (date: Date): string => {
     if(frequency === "d") return date.toISOString().split("T")[0];
-    if(frequency === "m") return `${date.getMonth() + 1}`;
+    if(frequency === "m") return `${date.getFullYear()}-${date.getMonth() + 1}`;
     throw new Error(`Invalid frequency: ${frequency}`);
   };
   while (currentDate <= new Date(endDate)) {
@@ -86,5 +101,24 @@ export function getDateRangeObject(startDate: string, endDate: string, frequency
       currentDate.setMonth(currentDate.getMonth() + 1);
     }
   }
-  return dateObj;
+
+  // Sort the object by date keys
+  const sortedDateObj: {[key: string]: unknown} = {};
+  Object.keys(dateObj)
+    .sort((a, b) => {
+      const [yearA, monthA] = a.split("-");
+      const [yearB, monthB] = b.split("-");
+      
+      if(yearA !== yearB) {
+        return parseInt(yearA) - parseInt(yearB);
+      } else {
+        return parseInt(monthA) - parseInt(monthB);
+      }
+    })
+    .forEach((key) => {
+      sortedDateObj[key] = dateObj[key];
+    });
+
+  return sortedDateObj;
 }
+
