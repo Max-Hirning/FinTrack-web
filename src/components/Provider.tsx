@@ -3,9 +3,9 @@
 import {store} from "@/store";
 import {Provider} from "react-redux";
 import {IResponse} from "@/types/api";
-import React, {ReactElement, ReactNode, useState} from "react";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {SessionProvider, signOut} from "next-auth/react";
+import React, {ReactElement, ReactNode, useState} from "react";
 // import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {MutationCache, QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {Metadata} from "next";
 import {CardsListWrapper} from "@/modules/cards";
-import React, {Suspense, ReactElement} from "react";
+import React, {ReactElement, Suspense} from "react";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionFormWrapper, TransactionsTableWrapper} from "@/modules/transactions";
 
@@ -50,11 +50,11 @@ export default async function Page(): Promise<ReactElement> {
       </section>
       <section className="mt-[25px] max-w-[730px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Transaction Form</h1>
-        <section className="card p-[20px] w-full relative">
-          <Suspense fallback={<section className="bg-slate-200 max-w-[1055.2px] w-full card border h-[397px] p-[2px] animate-pulse"></section>}>
+        <Suspense fallback={<section className="bg-slate-200 max-w-[1055.2px] w-full card border h-[397px] p-[2px] animate-pulse"></section>}>
+          <section className="card p-[20px] w-full relative">
             <TransactionFormWrapper/>
-          </Suspense>
-        </section>
+          </section>
+        </Suspense>
       </section>
     </>
   );

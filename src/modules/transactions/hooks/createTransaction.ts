@@ -16,10 +16,11 @@ export function useCreateTransaction(): UseMutationResult<IResponse<undefined>, 
   return useMutation({
     mutationFn: (data: Omit<ITransactionForm, "_id">): Promise<IResponse<undefined>> => transactionsAPI.create(data, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getYearlyStatistics]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getWeeklyStatistics]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsExpenses]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getExpenses]});
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getBalances]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       ToastifyCaller(IStatuses.success, success.message);

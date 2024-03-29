@@ -1,6 +1,7 @@
 import {IResponse} from "@/types/api";
 import {IUserResponse} from "../types/user";
 import {ISecurityForm} from "../types/securityForm";
+import {ISettingsForm} from "../types/settingsForm";
 import {IContactUsForm} from "../types/contactUsFrom";
 
 class UserAPI {
@@ -57,14 +58,20 @@ class UserAPI {
     }
   }
 
-  async update(data: FormData, userId: string, token: string): Promise<IResponse<undefined>> {
+  async update(data: ISettingsForm, userId: string, token: string): Promise<IResponse<undefined>> {
     try {
+      const formData: FormData = new FormData();
+      (data.image) && formData.append("file", data.image);
+      (data.email.length > 0) && formData.append("email", data.email);
+      (data.lastName.length > 0) && formData.append("lastName", data.lastName);
+      (data.currency.length > 0) && formData.append("currency", data.currency);
+      (data.firstName.length > 0) && formData.append("firstName", data.firstName);
       const response = await fetch(`${this.url}/profile/${userId}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
         },
-        body: data,
         method: "PUT",
+        body: formData,
       });
       if(!response.ok) throw (response.statusText);
       const result = await response.json();
