@@ -38,6 +38,7 @@ export function YearlyStatistics({filters, session}: IProps): ReactElement {
       }}
       options={{
         responsive: true,
+        maintainAspectRatio : false,
         plugins: {
           legend: {
             align: "end" as const,

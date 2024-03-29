@@ -2,7 +2,7 @@ import Link from "next/link";
 import {Metadata} from "next";
 import {CardsListWrapper} from "@/modules/cards";
 import React, {ReactElement, Suspense} from "react";
-import {AccountsWrapper} from "@/modules/analytics";
+import {AccountsWrapper, YearlyStatisticsWrapper} from "@/modules/analytics";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
@@ -13,13 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default function Page(): ReactElement {
-  // const session = await getServerSession(authOptions);
-
-  // const yearlyFilters: IYearlyStatisticsFilters = {
-  //   currency: (session?.user as IUserSession).currency,
-  //   filters: {cards: (session?.user as IUserSession).cards, date: getCurrentYearRange()}
-  // };
-
   return (
     <>
       <section className="flex gap-[25px] pb-[5px] overflow-auto max-w-fit">
@@ -73,17 +66,14 @@ export default function Page(): ReactElement {
           </section>
         </section>
       </section>
-      {/* <section className="w-full max-w-[730px] mt-[25px]">
+      <section className="w-full max-w-[730px] mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Debit & Credit Overview</h1>
         <Suspense fallback={<section className="bg-slate-200 card border w-full h-[364px] animate-pulse"></section>}>
           <section className="card w-full p-[25px] h-[364px]">
-            <YearlyStatistics
-              filters={yearlyFilters}
-              session={session?.user as IUserSession}
-            />
+            <YearlyStatisticsWrapper/>
           </section>
         </Suspense>
-      </section> */}
+      </section>
     </>
   );
 }

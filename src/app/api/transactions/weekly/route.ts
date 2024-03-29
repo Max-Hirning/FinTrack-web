@@ -52,7 +52,7 @@ export async function GET(request: Request): Promise<Response> {
     });
   }
   return Response.json({
-    data: [],
+    data: {},
     statusCode: 200,
     message: "Weekly statistics were calculated",
   });

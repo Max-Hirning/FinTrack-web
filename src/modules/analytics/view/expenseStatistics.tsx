@@ -37,6 +37,8 @@ export function ExpenseStatistics({filters, session}: IProps): ReactElement {
         labels: data.data.map((el: ICardsExpensesResponse) => el.label),
       }}
       options={{
+        responsive: true,
+        maintainAspectRatio : false,
         plugins: {
           legend: {
             display: false
