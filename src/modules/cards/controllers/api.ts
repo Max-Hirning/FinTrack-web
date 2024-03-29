@@ -14,8 +14,8 @@ class CardAPI {
         },
         method: "DELETE",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -35,8 +35,8 @@ class CardAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -53,8 +53,8 @@ class CardAPI {
         method: "PUT",
         body: JSON.stringify(data),
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -71,8 +71,8 @@ class CardAPI {
         method: "POST",
         body: JSON.stringify({...data, ownerId}),
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);

@@ -1,6 +1,8 @@
 export enum QueryKeys {
   signIn = "sign-in",
   signUp = "sign-up",
+  resetPassword = "reset-password",
+  forgotPassword = "forgot-password",
   
   getCards = "get-cards",
   createCard = "create-card",

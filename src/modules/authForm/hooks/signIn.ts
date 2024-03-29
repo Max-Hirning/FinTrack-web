@@ -22,15 +22,15 @@ export function useSignIn(): UseMutationResult<IResponse<undefined>, unknown, IS
       } else {
         if(response?.error) {
           throw ({
-            statusCode: 404,
+            statusCode: 400,
             message: response.error
           });
         }
       }
-      return {
+      throw ({
         statusCode: 500,
         message: "An unexpected error occurred",
-      };
+      });
     },
     onError: (error: IResponse<undefined>) => {
       ToastifyCaller(IStatuses.error, error.message);

@@ -16,8 +16,8 @@ class UserAPI {
         },
         method: "DELETE",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -33,8 +33,8 @@ class UserAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -50,8 +50,8 @@ class UserAPI {
         },
         method: "DELETE",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -73,8 +73,8 @@ class UserAPI {
         method: "PUT",
         body: formData,
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -91,8 +91,8 @@ class UserAPI {
         method: "POST",
         body: JSON.stringify({...data, userId}),
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -109,8 +109,8 @@ class UserAPI {
         method: "PUT",
         body: JSON.stringify(data),
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);

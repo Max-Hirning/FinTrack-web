@@ -22,8 +22,8 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -45,8 +45,8 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -67,8 +67,8 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -89,8 +89,8 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);
@@ -111,8 +111,8 @@ class AnalyticsAPI {
         },
         method: "GET",
       });
-      if(!response.ok) throw (response.statusText);
       const result = await response.json();
+      if(!response.ok) throw (result);
       return result;
     } catch (error) {
       throw (error as string);

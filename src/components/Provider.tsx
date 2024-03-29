@@ -3,6 +3,7 @@
 import {store} from "@/store";
 import {Provider} from "react-redux";
 import {IResponse} from "@/types/api";
+import {useRouter} from "next/navigation";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {SessionProvider, signOut} from "next-auth/react";
 import React, {ReactElement, ReactNode, useState} from "react";
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 export function ProviderComponent({children}: IProps): ReactElement {
+  const {push} = useRouter();
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
@@ -23,6 +25,7 @@ export function ProviderComponent({children}: IProps): ReactElement {
     queryCache: new QueryCache({
       onError: (error: unknown): void => {
         if((error as IResponse<undefined>)?.statusCode === 401) {
+          push("/auth/sign-in");
           ToastifyCaller(IStatuses.error, "Unauthorized");
           signOut();
         }
@@ -31,6 +34,7 @@ export function ProviderComponent({children}: IProps): ReactElement {
     mutationCache: new MutationCache({
       onError: (error: unknown): void => {
         if((error as IResponse<undefined>)?.statusCode === 401) {
+          push("/auth/sign-in");
           ToastifyCaller(IStatuses.error, "Unauthorized");
           signOut();
         }
