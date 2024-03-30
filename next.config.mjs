@@ -1,9 +1,15 @@
 const nextConfig = {
   images: {
+    remotePatterns: [
+      {
+        pathname: "**",
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
     minimumCacheTTL: 2628000,
-    domains: ["res.cloudinary.com"],
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
 };
 
 export default nextConfig;
