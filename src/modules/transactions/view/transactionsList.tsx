@@ -72,10 +72,10 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
               }}
               className={`flex items-center cursor-pointer py-[10px] hover:bg-slate-200 ${(card.owner._id === session.id) && "active:bg-slate-300"} ${!shrinked && "md:w-[630px]"}`}
             >
-              <div className="mr-[10px] flex items-center w-[220px]">
+              <div className="mr-[10px] flex items-center grow">
                 <div
                   style={{backgroundColor: hexToRgba(category.color, 0.5)}}
-                  className="flex rounded-[20px] h-[55px] min-w-[55px] justify-center items-center"
+                  className="flex rounded-[20px] max-lg:h-[50px] max-lg:min-w-[50px] lg:h-[55px] lg:min-w-[55px] justify-center items-center"
                 >
                   <Image
                     width={35}
@@ -84,9 +84,9 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
                     src={category.image}
                   />
                 </div>
-                <article className="ml-[20px] min-w-[140px]">
-                  <p className="text-text title text-[16px] font-medium">{description}</p>
-                  <p className="text-secondary text-[15px] font-normal">{convertISODateToCustomFormat(date)}</p>
+                <article className="ml-[10px] min-w-[140px]">
+                  <p className="text-text title lg:text-[16px] max-lg:text-[14px] font-medium">{description}</p>
+                  <p className="text-secondary lg:text-[15px] max-lg:text-[13px] font-normal">{convertISODateToCustomFormat(date)}</p>
                 </article>
               </div>
               <article className={`mr-[10px] w-[125px] max-md:hidden ${shrinked && "hidden"}`}>
@@ -94,7 +94,7 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
                 <p className="text-secondary text-[15px] font-normal">{_id.substring(0, 4)} ****</p>
               </article>
               <p className={`text-secondary mr-[10px] max-md:hidden title text-[16px] ${shrinked && "hidden"} font-normal w-[150px]`}>{category.title}</p>
-              <p className={`${amountColor(amount)} w-[100px] title text-[16px] font-normal`}>{amountSymbol(amount)}{Math.abs(amount)} {card.currency}</p>
+              <p className={`${amountColor(amount)} w-[100px] title lg:text-[16px] max-lg:text-[13px] font-normal`}>{amountSymbol(amount)}{Math.abs(amount)} {card.currency}</p>
             </div>
           );
         })

@@ -53,7 +53,7 @@ export default function Page(): ReactElement {
           </section>
         </section>
       </section>
-      <section className="max-lg:flex-col flex gap-[25px] mt-[25px]">
+      <section className="max-xl:flex-col flex gap-[25px] mt-[25px]">
         <section className="w-full max-w-[730px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Weekly Activity</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[322px] p-[25px] animate-pulse"></section>}>
