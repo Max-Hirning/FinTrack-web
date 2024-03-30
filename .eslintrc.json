@@ -18,7 +18,7 @@
                 "for": { "after": false }
             }
         }],
-        "linebreak-style": ["error", "windows"],
+        // "linebreak-style": ["error", "windows"],
         "object-curly-spacing": ["error", "never"],
         "@tanstack/query/exhaustive-deps": "error",
         "@typescript-eslint/no-explicit-any": "error",
