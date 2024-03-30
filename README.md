@@ -32,9 +32,15 @@ Clone the repository:
 
 4. Test account for app:
 * email: `test@gmail.com`
-* password: `qwerty12345`
-You can't change password, email, some transactions/cards which aren't yours, delete account.
-You can create transactions/cards and update them or delete, update other account info such as currency, names and avatar, send `contact us` form
+* password: `qwerty12345`</br>
+#### You can't: </br>
+* change password, email
+* change some transactions/cards which aren't yours
+* delete account. <br/>
+#### You can: </br>
+* create transactions/cards and update them or delete
+* update other account info such as currency, names and avatar
+* send `contact us` form
 
 5. Start the development server:
 `npm run dev`
