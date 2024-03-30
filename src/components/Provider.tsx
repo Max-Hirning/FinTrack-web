@@ -7,7 +7,7 @@ import {useRouter} from "next/navigation";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {SessionProvider, signOut} from "next-auth/react";
 import React, {ReactElement, ReactNode, useState} from "react";
-import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+// import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {MutationCache, QueryCache, QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 interface IProps {
@@ -47,7 +47,7 @@ export function ProviderComponent({children}: IProps): ReactElement {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           {children}
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </QueryClientProvider>
       </Provider>
     </SessionProvider>
