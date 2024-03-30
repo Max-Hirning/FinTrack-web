@@ -30,6 +30,12 @@ Clone the repository:
 * `NEXT_PUBLIC_LOCAL_URL="http://localhost:3000"` 
 * `ACCESS_TOKEN_CURRENCY="" for FXRatesAPI`
 
+4. Test account for app:
+* email: `test@gmail.com`
+* password: `qwerty12345`
+You can't change password, email, some transactions/cards which aren't yours, delete account.
+You can create transactions/cards and update them or delete, update other account info such as currency, names and avatar, send `contact us` form
+
 5. Start the development server:
 `npm run dev`
 
