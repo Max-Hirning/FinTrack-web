@@ -3,12 +3,10 @@ import {IAccountFilters, IAccountResponse} from "../types/account";
 import {IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
 import {IYearlyStatisticsResponse} from "../types/yearlyStatistics";
 import {IExpensesFilters, IExpensesResponse} from "../types/expensesStatistics";
-import {IMonthlyExpensesStatisticsFilters, IMonthlyExpensesStatisticsResponse} from "../types/monthlyExpensesStatistics";
 import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpensesStatistics";
+import {IMonthlyExpensesStatisticsFilters, IMonthlyExpensesStatisticsResponse} from "../types/monthlyExpensesStatistics";
 
 class AnalyticsAPI {
-  constructor(protected readonly url: string) {}
-
   async getExpensesCategories({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
     try {
       if(!(filters && token)) throw ("No expenses were found");
@@ -16,7 +14,7 @@ class AnalyticsAPI {
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/expenses/category?${queryParams.toString()}`, {
+      const response = await fetch(`api/expenses/category?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -39,7 +37,7 @@ class AnalyticsAPI {
         cards: JSON.stringify(cards),
         transactions: JSON.stringify(transactions),
       });
-      const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
+      const response = await fetch(`api/account?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -61,7 +59,7 @@ class AnalyticsAPI {
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/expenses/cards?${queryParams.toString()}`, {
+      const response = await fetch(`api/expenses/cards?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -83,7 +81,7 @@ class AnalyticsAPI {
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/transactions/weekly?${queryParams.toString()}`, {
+      const response = await fetch(`api/transactions/weekly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -105,7 +103,7 @@ class AnalyticsAPI {
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/transactions/yearly?${queryParams.toString()}`, {
+      const response = await fetch(`api/transactions/yearly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`, 
           "Content-Type": "application/json; charset=utf-8",
@@ -127,7 +125,7 @@ class AnalyticsAPI {
         currency,
         filters: JSON.stringify(filters),
       });
-      const response = await fetch(`${this.url}/expenses?${queryParams.toString()}`, {
+      const response = await fetch(`api/expenses?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -143,4 +141,4 @@ class AnalyticsAPI {
   }
 }
 
-export const analyticsAPI = new AnalyticsAPI(`${process.env.NEXT_PUBLIC_LOCAL_URL}/api`);
+export const analyticsAPI = new AnalyticsAPI();
