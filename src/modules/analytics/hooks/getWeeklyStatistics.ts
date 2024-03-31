@@ -11,7 +11,11 @@ import {IWeeklyStatisticsFilters, IWeeklyStatisticsResponse} from "../types/week
 export function useGetWeeklyStatistics(filters: IWeeklyStatisticsFilters, token: string): UseQueryResult<IResponse<{[key: string]: IWeeklyStatisticsResponse}>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
-  if(cards) filters.filters.cards = (session?.user as IUserSession)?.cards;
+  const currency = (session?.user as IUserSession)?.currency;
+
+  if(cards) filters.filters.cards = cards;
+  if(currency) filters.currency = currency;
+
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getWeeklyStatistics, JSON.stringify(filters)],

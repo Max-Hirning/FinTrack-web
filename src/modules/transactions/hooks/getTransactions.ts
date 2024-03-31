@@ -12,7 +12,9 @@ import {ITransactionListResponse, ITransactionsFilters} from "../types/transacti
 export function useGetTransactions(filters: Partial<ITransactionsFilters>, token: string): UseQueryResult<IResponse<IPagination<ITransactionListResponse>>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
-  if(cards) filters.cards = (session?.user as IUserSession)?.cards;
+
+  if(cards) filters.cards = cards;
+
   return useQuery({
     queryFn: (): Promise<IResponse<IPagination<ITransactionListResponse>>> => transactionsAPI.getAll(filters, token),
     // eslint-disable-next-line @tanstack/query/exhaustive-deps

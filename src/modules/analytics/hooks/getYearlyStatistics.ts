@@ -11,7 +11,11 @@ import {IYearlyStatisticsFilters, IYearlyStatisticsResponse} from "../types/year
 export function useGetYearlyStatistics(filters: IYearlyStatisticsFilters, token: string): UseQueryResult<IResponse<{[key: string]: IYearlyStatisticsResponse}>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
-  if(cards) filters.filters.cards = (session?.user as IUserSession)?.cards;
+  const currency = (session?.user as IUserSession)?.currency;
+
+  if(cards) filters.filters.cards = cards;
+  if(currency) filters.currency = currency;
+
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getYearlyStatistics, JSON.stringify(filters)],

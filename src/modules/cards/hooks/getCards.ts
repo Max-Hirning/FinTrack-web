@@ -11,7 +11,9 @@ import {ICardsFilters, ICardsListResponse} from "../types/card";
 export function useGetCards(filters: ICardsFilters, token: string): UseQueryResult<IResponse<ICardsListResponse>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
-  if(cards) filters.cards = (session?.user as IUserSession)?.cards;
+
+  if(cards) filters.cards = cards;
+
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getCards, JSON.stringify(filters)],

@@ -11,7 +11,11 @@ import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpen
 export function useGetCardsExpenses(filters: ICardsExpensesFilters, token: string): UseQueryResult<IResponse<ICardsExpensesResponse[]>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
-  if(cards) filters.filters.cards = (session?.user as IUserSession)?.cards;
+  const currency = (session?.user as IUserSession)?.currency;
+
+  if(cards) filters.filters.cards = cards;
+  if(currency) filters.currency = currency;
+
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getCardsExpenses, JSON.stringify(filters)],

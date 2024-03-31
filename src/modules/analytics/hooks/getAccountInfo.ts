@@ -11,7 +11,12 @@ import {IAccountFilters, IAccountResponse} from "../types/account";
 export function useGetAccountInfo(filters: IAccountFilters, token: string): UseQueryResult<IResponse<IAccountResponse>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
-  if(cards) filters.cards.cards = (session?.user as IUserSession)?.cards;
+  const currency = (session?.user as IUserSession)?.currency;
+
+  if(cards) filters.cards.cards = cards;
+  if(currency) filters.currency = currency;
+  if(cards) filters.transactions.cards = cards;
+
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: [QueryKeys.getInfo, JSON.stringify(filters)],
