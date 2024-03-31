@@ -14,7 +14,7 @@ function formatDate(date: Date): string {
 export function getCurrentYearRange(): [string, string] {
   const currentYear = new Date().getFullYear();
   const yearRangeStart = new Date(`${currentYear}-01-01`).toISOString().split("T")[0];
-  const yearRangeEnd = new Date(`${currentYear + 1}-01-01`).toISOString().split("T")[0];
+  const yearRangeEnd = new Date(`${currentYear}-12-31`).toISOString().split("T")[0];
   return [yearRangeStart, yearRangeEnd];
 }
 
@@ -83,42 +83,24 @@ export function convertISODateToCustomFormat(isoDate: string): string {
 }
 
 export function getDateRangeObject(startDate: string, endDate: string, frequency: "d" | "m", value: unknown): {[key: string]: unknown} {
-  const currentDate = new Date(startDate);
+  const startDateObj = new Date(startDate);
+  const endDateObj = new Date(endDate);
   const dateObj: {[key: string]: unknown} = {};
-  const getDateKey = (date: Date): string => {
-    if(frequency === "d") return date.toISOString().split("T")[0];
-    if(frequency === "m") return `${date.getFullYear()}-${date.getMonth() + 1}`;
-    throw new Error(`Invalid frequency: ${frequency}`);
+  const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${month < 10 ? `0${month}` : month}-${day < 10 ? `0${day}` : day}`;
   };
-  while (currentDate <= new Date(endDate)) {
-    const dateKey = getDateKey(currentDate);
-    if(!dateObj[dateKey]) {
-      dateObj[dateKey] = JSON.parse(JSON.stringify(value));
-    }
-    if(frequency === "d") {
-      currentDate.setDate(currentDate.getDate() + 1);
-    } else if(frequency === "m") {
+  const currentDate = new Date(startDateObj);
+  while (currentDate <= endDateObj) {
+    dateObj[formatDate(new Date(currentDate))] = JSON.parse(JSON.stringify(value));
+    if(frequency === "m") {
       currentDate.setMonth(currentDate.getMonth() + 1);
+    } else if(frequency === "d") {
+      currentDate.setDate(currentDate.getDate() + 1);
     }
   }
-
-  // Sort the object by date keys
-  const sortedDateObj: {[key: string]: unknown} = {};
-  Object.keys(dateObj)
-    .sort((a, b) => {
-      const [yearA, monthA] = a.split("-");
-      const [yearB, monthB] = b.split("-");
-      
-      if(yearA !== yearB) {
-        return parseInt(yearA) - parseInt(yearB);
-      } else {
-        return parseInt(monthA) - parseInt(monthB);
-      }
-    })
-    .forEach((key) => {
-      sortedDateObj[key] = dateObj[key];
-    });
-
-  return sortedDateObj;
+  return dateObj;
 }
 

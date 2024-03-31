@@ -28,27 +28,25 @@ export async function GET(request: Request): Promise<Response> {
     }
     (transactions.data?.data.data || []).map((el: ITransactionResponse) => {
       const date = new Date(el.date);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString();
-      const yearMonth = `${year}-${month}`;
-      if(responseObj[yearMonth] !== undefined) {
+      date.setDate(1);
+      const dateString = date.toISOString().split("T")[0];
+      if(responseObj[dateString] !== undefined) {
         const currencyRate = currenciesRates?.rates[`${date.toISOString().split("T")[0]}T23:59:00.000Z`]?.[el.card.currency];
         if(currencyRate) {
           if(el.amount < 0) {
-            (responseObj[yearMonth] as IYearlyStatisticsResponse).expenses = +((responseObj[yearMonth] as IYearlyStatisticsResponse).expenses + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+            (responseObj[dateString] as IYearlyStatisticsResponse).expenses = +((responseObj[dateString] as IYearlyStatisticsResponse).expenses + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           } else if(el.amount > 0) {
-            (responseObj[yearMonth] as IYearlyStatisticsResponse).incomes = +((responseObj[yearMonth] as IYearlyStatisticsResponse).incomes + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
+            (responseObj[dateString] as IYearlyStatisticsResponse).incomes = +((responseObj[dateString] as IYearlyStatisticsResponse).incomes + +((Math.abs(el.amount) / +(currencyRate.toFixed(2))).toFixed(2))).toFixed(2);
           }
         } else {
           if(el.amount < 0) {
-            (responseObj[yearMonth] as IYearlyStatisticsResponse).expenses = +((responseObj[yearMonth] as IYearlyStatisticsResponse).expenses + Math.abs(el.amount)).toFixed(2);
+            (responseObj[dateString] as IYearlyStatisticsResponse).expenses = +((responseObj[dateString] as IYearlyStatisticsResponse).expenses + Math.abs(el.amount)).toFixed(2);
           } else if(el.amount > 0) {
-            (responseObj[yearMonth] as IYearlyStatisticsResponse).incomes = +((responseObj[yearMonth] as IYearlyStatisticsResponse).incomes + Math.abs(el.amount)).toFixed(2);
+            (responseObj[dateString] as IYearlyStatisticsResponse).incomes = +((responseObj[dateString] as IYearlyStatisticsResponse).incomes + Math.abs(el.amount)).toFixed(2);
           }
         }
       }
     });
-    // console.log(responseObj);
     return Response.json({
       statusCode: 200,
       data: responseObj,

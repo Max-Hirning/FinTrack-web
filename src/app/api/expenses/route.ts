@@ -27,15 +27,14 @@ export async function GET(request: Request): Promise<Response> {
     const responseObj = getDateRangeObject(JSON.parse(filters).date[0], JSON.parse(filters).date[1], "m", 0);
     (transactions.data?.data.data || []).map((el: ITransactionResponse) => {
       const date = new Date(el.date);
-      const year = date.getFullYear();
-      const month = (date.getMonth() + 1).toString(); // Month is zero-indexed
-      const yearMonth = `${year}-${month}`;
-      if(responseObj[yearMonth] !== undefined) {
+      date.setDate(1);
+      const dateString = date.toISOString().split("T")[0];
+      if(responseObj[dateString] !== undefined) {
         const currencyRate = currenciesRates?.rates[`${date.toISOString().split("T")[0]}T23:59:00.000Z`]?.[el.card.currency];
         if(currencyRate) {
-          responseObj[yearMonth] = +(((responseObj[yearMonth] as number) + (Math.abs(el.amount)/currencyRate)).toFixed(2));
+          responseObj[dateString] = +(((responseObj[dateString] as number) + (Math.abs(el.amount)/currencyRate)).toFixed(2));
         } else {
-          responseObj[yearMonth] = +(((responseObj[yearMonth] as number) + Math.abs(el.amount)).toFixed(2));
+          responseObj[dateString] = +(((responseObj[dateString] as number) + Math.abs(el.amount)).toFixed(2));
         }
       }
     });

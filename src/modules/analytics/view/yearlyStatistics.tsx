@@ -22,7 +22,7 @@ export function YearlyStatistics({filters, session}: IProps): ReactElement {
   return (
     <Bar
       data={{
-        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getMonthName(el)) : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan"],
+        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getMonthName(el)) : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
           {
             label: "Incomes",

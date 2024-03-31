@@ -19,18 +19,20 @@ interface IProps {
 export function MonthlyExpensesStatistics({filters, session}: IProps): ReactElement {
   const {data} = useGetMonthlyExpenses(filters, session.jwt);
 
+  if(!data?.data || data?.data?.length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;
+
   return (
     <Bar
       data={{
-        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getMonthName(el)) : ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
         datasets: [
           {
-            label: "Expenses",
-            data: (data?.data) ? Object.values(data.data) : [0,0,0,0,0,0],
-            backgroundColor: "#16DBCC",
             borderRadius: 5,
+            label: "Expenses",
+            backgroundColor: "#16DBCC",
+            data: Object.values(data.data),
           },
         ],
+        labels: Object.keys(data.data).map((el: string) => getMonthName(el)),
       }}
       options={{
         responsive: true,
