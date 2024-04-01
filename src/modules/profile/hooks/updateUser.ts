@@ -1,7 +1,7 @@
 "use client";
 
-import {useRouter} from "next/router";
 import {IResponse} from "@/types/api";
+import {useRouter} from "next/navigation";
 import {userAPI} from "../controllers/api";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
