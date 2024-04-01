@@ -6,20 +6,19 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {analyticsAPI} from "../controllers/api";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {IAccountFilters, IAccountResponse} from "../types/account";
+import {IAccountStatisticsFilters, IAccountStatisticsResponse} from "../types/accountStatistics";
 
-export function useGetAccountInfo(filters: IAccountFilters, token: string): UseQueryResult<IResponse<IAccountResponse>, unknown> {
+export function useGetAccountStatistics(filters: IAccountStatisticsFilters, token: string): UseQueryResult<IResponse<IAccountStatisticsResponse>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
   const currency = (session?.user as IUserSession)?.currency;
 
-  if(cards) filters.cards.cards = cards;
+  if(cards) filters.cards = cards;
   if(currency) filters.currency = currency;
-  if(cards) filters.transactions.cards = cards;
 
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getInfo, JSON.stringify(filters)],
-    queryFn: (): Promise<IResponse<IAccountResponse>> => analyticsAPI.getAccountInfo(filters, token),
+    queryKey: [QueryKeys.getAccountStatistics, JSON.stringify(filters)],
+    queryFn: (): Promise<IResponse<IAccountStatisticsResponse>> => analyticsAPI.getAccountInfo(filters, token),
   });
 }

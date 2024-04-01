@@ -6,19 +6,19 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {analyticsAPI} from "../controllers/api";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {IYearlyStatisticsFilters, IYearlyStatisticsResponse} from "../types/yearlyStatistics";
+import {ICardsExpensesStatisticsResponse, ICardsExpensesStatisticsFilters} from "../types/cardsExpensesStatistics";
 
-export function useGetYearlyStatistics(filters: IYearlyStatisticsFilters, token: string): UseQueryResult<IResponse<{[key: string]: IYearlyStatisticsResponse}>, unknown> {
+export function useGetCardsExpensesStatistics(filters: ICardsExpensesStatisticsFilters, token: string): UseQueryResult<IResponse<{[key: string]: ICardsExpensesStatisticsResponse}>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
   const currency = (session?.user as IUserSession)?.currency;
 
-  if(cards) filters.filters.cards = cards;
+  if(cards) filters.cards = cards;
   if(currency) filters.currency = currency;
 
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getYearlyStatistics, JSON.stringify(filters)],
-    queryFn: (): Promise<IResponse<{[key: string]: IYearlyStatisticsResponse}>> => analyticsAPI.getYearlyStatistics(filters, token),
+    queryKey: [QueryKeys.getCardsExpensesStatistics, JSON.stringify(filters)],
+    queryFn: (): Promise<IResponse<{[key: string]: ICardsExpensesStatisticsResponse}>> => analyticsAPI.getCardsExpenses(filters, token),
   });
 }

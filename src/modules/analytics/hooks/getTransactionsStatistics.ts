@@ -6,19 +6,19 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {analyticsAPI} from "../controllers/api";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpensesStatistics";
+import {ITransactionsStatisticsResponse, ITransactionsStatisticsFilters} from "../types/transactionsStatistics";
 
-export function useGetCardsExpenses(filters: ICardsExpensesFilters, token: string): UseQueryResult<IResponse<ICardsExpensesResponse[]>, unknown> {
+export function useGetTransactionsStatistics(filters: ITransactionsStatisticsFilters, token: string): UseQueryResult<IResponse<{[key: string]: ITransactionsStatisticsResponse}>, unknown> {
   const {data: session} = useSession();
   const cards = (session?.user as IUserSession)?.cards;
   const currency = (session?.user as IUserSession)?.currency;
 
-  if(cards) filters.filters.cards = cards;
+  if(cards) filters.cards = cards;
   if(currency) filters.currency = currency;
 
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCardsExpenses, JSON.stringify(filters)],
-    queryFn: (): Promise<IResponse<ICardsExpensesResponse[]>> => analyticsAPI.getCardsExpenses(filters, token),
+    queryKey: [QueryKeys.getTransactionsStatistics, JSON.stringify(filters)],
+    queryFn: (): Promise<IResponse<{[key: string]: ITransactionsStatisticsResponse}>> => analyticsAPI.getTransactionsStatistics(filters, token),
   });
 }

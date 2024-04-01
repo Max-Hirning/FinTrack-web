@@ -16,8 +16,8 @@ export function useCreateCard(): UseMutationResult<IResponse<undefined>, unknown
   return useMutation({
     mutationFn: (data: Omit<ICardForm, "_id">): Promise<IResponse<undefined>> => cardAPI.create(data, (session?.user as IUserSession).id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getAccountStatistics]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       ToastifyCaller(IStatuses.success, success.message);
       update();
     },

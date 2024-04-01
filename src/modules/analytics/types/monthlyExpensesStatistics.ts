@@ -1,10 +1,8 @@
-import {ITransactionsFilters} from "@/modules/transactions";
+import {ITransactionsFilters} from "@/modules/transactions/types/transaction";
 
-export interface IMonthlyExpensesStatisticsFilters {
-  currency: string;
-  filters: ITransactionsFilters;
-}
 export interface IMonthlyExpensesStatisticsResponse { 
-  incomes: number;
-  expenses: number;
+  [key: string]: number;
+}
+export interface IMonthlyExpensesStatisticsFilters extends Pick<ITransactionsFilters, "cards"|"date"> {
+  currency: string;
 }

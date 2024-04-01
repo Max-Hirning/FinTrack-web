@@ -20,15 +20,10 @@ export enum QueryKeys {
   deleteUserAvatar = "delete-user-avatar",
   updateUserSecurity = "update-user-security",
 
-  getInfo = "get-info",
-
-  getExpenses = "get-expenses",
-
-  getMonthlyExpenses = "get-monthly-expenses",
-
-  getWeeklyStatistics = "get-weekly-statistics",
-
-  getYearlyStatistics = "get-yearly-statistics",
-
-  getCardsExpenses = "get-cards-expenses",
+  //analytics
+  getAccountStatistics = "get-account-statistics",
+  getTransactionsStatistics = "get-transactions-statistics",
+  getCardsExpensesStatistics = "get-cards-expenses-statistics",
+  getMonthlyExpensesStatistics = "get-monthly-expenses-statistics",
+  getCategoriesExpensesStatistics = "get-categories-expenses-statistics",
 }

@@ -4,30 +4,38 @@ import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
 import {analyticsAPI} from "../../controllers/api";
-import {getCurrentMonthRange} from "@/controllers/dates";
-import {CardExpenseStatistics} from "../cardExpenseStatistics";
-import {ICardsExpensesFilters} from "../../types/cardsExpensesStatistics";
+import {TransactionsStatistics} from "../transactionsStatistics";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
+import {ITransactionsStatisticsFilters} from "../../types/transactionsStatistics";
 
-export async function CardsExpenseStatisticsWrapper(): Promise<ReactElement> {
+interface IProps {
+  label: string;
+  frequency: "d"|"m";
+  range: [string, string];
+}
+
+export async function TransactionsStatisticsWrapper({range, frequency, label}: IProps): Promise<ReactElement> {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
 
-  const cardsExpensesFilters: ICardsExpensesFilters = {
+  const filters: ITransactionsStatisticsFilters = {
+    frequency,
+    date: range,
+    cards: (session?.user as IUserSession).cards,
     currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, onlyExpenses: true, date: getCurrentMonthRange()}
   };
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCardsExpenses, JSON.stringify(cardsExpensesFilters)],
-    queryFn: () => analyticsAPI.getCardsExpenses(cardsExpensesFilters, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getTransactionsStatistics, JSON.stringify(filters)],
+    queryFn: () => analyticsAPI.getTransactionsStatistics(filters, (session?.user as IUserSession).jwt),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardExpenseStatistics
-        filters={cardsExpensesFilters}
+      <TransactionsStatistics
+        label={label}
+        filters={filters}
         session={session?.user as IUserSession}
       />
     </HydrationBoundary>

@@ -20,13 +20,13 @@ export function useDeleteCard(): UseMutationResult<IResponse<undefined>, unknown
   return useMutation({
     mutationFn: (): Promise<IResponse<undefined>> => cardAPI.delete(cardFormInitialValues._id, (session?.user as IUserSession).jwt),
     onSuccess: async (success: IResponse<undefined>) => {
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getYearlyStatistics]});
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getWeeklyStatistics]});
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsExpenses]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesExpensesStatistics]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getMonthlyExpensesStatistics]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsExpensesStatistics]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactionsStatistics]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getAccountStatistics]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]});
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getExpenses]});
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]});
-      queryClient.invalidateQueries({queryKey: [QueryKeys.getInfo]});
       ToastifyCaller(IStatuses.success, success.message);
       dispatch(resetCard());
       update();

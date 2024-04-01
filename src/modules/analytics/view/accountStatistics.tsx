@@ -2,19 +2,19 @@
 
 import React, {ReactElement} from "react";
 import {IUserSession} from "@/modules/profile";
-import {IAccountFilters} from "../types/account";
 import TransactionsIcon from "@/UI/icons/transaction";
-import {useGetAccountInfo} from "../hooks/getAccountInfo";
 import {AccountInfoCard} from "@/components/AccountInfoCard";
+import {IAccountStatisticsFilters} from "../types/accountStatistics";
+import {useGetAccountStatistics} from "../hooks/getAccountStatistics";
 import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
 
 interface IProps {
   session: IUserSession;
-  filters: IAccountFilters;
+  filters: IAccountStatisticsFilters;
 }
 
-export function Accounts({filters, session}: IProps): ReactElement {
-  const {data, isLoading, isError} = useGetAccountInfo(filters, session.jwt);
+export function AccountStatistics({filters, session}: IProps): ReactElement {
+  const {data, isLoading, isError} = useGetAccountStatistics(filters, session.jwt);
 
   if(isLoading) {
     return (

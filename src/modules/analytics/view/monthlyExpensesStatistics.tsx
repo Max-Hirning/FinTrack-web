@@ -6,8 +6,8 @@ import React, {ReactElement} from "react";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {getMonthName} from "@/controllers/dates";
-import {useGetMonthlyExpenses} from "../hooks/getMonthlyExpenses";
 import {IMonthlyExpensesStatisticsFilters} from "../types/monthlyExpensesStatistics";
+import {useGetMonthlyExpensesStatistics} from "../hooks/getMonthlyExpensesStatistics";
 
 Chart.register(ArcElement);
 
@@ -17,9 +17,9 @@ interface IProps {
 }
 
 export function MonthlyExpensesStatistics({filters, session}: IProps): ReactElement {
-  const {data} = useGetMonthlyExpenses(filters, session.jwt);
+  const {data} = useGetMonthlyExpensesStatistics(filters, session.jwt);
 
-  if(!data?.data || data?.data?.length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;
+  if(!data?.data || Object.values(data.data).length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;
 
   return (
     <Bar
