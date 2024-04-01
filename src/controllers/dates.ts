@@ -19,7 +19,7 @@ export function getCurrentYearRange(): [string, string] {
 }
 
 export function getCurrentWeekRange(): [string, string] {
-  const today = new Date("2024-03-31");
+  const today = new Date();
   const dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
   const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to Monday if today is Sunday
   const startDate = new Date(today.setDate(diff));
@@ -30,7 +30,7 @@ export function getCurrentWeekRange(): [string, string] {
 }
 
 export function getCurrentMonthRange(): [string, string] {
-  const today = new Date("2024-03-31");
+  const today = new Date();
   const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
   const startOfMonthString = formatDate(startOfMonth);

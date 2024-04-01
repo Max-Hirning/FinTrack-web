@@ -1,4 +1,4 @@
-import WarningIcon from "@/UI/icons/warning";
+import WarningIcon from "@/UI/icons/warn";
 import React, {InputHTMLAttributes, ReactElement} from "react";
 
 interface IProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {

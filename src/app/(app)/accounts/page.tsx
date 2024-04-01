@@ -70,7 +70,7 @@ export default function Page(): ReactElement {
       <section className="w-full max-w-[730px] mt-[25px]">
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Debit & Credit Overview</h1>
         <Suspense fallback={<section className="bg-slate-200 card border w-full h-[364px] animate-pulse"></section>}>
-          <section className="card w-full p-[25px] h-[364px]">
+          <section className="card w-full flex justify-center items-center p-[25px] h-[364px]">
             <TransactionsStatisticsWrapper
               frequency="m"
               range={getCurrentYearRange()}

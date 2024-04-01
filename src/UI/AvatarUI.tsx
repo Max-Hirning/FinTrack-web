@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, {ReactElement} from "react";
-import ProfileIcon from "@/UI/icons/profile";
+import AvatarIcon from "@/UI/icons/avatar";
 
 interface IProps {
   size: number;
@@ -26,7 +26,7 @@ export function AvatarUI({avatar, size}: IProps): ReactElement {
       style={{width: `${size}px`, height: `${size}px`}}
       className="bg-[#F5F7FA] flex rounded-full items-center justify-center"
     >
-      <ProfileIcon width={size/1.25} height={size/1.25} color="#343C6A"/>
+      <AvatarIcon width={size/1.25} height={size/1.25} color="#343C6A"/>
     </div>
   );
 }

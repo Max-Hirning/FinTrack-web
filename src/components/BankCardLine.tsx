@@ -1,8 +1,8 @@
-import CardIcon from "@/UI/icons/card";
 import {ButtonUI} from "@/UI/ButtonUI";
 import {setCard} from "@/modules/store";
 import {useDispatch} from "react-redux";
 import React, {ReactElement} from "react";
+import CardIcon from "@/UI/icons/pages/card";
 import {ICardResponse} from "@/modules/cards";
 import {hexToRgba} from "@/controllers/colors";
 

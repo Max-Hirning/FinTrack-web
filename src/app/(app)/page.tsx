@@ -58,7 +58,7 @@ export default function Page(): ReactElement {
         <section className="w-full max-w-[730px]">
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Weekly Activity</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[322px] p-[25px] animate-pulse"></section>}>
-            <section className="card w-full p-[25px] h-[322px]">
+            <section className="card w-full p-[25px] h-[322px] flex justify-center items-center">
               <TransactionsStatisticsWrapper
                 frequency="d"
                 range={getCurrentWeekRange()}

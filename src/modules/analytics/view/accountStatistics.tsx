@@ -1,8 +1,10 @@
 "use client";
 
 import React, {ReactElement} from "react";
+import IncomeIcon from "@/UI/icons/income";
+import OutcomeIcon from "@/UI/icons/outcome";
+import BalanceIcon from "@/UI/icons/balance";
 import {IUserSession} from "@/modules/profile";
-import TransactionsIcon from "@/UI/icons/transaction";
 import {AccountInfoCard} from "@/components/AccountInfoCard";
 import {IAccountStatisticsFilters} from "../types/accountStatistics";
 import {useGetAccountStatistics} from "../hooks/getAccountStatistics";
@@ -36,7 +38,7 @@ export function AccountStatistics({filters, session}: IProps): ReactElement {
         currency={session.currency}
         ammount={(data?.data?.balance || 0).toFixed(2)}
       >
-        <TransactionsIcon width={30} height={30} color="#FFBB38"/>
+        <BalanceIcon width={30} height={30} color="#FFBB38"/>
       </AccountInfoCard>
       <AccountInfoCard
         title="Income"
@@ -44,7 +46,7 @@ export function AccountStatistics({filters, session}: IProps): ReactElement {
         currency={session.currency}
         ammount={(data?.data?.incomes || 0).toFixed(2)}
       >
-        <TransactionsIcon width={30} height={30} color="#396AFF"/>
+        <IncomeIcon width={30} height={30} color="#396AFF"/>
       </AccountInfoCard>
       <AccountInfoCard
         title="Expense"
@@ -52,7 +54,7 @@ export function AccountStatistics({filters, session}: IProps): ReactElement {
         currency={session.currency}
         ammount={(data?.data?.expenses || 0).toFixed(2)}
       >
-        <TransactionsIcon width={30} height={30} color="#FF82AC"/>
+        <OutcomeIcon width={30} height={30} color="#FF82AC"/>
       </AccountInfoCard>
     </>
   );

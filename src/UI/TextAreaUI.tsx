@@ -1,4 +1,4 @@
-import WarningIcon from "@/UI/icons/warning";
+import WarningIcon from "@/UI/icons/warn";
 import React, {ReactElement, TextareaHTMLAttributes} from "react";
 
 interface IProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "value"> {
@@ -11,7 +11,7 @@ interface IProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onCh
   changeText: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export function TextUI({id, styles, label, value, error, errorMsg, changeText, ...props}: IProps): ReactElement {
+export function TextAreaUI({id, styles, label, value, error, errorMsg, changeText, ...props}: IProps): ReactElement {
   return (
     <fieldset className={styles || ""}>
       <label

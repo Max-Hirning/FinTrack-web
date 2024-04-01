@@ -7,8 +7,8 @@ import {routes} from "@/configs/routes";
 import React, {ReactElement} from "react";
 import {useSession} from "next-auth/react";
 import {usePathname} from "next/navigation";
-import SecurityIcon from "@/UI/icons/security";
 import {IUserSession} from "@/modules/profile";
+import SecurityIcon from "@/UI/icons/pages/security";
 
 interface IProps {
   user: IUserSession;

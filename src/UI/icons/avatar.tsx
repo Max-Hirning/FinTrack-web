@@ -1,27 +1,28 @@
-import {SVGProps} from "react";
-import React, {ReactElement} from "react";
+import React, {ReactElement, SVGProps} from "react";
 
 const SvgComponent = (props: SVGProps<SVGSVGElement>): ReactElement => (
   <svg
     {...props}
     fill="none"
     viewBox="0 0 24 24"
-    width={props.width}
-    height={props.height}
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle 
-      r={3} 
-      cy={9} 
-      cx={12} 
-      strokeWidth={1.5} 
-      stroke={props.color} 
-    />
     <path
       strokeWidth={1.5}
       stroke={props.color}
       strokeLinecap="round"
-      d="M17.97 20c-.16-2.892-1.045-5-5.97-5s-5.81 2.108-5.97 5"
+      d="M9 16c.85.63 1.885 1 3 1s2.15-.37 3-1"
+    />
+    <path
+      fill={props.color}
+      d="M16 10.5c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5.448-1.5 1-1.5 1 .672 1 1.5Z"
+    />
+    <ellipse 
+      cx={9} 
+      rx={1} 
+      ry={1.5} 
+      cy={10.5} 
+      fill={props.color} 
     />
     <path
       strokeWidth={1.5}

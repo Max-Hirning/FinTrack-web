@@ -1,10 +1,10 @@
 "use client";
 
 import {useFormik} from "formik";
-import {TextUI} from "@/UI/TextUI";
 import {InputUI} from "@/UI/InputUI";
 import {ButtonUI} from "@/UI/ButtonUI";
 import React, {ReactElement} from "react";
+import {TextAreaUI} from "@/UI/TextAreaUI";
 import {useContactUs} from "../hooks/contactUs";
 import {contactUsFormSchema} from "../schemas/contactUsFrom";
 import {contactUsFromInitialValues} from "../models/contactUsFrom";
@@ -38,7 +38,7 @@ export function ContactUsForm(): ReactElement {
         changeText={formik.handleChange}
         error={!!(formik.errors.title && formik.errors.title)}
       />
-      <TextUI
+      <TextAreaUI
         id="text"
         onBlur={formik.handleBlur}
         value={formik.values.text}
