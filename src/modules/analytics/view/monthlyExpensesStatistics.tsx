@@ -18,8 +18,7 @@ interface IProps {
 
 export function MonthlyExpensesStatistics({filters, session}: IProps): ReactElement {
   const {data} = useGetMonthlyExpensesStatistics(filters, session.jwt);
-  // eslint-disable-next-line no-console
-  console.log(data?.data);
+
   if(!data?.data || Object.values(data.data).length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;
 
   return (
