@@ -39,7 +39,7 @@ export default async function Page(): Promise<ReactElement> {
         <section>
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">My Expense</h1>
           <Suspense fallback={<section className="bg-slate-200 card max-lg:w-full lg:w-[350px] h-[235px] border p-[2px] animate-pulse"></section>}>
-            <section className="card max-lg:w-full lg:w-[350px] p-[25px] flex items-center justify-center h-[235px]">
+            <section className="card max-w-[350px] lg:w-[350px] w-full p-[25px] flex items-center justify-center h-[235px]">
               <MonthlyExpensesStatisticsWrapper/>
             </section>
           </Suspense>

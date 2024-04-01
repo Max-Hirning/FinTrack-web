@@ -31,12 +31,6 @@ export function SettingsForm({session, currencies}: IProps): ReactElement {
     validationSchema: settingsFormSchema, 
     initialValues: settingsFormInitialValues,
     onSubmit: async (values: Omit<ISettingsForm, "image">, {resetForm}): Promise<void> => {
-      // const formData: FormData = new FormData();
-      // (imageFile) && formData.append("file", imageFile);
-      // (values.email.length > 0) && formData.append("email", values.email);
-      // (values.lastName.length > 0) && formData.append("lastName", values.lastName);
-      // (values.currency.length > 0) && formData.append("currency", values.currency);
-      // (values.firstName.length > 0) && formData.append("firstName", values.firstName);
       updateUser.mutate({...values, image: imageFile});
       setImageFile(null);
       resetForm();

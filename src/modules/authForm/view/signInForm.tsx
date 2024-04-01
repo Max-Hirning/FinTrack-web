@@ -54,8 +54,8 @@ export function SignInForm(): ReactElement {
       />
       <Link 
         href="/auth/forgot-password"
+        className="w-fit text-main"
         aria-label="Forgot password page"
-        className="text-end block text-main-auth-pages-link text-main"
       >Forgot password?</Link>
       <ButtonUI
         type="submit"
