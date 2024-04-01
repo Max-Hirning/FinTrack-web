@@ -2,11 +2,12 @@ import Link from "next/link";
 import {Metadata} from "next";
 import {CardsListWrapper} from "@/modules/cards";
 import React, {ReactElement, Suspense} from "react";
-import {AccountsWrapper, YearlyStatisticsWrapper} from "@/modules/analytics";
+import {getCurrentYearRange} from "@/controllers/dates";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
 import {AccountInfoCardSkeleton} from "@/components/skeletons/AccountInfoCard";
+import {AccountStatisticsWrapper, TransactionsStatisticsWrapper} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   description: "Overview you finance info"
@@ -23,7 +24,7 @@ export default function Page(): ReactElement {
             <AccountInfoCardSkeleton/>
           </>
         }>
-          <AccountsWrapper/>
+          <AccountStatisticsWrapper/>
         </Suspense>
       </section>
       <section className="max-1.5xl:flex-col mt-[25px] flex gap-[25px]">
@@ -70,7 +71,11 @@ export default function Page(): ReactElement {
         <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Debit & Credit Overview</h1>
         <Suspense fallback={<section className="bg-slate-200 card border w-full h-[364px] animate-pulse"></section>}>
           <section className="card w-full p-[25px] h-[364px]">
-            <YearlyStatisticsWrapper/>
+            <TransactionsStatisticsWrapper
+              frequency="m"
+              range={getCurrentYearRange()}
+              label="Transactions yearly statistics(current year)"
+            />
           </section>
         </Suspense>
       </section>

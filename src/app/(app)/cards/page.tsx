@@ -3,7 +3,7 @@ import React, {Suspense, ReactElement} from "react";
 import {currencyAPI} from "@/controllers/api/currency";
 import {CardForm, CardsListWrapper} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
-import {CardsExpenseStatisticsWrapper} from "@/modules/analytics";
+import {CardsExpensesStatisticsWrapper} from "@/modules/analytics";
 import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
 
 export const metadata: Metadata = {
@@ -35,7 +35,7 @@ export default async function Page(): Promise<ReactElement> {
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card Expense Statistics</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[350px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full h-[350px] flex items-center justify-center p-[25px]">
-              <CardsExpenseStatisticsWrapper/>
+              <CardsExpensesStatisticsWrapper/>
             </section>
           </Suspense>
         </section>

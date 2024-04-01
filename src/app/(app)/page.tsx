@@ -2,10 +2,11 @@ import Link from "next/link";
 import {Metadata} from "next";
 import {CardsListWrapper} from "@/modules/cards";
 import React, {ReactElement, Suspense} from "react";
+import {getCurrentWeekRange} from "@/controllers/dates";
 import {TransactionsListWrapper} from "@/modules/transactions";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {TransactionSkeleton} from "@/components/skeletons/Transaction";
-import {ExpenseStatisticsWrapper, WeeklyStatisticsWrapper} from "@/modules/analytics";
+import {CategoriesExpensesStatisticsWrapper, TransactionsStatisticsWrapper} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   description: "Overview you finances"
@@ -58,7 +59,11 @@ export default function Page(): ReactElement {
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Weekly Activity</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[322px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full p-[25px] h-[322px]">
-              <WeeklyStatisticsWrapper/>
+              <TransactionsStatisticsWrapper
+                frequency="d"
+                range={getCurrentWeekRange()}
+                label="Transactions weekly statistics(current week)"
+              />
             </section>
           </Suspense>
         </section>
@@ -66,7 +71,7 @@ export default function Page(): ReactElement {
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Expense Statistics</h1>
           <Suspense fallback={<section className="bg-slate-200 card border max-w-[350px] lg:w-[350px] w-full h-[322px] p-[25px] animate-pulse"></section>}>
             <section className="card max-w-[350px] w-full p-[25px] flex justify-center items-center lg:w-[350px] h-[322px]">
-              <ExpenseStatisticsWrapper/>
+              <CategoriesExpensesStatisticsWrapper/>
             </section>
           </Suspense>
         </section>

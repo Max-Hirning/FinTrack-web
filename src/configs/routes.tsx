@@ -28,6 +28,12 @@ export const routes: IRoute[] = [
     icon: (props: IIconProps) => <AccountsIcon width={props.width} height={props.height} color={props.color}/>,
   },
   {
+    href: "/cards",
+    title: "Cards",
+    pageTitle: "Cards",
+    icon: (props: IIconProps) => <CardIcon width={props.width} height={props.height} color={props.color}/>,
+  },
+  {
     title: "Stocks",
     pageTitle: "Stocks",
     href: "/investments/stocks",
@@ -38,12 +44,6 @@ export const routes: IRoute[] = [
     pageTitle: "Cryptos",
     href: "/investments/cryptos",
     icon: (props: IIconProps) => <InvestmentsIcon width={props.width} height={props.height} color={props.color}/>,
-  },
-  {
-    href: "/cards",
-    title: "Cards",
-    pageTitle: "Cards",
-    icon: (props: IIconProps) => <CardIcon width={props.width} height={props.height} color={props.color}/>,
   },
   {
     href: "/settings",

@@ -14,14 +14,15 @@ export async function MonthlyExpensesStatisticsWrapper(): Promise<ReactElement> 
   const session = await getServerSession(authOptions);
 
   const monthlyFilters: IMonthlyExpensesStatisticsFilters = {
+    date: getSixPrevMonthsRange(),
+    cards: (session?.user as IUserSession).cards,
     currency: (session?.user as IUserSession).currency,
-    filters: {cards: (session?.user as IUserSession).cards, onlyExpenses: true, date: getSixPrevMonthsRange()}
   };
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getMonthlyExpenses, JSON.stringify(monthlyFilters)],
-    queryFn: () => analyticsAPI.getExpenses(monthlyFilters, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getMonthlyExpensesStatistics, JSON.stringify(monthlyFilters)],
+    queryFn: () => analyticsAPI.getMonthlyExpensesStatistics(monthlyFilters, (session?.user as IUserSession).jwt),
   });
 
   return (

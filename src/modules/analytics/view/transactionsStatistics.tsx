@@ -6,18 +6,21 @@ import React, {ReactElement} from "react";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
 import {getWeekDayName} from "@/controllers/dates";
-import {useGetWeeklyStatistics} from "../hooks/getWeeklyStatistics";
-import {IWeeklyStatisticsFilters, IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
+import {useGetTransactionsStatistics} from "../hooks/getTransactionsStatistics";
+import {ITransactionsStatisticsResponse, ITransactionsStatisticsFilters} from "../types/transactionsStatistics";
 
 Chart.register(ArcElement);
 
 interface IProps {
+  label: string;
   session: IUserSession;
-  filters: IWeeklyStatisticsFilters;
+  filters: ITransactionsStatisticsFilters;
 }
 
-export function WeeklyStatistics({filters, session}: IProps): ReactElement {
-  const {data} = useGetWeeklyStatistics(filters, session.jwt);
+export function TransactionsStatistics({filters, session, label}: IProps): ReactElement {
+  const {data} = useGetTransactionsStatistics(filters, session.jwt);
+
+  if(!data?.data || Object.keys(data.data).length === 0) return <p className="text-danger text-[24px] font-bold">No Data</p>;
 
   return (
     <Bar
@@ -26,13 +29,13 @@ export function WeeklyStatistics({filters, session}: IProps): ReactElement {
         datasets: [
           {
             label: "Incomes",
-            data: (data?.data) ? Object.values(data.data).map((el: IWeeklyStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0],
+            data: (data?.data) ? Object.values(data.data).map((el: ITransactionsStatisticsResponse) => el.incomes) : [0,0,0,0,0,0,0],
             backgroundColor: "#41D4A8",
             borderRadius: 5,
           },
           {
             label: "Expenses",
-            data: (data?.data) ? Object.values(data.data).map((el: IWeeklyStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0],
+            data: (data?.data) ? Object.values(data.data).map((el: ITransactionsStatisticsResponse) => el.expenses) : [0,0,0,0,0,0,0],
             backgroundColor: "#FF4B4A",
             borderRadius: 5,
           },
@@ -48,8 +51,8 @@ export function WeeklyStatistics({filters, session}: IProps): ReactElement {
           },
         },
       }}
+      aria-label={label}
       className='w-full h-full'
-      aria-label="Transactions weekly statistics(current week)"
     />
   );
 }

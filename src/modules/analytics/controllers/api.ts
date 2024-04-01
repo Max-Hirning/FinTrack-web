@@ -1,43 +1,22 @@
 import {IResponse} from "@/types/api";
-import {IAccountFilters, IAccountResponse} from "../types/account";
-import {IWeeklyStatisticsResponse} from "../types/weeklyStatistics";
-import {IYearlyStatisticsResponse} from "../types/yearlyStatistics";
-import {IExpensesFilters, IExpensesResponse} from "../types/expensesStatistics";
-import {ICardsExpensesFilters, ICardsExpensesResponse} from "../types/cardsExpensesStatistics";
+import {IAccountStatisticsFilters, IAccountStatisticsResponse} from "../types/accountStatistics";
+import {ITransactionsStatisticsFilters, ITransactionsStatisticsResponse} from "../types/transactionsStatistics";
+import {ICardsExpensesStatisticsFilters, ICardsExpensesStatisticsResponse} from "../types/cardsExpensesStatistics";
 import {IMonthlyExpensesStatisticsFilters, IMonthlyExpensesStatisticsResponse} from "../types/monthlyExpensesStatistics";
+import {ICategoriesExpensesStatisticsFilters, ICategoriesExpensesStatisticsResponse} from "../types/categoriesExpensesStatistics";
 
 class AnalyticsAPI {
-  async getExpensesCategories({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<IExpensesResponse[]>> {
-    try {
-      if(!(filters && token)) throw ("No expenses were found");
-      const queryParams = new URLSearchParams({
-        currency,
-        filters: JSON.stringify(filters),
-      });
-      const response = await fetch(`api/expenses/category?${queryParams.toString()}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        method: "GET",
-      });
-      const result = await response.json();
-      if(!response.ok) throw (result);
-      return result;
-    } catch (error) {
-      throw (error as string);
-    }
-  }
+  constructor(protected readonly url: string) {}
 
-  async getAccountInfo({currency, cards, transactions}: IAccountFilters, token: string): Promise<IResponse<IAccountResponse>> {
+  async getAccountInfo({currency, cards, date}: IAccountStatisticsFilters, token: string): Promise<IResponse<IAccountStatisticsResponse>> {
     try {
-      if(!(cards && transactions && token)) throw ("No account info was found");
+      if(!(cards && date && token)) throw ("No account info was found");
       const queryParams = new URLSearchParams({
         currency,
+        date: JSON.stringify(date),
         cards: JSON.stringify(cards),
-        transactions: JSON.stringify(transactions),
       });
-      const response = await fetch(`api/account?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/account?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -52,14 +31,15 @@ class AnalyticsAPI {
     }
   }
 
-  async getCardsExpenses({currency, filters}: ICardsExpensesFilters, token: string): Promise<IResponse<ICardsExpensesResponse[]>> {
+  async getMonthlyExpensesStatistics({currency, cards, date}: IMonthlyExpensesStatisticsFilters, token: string): Promise<IResponse<IMonthlyExpensesStatisticsResponse>> {
     try {
-      if(!(filters && token)) throw ("No expenses were found");
+      if(!(cards && currency && date && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
-        filters: JSON.stringify(filters),
+        date: JSON.stringify(date),
+        cards: JSON.stringify(cards),
       });
-      const response = await fetch(`api/expenses/cards?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/expenses/monthly?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -74,14 +54,15 @@ class AnalyticsAPI {
     }
   }
 
-  async getWeeklyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IWeeklyStatisticsResponse}>> {
+  async getCardsExpenses({currency, cards, date}: ICardsExpensesStatisticsFilters, token: string): Promise<IResponse<{[key: string]: ICardsExpensesStatisticsResponse}>> {
     try {
-      if(!(filters && token)) throw ("No expenses were found");
+      if(!(cards && currency && date && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
-        filters: JSON.stringify(filters),
+        date: JSON.stringify(date),
+        cards: JSON.stringify(cards),
       });
-      const response = await fetch(`api/transactions/weekly?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/expenses/cards?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -96,16 +77,17 @@ class AnalyticsAPI {
     }
   }
 
-  async getYearlyStatistics({currency, filters}: IExpensesFilters, token: string): Promise<IResponse<{[key: string]: IYearlyStatisticsResponse}>> {
+  async getCategoriesExpenses({currency, cards, date}: ICategoriesExpensesStatisticsFilters, token: string): Promise<IResponse<{[key: string]: ICategoriesExpensesStatisticsResponse}>> {
     try {
-      if(!(filters && token)) throw ("No expenses were found");
+      if(!(cards && date && currency && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
-        filters: JSON.stringify(filters),
+        date: JSON.stringify(date),
+        cards: JSON.stringify(cards),
       });
-      const response = await fetch(`api/transactions/yearly?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/expenses/categories?${queryParams.toString()}`, {
         headers: {
-          "Authorization": `Bearer ${token}`, 
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
         },
         method: "GET",
@@ -118,14 +100,16 @@ class AnalyticsAPI {
     }
   }
 
-  async getExpenses({currency, filters}: IMonthlyExpensesStatisticsFilters, token: string): Promise<IResponse<{[key: string]: IMonthlyExpensesStatisticsResponse}>> {
+  async getTransactionsStatistics({currency, frequency, cards, date}: ITransactionsStatisticsFilters, token: string): Promise<IResponse<{[key: string]: ITransactionsStatisticsResponse}>> {
     try {
-      if(!(filters && token)) throw ("No expenses were found");
+      if(!(cards && date && currency && frequency && token)) throw ("No expenses were found");
       const queryParams = new URLSearchParams({
         currency,
-        filters: JSON.stringify(filters),
+        frequency,
+        date: JSON.stringify(date),
+        cards: JSON.stringify(cards),
       });
-      const response = await fetch(`api/expenses?${queryParams.toString()}`, {
+      const response = await fetch(`${this.url}/transactions?${queryParams.toString()}`, {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json; charset=utf-8",
@@ -141,4 +125,4 @@ class AnalyticsAPI {
   }
 }
 
-export const analyticsAPI = new AnalyticsAPI();
+export const analyticsAPI = new AnalyticsAPI(`${process.env.NEXT_PUBLIC_API_URL}/analytics`);
