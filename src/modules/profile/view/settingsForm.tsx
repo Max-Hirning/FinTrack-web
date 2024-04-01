@@ -7,7 +7,7 @@ import {AvatarUI} from "@/UI/AvatarUI";
 import {SelectUI} from "@/UI/SelectUI";
 import {signOut} from "next-auth/react";
 import CloseIcon from "@/UI/icons/close";
-import LogOutIcon from "@/UI/icons/logOut";
+import LogoutIcon from "@/UI/icons/logout";
 import {ICurrency} from "@/types/currency";
 import {useSession} from "next-auth/react";
 import {IUserSession} from "../types/user";
@@ -72,7 +72,7 @@ export function SettingsForm({session, currencies}: IProps): ReactElement {
         onMouseLeave={() => setIconColor("#ef4444")}
         styles="sm:w-[120px] max-sm:w-[40px] h-[40px] justify-evenly max-sm:rounded-full absolute top-[25px] right-[25px]"
       >
-        <LogOutIcon 
+        <LogoutIcon 
           width={25} 
           height={25} 
           color={iconColor}
