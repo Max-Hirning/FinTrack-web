@@ -27,8 +27,7 @@ Clone the repository:
 * `NEXTAUTH_SECRET=""` 
 * `NEXTAUTH_URL="http://localhost:3000"` 
 * `NEXT_PUBLIC_API_URL=""` 
-* `NEXT_PUBLIC_LOCAL_URL="http://localhost:3000"` 
-* `ACCESS_TOKEN_CURRENCY="" for FXRatesAPI`
+* `NEXT_PUBLIC_LOCAL_URL="http://localhost:3000"`
 
 4. Test account for app:
 * email: `test@gmail.com`
