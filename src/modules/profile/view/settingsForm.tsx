@@ -142,7 +142,7 @@ export function SettingsForm({session, currencies}: IProps): ReactElement {
             value={formik.values.firstName}
             changeText={formik.handleChange}
             errorMsg={formik.errors.firstName}
-            error={!!(formik.errors.firstName && formik.errors.firstName)}
+            error={!!(formik.touched.firstName && formik.errors.firstName)}
             placeholder={(data?.user as IUserSession)?.firstName || session.firstName}
           />
           <InputUI
@@ -155,7 +155,7 @@ export function SettingsForm({session, currencies}: IProps): ReactElement {
             value={formik.values.lastName}
             changeText={formik.handleChange}
             errorMsg={formik.errors.lastName}
-            error={!!(formik.errors.lastName && formik.errors.lastName)}
+            error={!!(formik.touched.lastName && formik.errors.lastName)}
             placeholder={(data?.user as IUserSession)?.lastName || session.lastName}
           />
         </fieldset>
@@ -170,7 +170,7 @@ export function SettingsForm({session, currencies}: IProps): ReactElement {
             styles="w-full max-w-[320px]"
             errorMsg={formik.errors.email}
             changeText={formik.handleChange}
-            error={!!(formik.errors.email && formik.errors.email)}
+            error={!!(formik.touched.email && formik.errors.email)}
             placeholder={(data?.user as IUserSession)?.email || session.email}
           />
           <SelectUI
@@ -187,7 +187,7 @@ export function SettingsForm({session, currencies}: IProps): ReactElement {
             styles="w-full max-w-[320px]"
             value={formik.values.currency}
             errorMsg={formik.errors.currency}
-            error={!!(formik.errors.currency && formik.errors.currency)}
+            error={!!(formik.touched.currency && formik.errors.currency)}
             placeholder={(data?.user as IUserSession)?.currency || session.currency}
           >
             <datalist id="currencies-list">

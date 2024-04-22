@@ -4,6 +4,7 @@ import {store} from "@/store";
 import {Provider} from "react-redux";
 import {IResponse} from "@/types/api";
 import {useRouter} from "next/navigation";
+import {UpdateSession} from "./UpdateSession";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";
 import {SessionProvider, signOut} from "next-auth/react";
 import React, {ReactElement, ReactNode, useState} from "react";
@@ -46,8 +47,12 @@ export function ProviderComponent({children}: IProps): ReactElement {
     <SessionProvider>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          {children}
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          <UpdateSession>
+            <>
+              {children}
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+            </>
+          </UpdateSession>
         </QueryClientProvider>
       </Provider>
     </SessionProvider>

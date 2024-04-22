@@ -5,7 +5,7 @@ import {Bar} from "react-chartjs-2";
 import React, {ReactElement} from "react";
 import {Chart, ArcElement} from "chart.js";
 import {IUserSession} from "@/modules/profile";
-import {getWeekDayName} from "@/controllers/dates";
+import {getMonthName, getWeekDayName} from "@/controllers/dates";
 import {useGetTransactionsStatistics} from "../hooks/getTransactionsStatistics";
 import {ITransactionsStatisticsResponse, ITransactionsStatisticsFilters} from "../types/transactionsStatistics";
 
@@ -25,7 +25,11 @@ export function TransactionsStatistics({filters, session, label}: IProps): React
   return (
     <Bar
       data={{
-        labels: (data?.data) ? Object.keys(data.data).map((el: string) => getWeekDayName(el)) : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        labels: (data?.data) ? Object.keys(data.data).map((el: string) => {
+          if(filters.frequency === "d") return getWeekDayName(el);
+          if(filters.frequency === "m") return getMonthName(el);
+          return "";
+        }) : (filters.frequency === "d") ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
           {
             label: "Incomes",

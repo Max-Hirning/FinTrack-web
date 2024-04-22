@@ -37,7 +37,7 @@ export function SecurityForm(): ReactElement {
         changeText={formik.handleChange}
         value={formik.values.oldPassword}
         errorMsg={formik.errors.oldPassword}
-        error={!!(formik.errors.oldPassword && formik.errors.oldPassword)}
+        error={!!(formik.touched.oldPassword && formik.errors.oldPassword)}
       />
       <InputUI
         type="password"
@@ -47,7 +47,7 @@ export function SecurityForm(): ReactElement {
         changeText={formik.handleChange}
         value={formik.values.newPassword}
         errorMsg={formik.errors.newPassword}
-        error={!!(formik.errors.newPassword && formik.errors.newPassword)}
+        error={!!(formik.touched.newPassword && formik.errors.newPassword)}
       />
       <InputUI
         type="password"
@@ -57,7 +57,7 @@ export function SecurityForm(): ReactElement {
         changeText={formik.handleChange}
         value={formik.values.confirmPassword}
         errorMsg={formik.errors.confirmPassword}
-        error={!!(formik.errors.confirmPassword && formik.errors.confirmPassword)}
+        error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
       />
       <ButtonUI 
         type="submit"

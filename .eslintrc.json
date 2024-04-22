@@ -22,6 +22,7 @@
         "object-curly-spacing": ["error", "never"],
         "@tanstack/query/exhaustive-deps": "error",
         "@typescript-eslint/no-explicit-any": "error",
+        "react/no-unstable-nested-components": "warn",
         "@tanstack/query/stable-query-client": "error",
         "@tanstack/query/no-rest-destructuring": "warn",
         "@typescript-eslint/space-before-blocks": "error",

@@ -70,7 +70,7 @@ export function CardForm({currencies}: IProps): ReactElement {
             styles="w-full max-w-[320px]"
             errorMsg={formik.errors.title}
             changeText={formik.handleChange}
-            error={!!(formik.errors.title && formik.errors.title)}
+            error={!!(formik.touched.title && formik.errors.title)}
           />
           <SelectUI
             type="text"
@@ -82,7 +82,7 @@ export function CardForm({currencies}: IProps): ReactElement {
             value={formik.values.currency}
             changeText={formik.handleChange}
             errorMsg={formik.errors.currency}
-            error={!!(formik.errors.currency && formik.errors.currency)}
+            error={!!(formik.touched.currency && formik.errors.currency)}
           >
             <datalist id="currencies-list">
               {
@@ -109,7 +109,7 @@ export function CardForm({currencies}: IProps): ReactElement {
             errorMsg={formik.errors.balance}
             changeText={formik.handleChange}
             value={formik.values.balance.toString() || ""}
-            error={!!(formik.errors.balance && formik.errors.balance)}
+            error={!!(formik.touched.balance && formik.errors.balance)}
           />
           <InputUI
             id="color"
@@ -120,7 +120,7 @@ export function CardForm({currencies}: IProps): ReactElement {
             styles="w-full max-w-[320px]"
             errorMsg={formik.errors.color}
             changeText={formik.handleChange}
-            error={!!(formik.errors.color && formik.errors.color)}
+            error={!!(formik.touched.color && formik.errors.color)}
           />
         </fieldset>
         <fieldset className="flex justify-between items-center">
