@@ -36,7 +36,7 @@ export function ContactUsForm(): ReactElement {
         label="Title of the request"
         errorMsg={formik.errors.title}
         changeText={formik.handleChange}
-        error={!!(formik.errors.title && formik.errors.title)}
+        error={!!(formik.touched.title && formik.errors.title)}
       />
       <TextAreaUI
         id="text"
@@ -45,7 +45,7 @@ export function ContactUsForm(): ReactElement {
         label="Text of the request"
         errorMsg={formik.errors.text}
         changeText={formik.handleChange}
-        error={!!(formik.errors.text && formik.errors.text)}
+        error={!!(formik.touched.text && formik.errors.text)}
       />
       <ButtonUI 
         type="submit"

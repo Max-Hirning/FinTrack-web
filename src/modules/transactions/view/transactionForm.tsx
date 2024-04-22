@@ -82,7 +82,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
             changeText={formik.handleChange}
             styles="w-full lg:max-w-[320px]"
             maxDate={new Date().toISOString().split("T")[0]}
-            error={!!(formik.errors.date && formik.errors.date)}
+            error={!!(formik.touched.date && formik.errors.date)}
           />
           <SelectUI
             type="text"
@@ -95,7 +95,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
             value={formik.values.categoryId}
             changeText={formik.handleChange}
             errorMsg={formik.errors.categoryId}
-            error={!!(formik.errors.categoryId && formik.errors.categoryId)}
+            error={!!(formik.touched.categoryId && formik.errors.categoryId)}
           >
             <select 
               id="categoryId"
@@ -158,7 +158,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
             errorMsg={formik.errors.cardId}
             styles="w-full lg:max-w-[320px]"
             changeText={formik.handleChange}
-            error={!!(formik.errors.cardId && formik.errors.cardId)}
+            error={!!(formik.touched.cardId && formik.errors.cardId)}
           >
             <select 
               id="cardId"
@@ -189,7 +189,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
             changeText={formik.handleChange}
             styles="w-full lg:max-w-[320px]"
             value={formik.values.amount.toString() || ""}
-            error={!!(formik.errors.amount && formik.errors.amount)}
+            error={!!(formik.touched.amount && formik.errors.amount)}
           />
         </fieldset>
         <fieldset>
@@ -202,7 +202,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
             changeText={formik.handleChange}
             value={formik.values.description}
             errorMsg={formik.errors.description}
-            error={!!(formik.errors.description && formik.errors.description)}
+            error={!!(formik.touched.description && formik.errors.description)}
             placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero eos dolorem unde, dignissimos odit et. Beatae doloremque facere expedita tempore? Nobis esse nemo facilis nihil fugit deserunt quia amet voluptate."
           />
         </fieldset>
