@@ -4,7 +4,7 @@ Welcome to the FinTrack Web, a web client service for a fintrack app built using
 ## Getting Started
 To get started with the FinTrack Web, follow these steps:
 
-- [NextJS](https://nestjs.com/): A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
+- [NextJS](https://nextjs.org/): React framework that enables server-side rendering, static site generation, and other powerful features for building fast and scalable web applications.
 - [Tailwind css](https://www.npmjs.com/package/tailwindcss): A utility-first CSS framework for rapidly building custom designs.
 - [Chart.JS](https://www.chartjs.org/): Chart.js, a simple yet flexible JavaScript charting library.
 - [Next Auth](https://www.npmjs.com/package/next-auth): NextAuth, an authentication library for Next.js applications.
