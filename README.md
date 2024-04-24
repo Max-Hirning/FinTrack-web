@@ -5,15 +5,12 @@ Welcome to the FinTrack Web, a web client service for a fintrack app built using
 To get started with the FinTrack Web, follow these steps:
 
 - [NextJS](https://nestjs.com/): A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
-- [Tailwind css](https://www.mongodb.com/): A NoSQL database for storing recipe data.
-- [Chart.JS](https://cloudinary.com/): For storing and serving recipe images.
-- [Formik](https://jwt.io/): JSON Web Token for authentication.
-- [Next Auth](https://www.npmjs.com/package/bcrypt): A library for hashing passwords securely.
-- [React](https://mongoosejs.com/): A MongoDB object modeling tool.
-- [Reduxtoolkit](https://jestjs.io/): A JavaScript testing framework.
-- [Yup](https://github.com/visionmedia/supertest): A library for testing HTTP servers.
+- [Tailwind css](https://www.npmjs.com/package/tailwindcss): A utility-first CSS framework for rapidly building custom designs.
+- [Chart.JS](https://www.chartjs.org/): Chart.js, a simple yet flexible JavaScript charting library.
+- [Next Auth](https://www.npmjs.com/package/next-auth): NextAuth, an authentication library for Next.js applications.
+- [React](https://react.dev/): React, a JavaScript library for building user interfaces.
+- [Reduxtoolkit](https://redux-toolkit.js.org/): Redux Toolkit, an opinionated toolset for efficient Redux development.
 - [ESLint](https://eslint.org/): A tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-- [FXRatesAPI](https://fxratesapi.com/docs): Currencies rates API.
 
 Clone the repository:
 
