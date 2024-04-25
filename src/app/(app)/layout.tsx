@@ -1,8 +1,8 @@
 import CloseIcon from "@/UI/icons/close";
 import {Header} from "@/components/Header";
 import {getServerSession} from "next-auth";
-import {appVersion} from "@/configs/appInfo";
 import {IUserSession} from "@/modules/profile";
+import packageInfo from "../../../package.json";
 import {authOptions} from "@/configs/authOptions";
 import {Navigation} from "@/components/Navigation";
 import React, {ReactElement, ReactNode} from "react";
@@ -33,7 +33,7 @@ export default async function Layout({children}: IProps): Promise<ReactElement> 
         </label>
         <h1 className='font-black text-text mt-[30px] title text-[25px] text-center'>FinTrack.</h1>
         <Navigation/>
-        <p className="absolute bottom-[25px] left-1/2 transform -translate-x-2/3 -translate-y-0 text-secondary text-[14px]">V {appVersion}</p>
+        <p className="absolute bottom-[25px] left-1/2 transform -translate-x-2/3 -translate-y-0 text-secondary text-[14px]">V {packageInfo.version}</p>
       </aside>
       <div
         id="sidebarBackdrop"
