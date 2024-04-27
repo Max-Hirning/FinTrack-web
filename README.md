@@ -1,5 +1,6 @@
 # FinTrack Web
-Welcome to the FinTrack Web, a web client service for a fintrack app built using NextJS, Tailwind css, and other technologies.
+Welcome to the FinTrack Web, a web client service for a fintrack app built using NextJS, Tailwind css, and other technologies. <br/>
+[Published on Vercel](https://fin-track-web.vercel.app/)
 
 ## Getting Started
 To get started with the FinTrack Web, follow these steps:
