@@ -107,9 +107,10 @@ export function SignUpForm(): ReactElement {
           className=" ml-[10px] text-[14px] text-text"
         >
           I&lsquo;ve read <Link 
-            href="/privacy-policy"
+            target="_blank"
             aria-label="Privacy policy page"
             className="text-main text-[14px]"
+            href="https://www.freeprivacypolicy.com/live/1dd671b8-9360-4e40-9121-f7afb7b8dd2f"
           >privacy policy</Link> and agree
         </label>
       </fieldset>
