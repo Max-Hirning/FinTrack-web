@@ -23,7 +23,8 @@ export function getCurrentWeekRange(): [string, string] {
   const dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
   const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1); // Adjust to Monday if today is Sunday
   const startDate = new Date(today.setDate(diff));
-  const endDate = new Date(today.setDate(diff + 6));
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 6);
   const formattedStartDate = startDate.toISOString().split("T")[0];
   const formattedEndDate = endDate.toISOString().split("T")[0];
   return [formattedStartDate, formattedEndDate];
