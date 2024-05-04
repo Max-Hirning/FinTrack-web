@@ -208,17 +208,17 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
         </fieldset>
         <fieldset className="flex justify-between items-center">
           <ButtonUI
-            // disabled={
-            //   !(
-            //     formik.isValid &&
-            //   Object.entries(formik.values).every(
-            //     ([key, value]: [string, string | number]) => {
-            //       if(key === "id") return true;
-            //       return value.toString().length !== 0;
-            //     }
-            //   )
-            //   )
-            // }
+            disabled={
+              !(
+                formik.isValid &&
+              Object.entries(formik.values).every(
+                ([key, value]: [string, string | number]) => {
+                  if(key === "id") return true;
+                  return value.toString().length !== 0;
+                }
+              )
+              )
+            }
             type="submit"
             variant="contained"
             styles="w-[175px] h-[40px] rounded-[9px] mt-[20px]"
