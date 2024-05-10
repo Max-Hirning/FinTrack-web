@@ -1,36 +1,31 @@
-import {CardsList} from "../cardsList";
 import React, {ReactElement} from "react";
 import {getServerSession} from "next-auth";
 import {QueryKeys} from "@/configs/queryKeys";
-import {cardAPI} from "../../controllers/api/card";
 import {IUserSession} from "@/modules/profile";
-import {ICardsFilters} from "../../types/card";
+import {PortfoliosList} from "../portfoliosList";
 import {authOptions} from "@/configs/authOptions";
+import {IPortfoliosFilters} from "../../types/portfolio";
+import {portfolioAPI} from "../../controllers/api/portfolio";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
-interface IProps {
-  elStyle: "card"|"line";
-}
-
-export async function CardsListWrapper({elStyle}: IProps): Promise<ReactElement> {
+export async function PortfoliosListWrapper(): Promise<ReactElement> {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
 
-  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
+  const portfoliosFilters: Pick<IPortfoliosFilters, "ownerId"> = {
     ownerId: (session?.user as IUserSession).id
   };
 
   await queryClient.prefetchQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, JSON.stringify(cardsFilters)],
-    queryFn: () => cardAPI.getAll(cardsFilters, (session?.user as IUserSession).jwt),
+    queryKey: [QueryKeys.getPortfolios, JSON.stringify(portfoliosFilters)],
+    queryFn: () => portfolioAPI.getAll(portfoliosFilters, (session?.user as IUserSession).jwt),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardsList 
-        elStyle={elStyle}
-        filters={cardsFilters}
+      <PortfoliosList 
+        filters={portfoliosFilters}
         session={session?.user as IUserSession}
       />
     </HydrationBoundary>

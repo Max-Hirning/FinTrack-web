@@ -10,7 +10,7 @@ export interface ICardResponse {
   title: string;
   balance: number;
   currency: string;
-  owner: Omit<IUserResponse, "cards"|"currency">
+  owner: Omit<IUserResponse, "cardIds"> & Partial<Pick<IUserResponse, "avatar">>;
 }
 export interface ICardsListResponse {
   currencies: string[];

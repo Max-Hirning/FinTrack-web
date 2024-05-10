@@ -3,7 +3,7 @@
 import {IResponse} from "@/types/api";
 import {ICardForm} from "@/modules/store";
 import {useSession} from "next-auth/react";
-import {cardAPI} from "../controllers/api";
+import {cardAPI} from "../controllers/api/card";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {IStatuses, ToastifyCaller} from "@/UI/AlertUI";

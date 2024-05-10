@@ -74,11 +74,16 @@ export function CardsList({elStyle, filters, session}: IProps): ReactElement {
     return (
       <>
         {
-          (data?.data?.cards || []).map((card: ICardResponse) => {
+          (data?.data?.cards || []).map(({currency, balance, owner, title, _id}: ICardResponse) => {
             return (
               <BankCard 
-                {...card}
-                key={card._id}
+                _id={_id}
+                key={_id}
+                title={title}
+                balance={balance}
+                currency={currency}
+                ownerLastName={owner.lastName}
+                ownerFirstName={owner.firstName}
               />
             );
           })

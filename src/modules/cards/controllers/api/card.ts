@@ -1,6 +1,6 @@
 import {IResponse} from "@/types/api";
 import {ICardForm} from "@/modules/store";
-import {ICardsFilters, ICardsListResponse} from "../types/card";
+import {ICardsFilters, ICardsListResponse} from "../../types/card";
 
 class CardAPI {
   constructor(protected readonly url: string) {}

@@ -9,6 +9,11 @@ export enum QueryKeys {
   updateCard = "update-card",
   deleteCard = "delete-card",
 
+  getPortfolios = "get-portfolios",
+  createPortfolio = "create-portfolio",
+  updatePortfolio = "update-portfolio",
+  deletePortfolio = "delete-portfolio",
+
   getTransactions = "get-transactions",
   createTransaction = "create-transaction",
   updateTransaction = "update-transaction",

@@ -1,14 +1,14 @@
 "use client";
 
 import {IResponse} from "@/types/api";
-import {cardAPI} from "../controllers/api/card";
 import {useSession} from "next-auth/react";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
+import {portfolioAPI} from "../controllers/api/portfolio";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
-import {ICardsFilters, ICardsListResponse} from "../types/card";
+import {IPortfoliosFilters, IPortfoliosListResponse} from "../types/portfolio";
 
-export function useGetCards(filters: Pick<ICardsFilters, "ownerId">, token: string): UseQueryResult<IResponse<ICardsListResponse>, unknown> {
+export function useGetPortfolios(filters: Pick<IPortfoliosFilters, "ownerId">, token: string): UseQueryResult<IResponse<IPortfoliosListResponse>, unknown> {
   const {data: session} = useSession();
   const ownerId = (session?.user as IUserSession)?.id;
 
@@ -16,7 +16,7 @@ export function useGetCards(filters: Pick<ICardsFilters, "ownerId">, token: stri
 
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
-    queryKey: [QueryKeys.getCards, JSON.stringify(filters)],
-    queryFn: (): Promise<IResponse<ICardsListResponse>> => cardAPI.getAll(filters, token),
+    queryKey: [QueryKeys.getPortfolios, JSON.stringify(filters)],
+    queryFn: (): Promise<IResponse<IPortfoliosListResponse>> => portfolioAPI.getAll(filters, token),
   });
 }

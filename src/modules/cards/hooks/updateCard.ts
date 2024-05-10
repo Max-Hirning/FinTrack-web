@@ -4,7 +4,7 @@ import {IResponse} from "@/types/api";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/types/store";
 import {useSession} from "next-auth/react";
-import {cardAPI} from "../controllers/api";
+import {cardAPI} from "../controllers/api/card";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {ICardForm, resetCard} from "@/modules/store";
