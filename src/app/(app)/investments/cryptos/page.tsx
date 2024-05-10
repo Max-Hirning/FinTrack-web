@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import React, {ReactElement, Suspense} from "react";
 import {PortfoliosListWrapper} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
+import {PortfolioAssetsStatisticsWrapper} from "@/modules/analytics";
 
 export const metadata: Metadata = {
   title: "Crypto investments",
@@ -29,6 +30,7 @@ export default function Page(): ReactElement {
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[350px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full h-[350px] flex items-center justify-center p-[25px]">
               {/* <CardsExpensesStatisticsWrapper/> */}
+              <PortfolioAssetsStatisticsWrapper/>
             </section>
           </Suspense>
         </section>

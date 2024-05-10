@@ -36,7 +36,7 @@ export function PortfoliosList({filters, session}: IProps): ReactElement {
         className="bg-white border items-center justify-center border-[#DFEAF2] rounded-[25px] min-w-[350px] h-[235px] p-[20px] flex flex-col relative"
       >
         <AddIcon width={50} height={50} color="#343C6A"/>
-        <p className="text-text text-[20px] font-bold mt-[10px]">Add card</p>
+        <p className="text-text text-[20px] font-bold mt-[10px]">Add portfolio</p>
       </Link>
     );
   }
@@ -64,10 +64,8 @@ export function PortfoliosList({filters, session}: IProps): ReactElement {
         className="bg-white border items-center justify-center border-[#DFEAF2] rounded-[25px] w-full min-w-[350px] h-[235px] p-[20px] flex flex-col relative"
       >
         <AddIcon width={50} height={50} color="#343C6A"/>
-        <p className="text-text text-[20px] font-bold mt-[10px]">Add card</p>
+        <p className="text-text text-[20px] font-bold mt-[10px]">Add portfolio</p>
       </Link>
     </>
   );
-
-  throw new Error("Provide elStyle prop: card or line");
 }

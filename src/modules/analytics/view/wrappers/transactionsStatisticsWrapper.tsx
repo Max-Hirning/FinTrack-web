@@ -3,7 +3,7 @@ import {getServerSession} from "next-auth";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
-import {analyticsAPI} from "../../controllers/api";
+import {analyticsAPI} from "../../controllers/api/finance";
 import {TransactionsStatistics} from "../transactionsStatistics";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 import {ITransactionsStatisticsFilters} from "../../types/transactionsStatistics";

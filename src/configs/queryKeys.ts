@@ -30,5 +30,6 @@ export enum QueryKeys {
   getTransactionsStatistics = "get-transactions-statistics",
   getCardsExpensesStatistics = "get-cards-expenses-statistics",
   getMonthlyExpensesStatistics = "get-monthly-expenses-statistics",
+  getPortfolioAssetsStatistics = "get-portfolio-assets-statistics",
   getCategoriesExpensesStatistics = "get-categories-expenses-statistics",
 }

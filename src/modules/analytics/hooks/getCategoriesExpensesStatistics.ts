@@ -4,7 +4,7 @@ import {IResponse} from "@/types/api";
 import {useSession} from "next-auth/react";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
-import {analyticsAPI} from "../controllers/api";
+import {analyticsAPI} from "../controllers/api/finance";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
 import {ICategoriesExpensesStatisticsFilters, ICategoriesExpensesStatisticsResponse} from "../types/categoriesExpensesStatistics";
 

@@ -1,9 +1,9 @@
 import {IResponse} from "@/types/api";
-import {IAccountStatisticsFilters, IAccountStatisticsResponse} from "../types/accountStatistics";
-import {ITransactionsStatisticsFilters, ITransactionsStatisticsResponse} from "../types/transactionsStatistics";
-import {ICardsExpensesStatisticsFilters, ICardsExpensesStatisticsResponse} from "../types/cardsExpensesStatistics";
-import {IMonthlyExpensesStatisticsFilters, IMonthlyExpensesStatisticsResponse} from "../types/monthlyExpensesStatistics";
-import {ICategoriesExpensesStatisticsFilters, ICategoriesExpensesStatisticsResponse} from "../types/categoriesExpensesStatistics";
+import {IAccountStatisticsFilters, IAccountStatisticsResponse} from "../../types/accountStatistics";
+import {ITransactionsStatisticsFilters, ITransactionsStatisticsResponse} from "../../types/transactionsStatistics";
+import {ICardsExpensesStatisticsFilters, ICardsExpensesStatisticsResponse} from "../../types/cardsExpensesStatistics";
+import {IMonthlyExpensesStatisticsFilters, IMonthlyExpensesStatisticsResponse} from "../../types/monthlyExpensesStatistics";
+import {ICategoriesExpensesStatisticsFilters, ICategoriesExpensesStatisticsResponse} from "../../types/categoriesExpensesStatistics";
 
 class AnalyticsAPI {
   constructor(protected readonly url: string) {}

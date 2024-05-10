@@ -3,7 +3,7 @@ import {IRoute} from "@/types/routes";
 import {IIconProps} from "@/types/icon";
 import HomeIcon from "@/UI/icons/pages/home";
 import CardIcon from "@/UI/icons/pages/card";
-import StocksIcon from "@/UI/icons/pages/stocks";
+// import StocksIcon from "@/UI/icons/pages/stocks";
 import CryptoIcon from "@/UI/icons/pages/crypto";
 import AccountsIcon from "@/UI/icons/pages/account";
 import SettingsIcon from "@/UI/icons/pages/settings";
@@ -34,12 +34,12 @@ export const routes: IRoute[] = [
     pageTitle: "Cards",
     icon: (props: IIconProps) => <CardIcon width={props.width} height={props.height} color={props.color}/>,
   },
-  {
-    title: "Stocks",
-    pageTitle: "Stocks",
-    href: "/investments/stocks",
-    icon: (props: IIconProps) => <StocksIcon width={props.width} height={props.height} color={props.color}/>,
-  },
+  // {
+  //   title: "Stocks",
+  //   pageTitle: "Stocks",
+  //   href: "/investments/stocks",
+  //   icon: (props: IIconProps) => <StocksIcon width={props.width} height={props.height} color={props.color}/>,
+  // },
   {
     title: "Cryptos",
     pageTitle: "Cryptos",

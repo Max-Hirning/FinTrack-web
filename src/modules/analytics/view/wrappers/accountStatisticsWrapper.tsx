@@ -3,9 +3,9 @@ import {getServerSession} from "next-auth";
 import {QueryKeys} from "@/configs/queryKeys";
 import {IUserSession} from "@/modules/profile";
 import {authOptions} from "@/configs/authOptions";
-import {analyticsAPI} from "../../controllers/api";
 import {AccountStatistics} from "../accountStatistics";
 import {getCurrentMonthRange} from "@/controllers/dates";
+import {analyticsAPI} from "../../controllers/api/finance";
 import {IAccountStatisticsFilters} from "../../types/accountStatistics";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
