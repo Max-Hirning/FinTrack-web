@@ -13,8 +13,8 @@ import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
 
 interface IProps {
   session: IUserSession;
-  filters: ICardsFilters;
   elStyle: "card"|"line";
+  filters: Pick<ICardsFilters, "ownerId">;
 }
 
 export function CardsList({elStyle, filters, session}: IProps): ReactElement {

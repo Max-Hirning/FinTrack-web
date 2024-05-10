@@ -16,8 +16,8 @@ export async function CardsListWrapper({elStyle}: IProps): Promise<ReactElement>
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
 
-  const cardsFilters: ICardsFilters = {
-    cards: (session?.user as IUserSession).cards
+  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
+    ownerId: (session?.user as IUserSession).id
   };
 
   await queryClient.prefetchQuery({

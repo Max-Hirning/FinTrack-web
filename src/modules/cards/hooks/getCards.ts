@@ -8,11 +8,11 @@ import {IUserSession} from "@/modules/profile";
 import {UseQueryResult, useQuery} from "@tanstack/react-query";
 import {ICardsFilters, ICardsListResponse} from "../types/card";
 
-export function useGetCards(filters: ICardsFilters, token: string): UseQueryResult<IResponse<ICardsListResponse>, unknown> {
+export function useGetCards(filters: Pick<ICardsFilters, "ownerId">, token: string): UseQueryResult<IResponse<ICardsListResponse>, unknown> {
   const {data: session} = useSession();
-  const cards = (session?.user as IUserSession)?.cards;
+  const ownerId = (session?.user as IUserSession)?.id;
 
-  if(cards) filters.cards = cards;
+  if(ownerId) filters.ownerId = ownerId;
 
   return useQuery({
     // eslint-disable-next-line @tanstack/query/exhaustive-deps

@@ -13,8 +13,8 @@ export async function TransactionFormWrapper(): Promise<ReactElement> {
   const categories = await categoryAPI.getAll();
   const session = await getServerSession(authOptions);
 
-  const cardsFilters: ICardsFilters = {
-    cards: (session?.user as IUserSession).cards
+  const cardsFilters: Pick<ICardsFilters, "ownerId"> = {
+    ownerId: (session?.user as IUserSession).id
   };
 
   await queryClient.prefetchQuery({

@@ -20,8 +20,8 @@ import {ITransactionForm, resetTransaction} from "@/modules/store";
 
 interface IProps {
   session: IUserSession;
-  filters: ICardsFilters;
   categories: ICategoryResponse[];
+  filters: Pick<ICardsFilters, "ownerId">;
 }
 
 export function TransactionForm({filters, session, categories}: IProps): ReactElement {
@@ -99,12 +99,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
           >
             <select 
               id="categoryId"
-              onChange={(e) => {
-                formik.handleChange(e);
-                const selectedOption = e.target.options[e.target.selectedIndex];
-                const selectedTitle = selectedOption.getAttribute("data-title");
-                formik.setFieldValue("description", selectedTitle);
-              }}
+              onChange={formik.handleChange}
               title="Transaction categories"
               value={formik.values.categoryId}
               className="focus:outline-none shadow-sm focus:border-[#DFEAF2] focus:ring-1 focus:ring-[#DFEAF2] rounded-[15px] text-[15px] placeholder-[#718EBF] text-[#718EBF] h-[50px] border border-[#DFEAF2] w-full p-[15px]"
@@ -213,7 +208,7 @@ export function TransactionForm({filters, session, categories}: IProps): ReactEl
                 formik.isValid &&
               Object.entries(formik.values).every(
                 ([key, value]: [string, string | number]) => {
-                  if(key === "id") return true;
+                  if(key === "id" || key === "description") return true;
                   return value.toString().length !== 0;
                 }
               )
