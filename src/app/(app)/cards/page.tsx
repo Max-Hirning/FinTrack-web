@@ -4,7 +4,6 @@ import {currencyAPI} from "@/controllers/api/currency";
 import {CardForm, CardsListWrapper} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {CardsExpensesStatisticsWrapper} from "@/modules/analytics";
-import {BankCardLineSkeleton} from "@/components/skeletons/BankCardLine";
 
 export const metadata: Metadata = {
   description: "Overview you cards"
@@ -26,7 +25,7 @@ export default async function Page(): Promise<ReactElement> {
               <BankCardSkeleton/>
             </>
           }>
-            <CardsListWrapper elStyle="card"/>
+            <CardsListWrapper/>
           </Suspense>
         </section>
       </section>
@@ -38,21 +37,6 @@ export default async function Page(): Promise<ReactElement> {
               <CardsExpensesStatisticsWrapper/>
             </section>
           </Suspense>
-        </section>
-        <section className="max-w-fit max-lg:w-full lg:w-[calc(100%-375px)]">
-          <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Card List</h1>
-          <section className="flex flex-col h-[350px] gap-[25px] pb-[5px] pr-[5px] overflow-auto">
-            <Suspense fallback={
-              <>
-                <BankCardLineSkeleton/>
-                <BankCardLineSkeleton/>
-                <BankCardLineSkeleton/>
-                <BankCardLineSkeleton/>
-              </>
-            }>
-              <CardsListWrapper elStyle="line"/>
-            </Suspense>
-          </section>
         </section>
       </section>
       <section className="mt-[25px] max-w-[730px]">

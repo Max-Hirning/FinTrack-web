@@ -5,7 +5,7 @@ export interface IAsset {
   amount: number;
   avgBuyPrice: number;
 }
-export interface IPortfolio {
+export interface IPortfolioResponse {
   assets: {
     [key: string]: IAsset;
   },
@@ -22,5 +22,5 @@ export interface IPortfoliosFilters {
 }
 export interface IPortfoliosListResponse {
   currencies: string[];
-  portfolios: IPortfolio[];
+  portfolios: IPortfolioResponse[];
 }

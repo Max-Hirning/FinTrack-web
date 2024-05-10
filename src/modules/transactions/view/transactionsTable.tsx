@@ -63,7 +63,7 @@ export function TransactionsTable({filters, session}: IProps): ReactElement {
                               router.push("/transactions#date");
                             }
                           }}
-                          className={`cursor-pointer hover:bg-slate-200 ${(card.owner._id === session.id) && "active:bg-slate-300"} ${((data?.data?.data.data || []).length-1 !== index) && "border-b border-[#E6EFF5]"}`}
+                          className={`cursor-pointer hover:bg-slate-100 ${(card.owner._id === session.id) && "active:bg-slate-200"} ${((data?.data?.data.data || []).length-1 !== index) && "border-b border-[#E6EFF5]"}`}
                         >
                           <td className="py-[10px] w-[350px] h-full flex items-center">
                             <div

@@ -70,7 +70,7 @@ export function TransactionsList({filters, session, shrinked}: IProps): ReactEle
                   router.push("/transactions#date");
                 }
               }}
-              className={`flex items-center cursor-pointer py-[10px] hover:bg-slate-200 ${(card.owner._id === session.id) && "active:bg-slate-300"} ${!shrinked && "md:w-[630px]"}`}
+              className={`flex items-center cursor-pointer py-[10px] hover:bg-slate-100 ${(card.owner._id === session.id) && "active:bg-slate-200"} ${!shrinked && "md:w-[630px]"}`}
             >
               <div className="mr-[10px] flex items-center grow">
                 <div

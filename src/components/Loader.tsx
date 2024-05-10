@@ -15,6 +15,10 @@ export function Loader(): ReactElement {
   const isDeleteCard = useIsMutating({mutationKey: [QueryKeys.deleteCard]});
   const isCreateCard = useIsMutating({mutationKey: [QueryKeys.createCard]});
 
+  const isUpdatePortfolio = useIsMutating({mutationKey: [QueryKeys.updatePortfolio]});
+  const isDeletePortfolio = useIsMutating({mutationKey: [QueryKeys.deletePortfolio]});
+  const isCreatePortfolio = useIsMutating({mutationKey: [QueryKeys.createPortfolio]});
+
   const isUpdateUser = useIsMutating({mutationKey: [QueryKeys.updateUser]});
   const isDeleteUser = useIsMutating({mutationKey: [QueryKeys.deleteUser]});
   const isDeleteUserAvatar = useIsMutating({mutationKey: [QueryKeys.deleteUserAvatar]});
@@ -27,7 +31,7 @@ export function Loader(): ReactElement {
   return (
     <div
       id="loaderBackdrop"
-      className={`fixed inset-0 bg-black bg-opacity-25 z-20 flex items-center justify-center ${!(isResetPassword||isForgotPassword||isSignIn||isSignUp||isUpdateCard||isDeleteCard||isCreateCard||isCreateTransaction||isUpdateTransaction||isDeleteTransaction||isDeleteUserAvatar||isUpdateUser||isUpdateUserSecurity||isDeleteUser) && "hidden"}`}
+      className={`fixed inset-0 bg-black bg-opacity-25 z-20 flex items-center justify-center ${!(isCreatePortfolio||isDeletePortfolio||isUpdatePortfolio||isResetPassword||isForgotPassword||isSignIn||isSignUp||isUpdateCard||isDeleteCard||isCreateCard||isCreateTransaction||isUpdateTransaction||isDeleteTransaction||isDeleteUserAvatar||isUpdateUser||isUpdateUserSecurity||isDeleteUser) && "hidden"}`}
     >
       <LoaderUI/>
     </div>

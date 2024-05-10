@@ -1,6 +1,6 @@
 import {Metadata} from "next";
 import React, {ReactElement, Suspense} from "react";
-import {PortfoliosListWrapper} from "@/modules/cards";
+import {PortfolioForm, PortfoliosListWrapper} from "@/modules/cards";
 import {BankCardSkeleton} from "@/components/skeletons/BankCard";
 import {PortfolioAssetsStatisticsWrapper} from "@/modules/analytics";
 
@@ -29,18 +29,24 @@ export default function Page(): ReactElement {
           <h1 className="title font-semibold text-[22px] text-text mb-[10px]">All assets</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[350px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full h-[350px] flex items-center justify-center p-[25px]">
-              {/* <CardsExpensesStatisticsWrapper/> */}
               <PortfolioAssetsStatisticsWrapper/>
             </section>
           </Suspense>
         </section>
         <section className="w-full max-w-[350px]">
-          <h1 className="title font-semibold text-[22px] text-text mb-[10px]"><span className="font-black">My portfolio 2</span> assets</h1>
+          <h1 className="title font-semibold text-[22px] text-text mb-[10px]">My budget</h1>
           <Suspense fallback={<section className="bg-slate-200 card border w-full h-[350px] p-[25px] animate-pulse"></section>}>
             <section className="card w-full h-[350px] flex items-center justify-center p-[25px]">
               {/* <CardsExpensesStatisticsWrapper/> */}
             </section>
           </Suspense>
+        </section>
+      </section>
+      <section className="mt-[25px] max-w-[730px]">
+        <h1 className="title font-semibold text-[22px] text-text mb-[10px]">Portfolio Form</h1>
+        <section className="card p-[20px] w-full relative">
+          <p className="font-normal text-[16px] text-secondary">Portfolio generally means a account, with your assetst.</p>
+          <PortfolioForm/>
         </section>
       </section>
     </>

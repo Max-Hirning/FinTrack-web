@@ -33,7 +33,7 @@ export default function Page(): ReactElement {
                 <BankCardSkeleton/>
               </>
             }>
-              <CardsListWrapper elStyle="card"/>
+              <CardsListWrapper/>
             </Suspense>
           </section>
         </section>

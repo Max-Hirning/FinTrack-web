@@ -2,17 +2,13 @@ import {CardsList} from "../cardsList";
 import React, {ReactElement} from "react";
 import {getServerSession} from "next-auth";
 import {QueryKeys} from "@/configs/queryKeys";
-import {cardAPI} from "../../controllers/api/card";
 import {IUserSession} from "@/modules/profile";
 import {ICardsFilters} from "../../types/card";
 import {authOptions} from "@/configs/authOptions";
+import {cardAPI} from "../../controllers/api/card";
 import {HydrationBoundary, QueryClient, dehydrate} from "@tanstack/react-query";
 
-interface IProps {
-  elStyle: "card"|"line";
-}
-
-export async function CardsListWrapper({elStyle}: IProps): Promise<ReactElement> {
+export async function CardsListWrapper(): Promise<ReactElement> {
   const queryClient = new QueryClient();
   const session = await getServerSession(authOptions);
 
@@ -28,8 +24,7 @@ export async function CardsListWrapper({elStyle}: IProps): Promise<ReactElement>
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CardsList 
-        elStyle={elStyle}
+      <CardsList
         filters={cardsFilters}
         session={session?.user as IUserSession}
       />

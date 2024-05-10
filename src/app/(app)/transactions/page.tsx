@@ -32,7 +32,7 @@ export default async function Page(): Promise<ReactElement> {
                 <BankCardSkeleton/>
               </>
             }>
-              <CardsListWrapper elStyle="card"/>
+              <CardsListWrapper/>
             </Suspense>
           </section>
         </section>
