@@ -115,7 +115,7 @@ export function SignUpForm() {
           type="submit"
           className="w-full"
           disabled={!form.formState.isValid}
-        >Sign in</Button>
+        >Sign up</Button>
       </form>
     </Form>
   )
