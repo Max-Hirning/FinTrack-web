@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { SendCodeForm } from "features/forms/send-code"
-import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui/card"
+import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
 export function ForgotPasswordWidget() {
   return (

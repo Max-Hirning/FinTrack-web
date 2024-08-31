@@ -1,16 +1,11 @@
 "use client"
 
-import { Input } from "shared/ui/input"
-import { Button } from "shared/ui/button"
 import { useForm } from "react-hook-form"
-import { signInInput } from "shared/types/sign-in"
-import { signInModel } from "shared/models/sign-in"
-import { signInSchema } from "shared/schemas/sign-in"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui/form"
-import { signUpModel } from "shared/models/sign-up"
-import { signUpSchema } from "shared/schemas/sign-up"
 import { signUpInput } from "shared/types/sign-up"
+import { signUpModel } from "shared/models/sign-up"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { signUpSchema } from "shared/schemas/sign-up"
+import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function SignUpForm() {
   const form = useForm<signUpInput>({

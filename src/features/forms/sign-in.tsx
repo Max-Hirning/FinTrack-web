@@ -1,14 +1,12 @@
 "use client"
 
-import { Input } from "shared/ui/input"
-import { Button } from "shared/ui/button"
+import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { signInInput } from "shared/types/sign-in"
 import { signInModel } from "shared/models/sign-in"
 import { signInSchema } from "shared/schemas/sign-in"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui/form"
-import Link from "next/link"
+import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function SignInForm() {
   const form = useForm<signInInput>({
@@ -59,10 +57,16 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <Link 
-          href="/auth/forgot-password"
-          className="underline ml-auto"
-        >Forgot password?</Link>
+        <div className="flex items-center justify-between">
+          <Link 
+            className="underline"
+            href="/auth/verify-email/request"
+          >Verify email</Link>
+          <Link 
+            className="underline"
+            href="/auth/forgot-password"
+          >Forgot password?</Link>
+        </div>
         <Button 
           type="submit"
           className="w-full"

@@ -1,13 +1,11 @@
 "use client"
 
-import { Input } from "shared/ui/input"
-import { Button } from "shared/ui/button"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { sendCodeInput } from "shared/types/send-code"
 import { sendCodeModel } from "shared/models/send-code"
 import { sendCodeSchema } from "shared/schemas/send-code"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui/form"
+import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function SendCodeForm() {
   const form = useForm<sendCodeInput>({

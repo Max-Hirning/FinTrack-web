@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { SignInForm } from "features/forms/sign-in"
-import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui/card"
+import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
 export function SignInWidget() {
   return (

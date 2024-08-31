@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ResetPasswordForm } from "features/forms/reset-password"
-import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui/card"
+import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
 export function ResetPasswordWidget() {
   return (
