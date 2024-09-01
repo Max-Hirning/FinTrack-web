@@ -7,4 +7,6 @@ export * from "./button";
 export * from "./avatar";
 export * from "./tooltip";
 export * from "./checkbox";
+export * from "./bank-card";
 export * from "./input-otp";
+export * from "./account-card";

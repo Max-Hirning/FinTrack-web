@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Readonly<IProps>) {
         <SideBar/>
       </aside>
       <Header/>
-      <main className="w-[calc(100%-60px)] ml-auto flex flex-col items-center justify-center p-[20px]">
+      <main className="w-[calc(100%-60px)] ml-auto flex flex-col p-[20px]">
         {children}
       </main>
     </>

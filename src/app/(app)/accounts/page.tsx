@@ -1,18 +1,9 @@
-import { SignInWidget } from "widgets/cards/sign-in"
+import { AccountsCardsListWidget } from "widgets/accounts-cards-list"
 
 export default function Page() {
   return (
     <>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
+      <AccountsCardsListWidget/>
     </>
   )
 }
