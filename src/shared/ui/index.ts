@@ -9,4 +9,5 @@ export * from "./tooltip";
 export * from "./checkbox";
 export * from "./bank-card";
 export * from "./input-otp";
+export * from "./budget-card";
 export * from "./account-card";

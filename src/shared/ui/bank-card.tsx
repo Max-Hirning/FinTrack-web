@@ -3,7 +3,7 @@ import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./card
 
 export function BankCard() {
   return (
-    <Card className="w-full min-w-[350px] h-[235px] justify-between flex flex-col">
+    <Card className="w-full max-w-[350px] min-w-[350px] h-[235px] justify-between flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between">
         <article>
           <CardTitle className="text-lg font-semibold">John Doe</CardTitle>
