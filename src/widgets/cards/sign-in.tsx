@@ -2,9 +2,13 @@ import Link from "next/link"
 import { SignInForm } from "features/forms/sign-in"
 import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
-export function SignInWidget() {
+interface IProps {
+  styles?: string;
+}
+
+export function SignInWidget({styles}: IProps) {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className={`w-full max-w-sm ${styles || ""}`}>
       <CardHeader>
         <CardTitle className="text-2xl">Sign In</CardTitle>
         <CardDescription>Enter your email below to login to your account.</CardDescription>

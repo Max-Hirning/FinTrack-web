@@ -2,9 +2,13 @@ import Link from "next/link"
 import { ResetPasswordForm } from "features/forms/reset-password"
 import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
-export function ResetPasswordWidget() {
+interface IProps {
+  styles?: string;
+}
+
+export function ResetPasswordWidget({styles}: IProps) {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className={`w-full max-w-sm ${styles || ""}`}>
       <CardHeader>
         <CardTitle className="text-2xl">Reset password</CardTitle>
         <CardDescription>Password must contain at least 1 upper case, numeric, and special character.</CardDescription>

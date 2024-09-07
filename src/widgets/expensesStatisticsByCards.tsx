@@ -1,4 +1,3 @@
-import * as React from "react"
 import { Card, CardContent } from "shared/ui"
 import { MyPieChart as PieChart } from "features/charts/pie";
 
