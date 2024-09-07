@@ -1,4 +1,4 @@
-import { BankCard } from "shared/ui/bankCard";
+import { BankCard } from "shared/ui";
 
 export function CardsList() {
   return (
