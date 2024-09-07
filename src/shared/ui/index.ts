@@ -7,6 +7,8 @@ export * from "./select";
 export * from "./switch";
 export * from "./button";
 export * from "./avatar";
+export * from "./dialog";
+export * from "./menubar";
 export * from "./tooltip";
 export * from "./checkbox";
 export * from "./bank-card";
