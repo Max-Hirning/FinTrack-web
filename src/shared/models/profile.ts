@@ -1,4 +1,4 @@
-import { preferencesInput, profileInput, settingsInput } from "shared/types/profile"
+import { preferencesInput, profileInput, settingsInput } from "shared/types"
 
 const profileModel: profileInput = {
   email: undefined,

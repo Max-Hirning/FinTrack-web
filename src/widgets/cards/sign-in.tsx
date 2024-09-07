@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { SignInForm } from "features/forms/sign-in"
+import { SignInForm } from "features/index"
 import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
 interface IProps {

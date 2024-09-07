@@ -1,5 +1,5 @@
 import { Cpu } from "lucide-react";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "shared/ui";
 
 export function BankCard() {
   return (

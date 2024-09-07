@@ -1,5 +1,5 @@
 import { Card } from "shared/ui"
-import { SettingsForm } from "features/forms/settings"
+import { SettingsForm } from "features/index"
 
 interface IProps {
   styles?: string;

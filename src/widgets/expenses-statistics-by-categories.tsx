@@ -1,17 +1,17 @@
 import { Card, CardContent } from "shared/ui"
-import { MyPieChart as PieChart } from "features/charts/pie";
+import { MyPieChart as PieChart } from "features/index";
 
 interface IProps {
   styles?: string;
 }
 
-export function ExpensesStatisticsByCards({styles}: IProps) {
+export function ExpensesStatisticsByCategories({styles}: IProps) {
   return (
     <section className={styles || ""}>
       <article className="flex items-end justify-between mb-[5px]">
-        <h2 className="text-2xl font-bold">Card Expense Statistics</h2>
+        <h2 className="text-2xl font-bold">Expense Statistics</h2>
       </article>
-      <Card className="p-[20px] h-[235px]">
+      <Card className="h-[350px] p-[20px]">
         <CardContent className="w-full h-full p-0">
           <PieChart/>
         </CardContent>

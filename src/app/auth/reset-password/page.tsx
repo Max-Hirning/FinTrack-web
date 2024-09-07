@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ResetPasswordWidget } from "widgets/cards/reset-password";
+import { ResetPasswordWidget } from "widgets/index";
 
 export const metadata: Metadata = {
   title: "Reset password",

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ResetPasswordForm } from "features/forms/reset-password"
+import { ResetPasswordForm } from "features/index"
 import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
 interface IProps {

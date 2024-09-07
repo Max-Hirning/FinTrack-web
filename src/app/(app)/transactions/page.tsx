@@ -1,4 +1,4 @@
-import { SignInWidget } from "widgets/cards/sign-in"
+import { SignInWidget } from "widgets/index"
 
 export default function Page() {
   return (

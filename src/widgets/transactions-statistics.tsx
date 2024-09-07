@@ -1,5 +1,5 @@
 import { Card } from "shared/ui";
-import { MyMultipleBarsChart as BarsChart } from "features/charts/bars/multiple";
+import { MyMultipleBarsChart as BarsChart } from "features/index";
 
 interface IProps {
   styles?: string;

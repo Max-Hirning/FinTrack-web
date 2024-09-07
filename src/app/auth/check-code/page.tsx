@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { CheckCodeWidget } from "widgets/cards/check-code";
+import { CheckCodeWidget } from "widgets/index";
 
 export const metadata: Metadata = {
   title: "Check OTP",

@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
+import { ProfileForm } from "features/index";
 import { FilePenLine, Trash2 } from "lucide-react";
-import { ProfileForm } from "features/forms/profile";
 import { Avatar, AvatarFallback, AvatarImage, Button, Card } from "shared/ui";
 
 interface IProps {

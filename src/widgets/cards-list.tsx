@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CardsList } from "features/cards-list";
+import { CardsList } from "features/index";
 
 interface IProps {
   styles?: string;

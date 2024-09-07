@@ -1,5 +1,5 @@
 import { Card } from "shared/ui";
-import { PreferencesForm } from "features/forms/preferences";
+import { PreferencesForm } from "features/index";
 
 interface IProps {
   styles?: string;

@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Header } from "features/header";
-import { SideBar } from "features/side-bar";
+import { Header, SideBar } from "features/index";
 
 interface IProps {
   children: ReactNode;

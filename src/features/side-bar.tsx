@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link";
+import { pages } from "shared/constants";
 import { usePathname } from 'next/navigation'
-import { pages } from "shared/constants/pages";
 import { Tooltip, TooltipContent, TooltipTrigger } from "shared/ui";
 import { CreditCard, LayoutDashboard, UserRoundPen, WalletMinimal, BadgeCent, Settings } from "lucide-react"
 

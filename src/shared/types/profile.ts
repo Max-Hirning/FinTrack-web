@@ -1,5 +1,5 @@
 import {z} from "zod";
-import { preferencesSechema, profileSechema, settingsSechema } from "shared/schemas/profile";
+import { preferencesSechema, profileSechema, settingsSechema } from "shared/schemas";
 
 type profileInput = z.infer<typeof profileSechema>;
 type settingsInput = z.infer<typeof settingsSechema>;

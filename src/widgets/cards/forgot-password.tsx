@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { SendCodeForm } from "features/forms/send-code"
+import { SendCodeForm } from "features/index"
 import { Card, CardContent, CardFooter, CardDescription, CardHeader, CardTitle } from "shared/ui"
 
 interface IProps {

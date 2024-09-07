@@ -1,10 +1,10 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { preferencesModel } from "shared/models/profile";
-import { preferencesSechema } from "shared/schemas/profile";
-import { preferencesInput } from "shared/types/profile";
+import { preferencesInput } from "shared/types";
+import { preferencesModel } from "shared/models";
+import { preferencesSechema } from "shared/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch } from "shared/ui";
 
 export function PreferencesForm() {

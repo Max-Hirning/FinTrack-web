@@ -1,10 +1,10 @@
 "use client"
 
 import { useForm } from "react-hook-form"
+import { checkCodeInput } from "shared/types"
+import { checkCodeModel } from "shared/models"
+import { checkCodeSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { checkCodeInput } from "shared/types/check-code"
-import { checkCodeModel } from "shared/models/check-code"
-import { checkCodeSchema } from "shared/schemas/check-code"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Button, InputOTP, InputOTPGroup, InputOTPSlot } from "shared/ui"
 
 export function CheckCodeForm() {

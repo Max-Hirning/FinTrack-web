@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import { useForm } from "react-hook-form"
-import { signInInput } from "shared/types/sign-in"
-import { signInModel } from "shared/models/sign-in"
-import { signInSchema } from "shared/schemas/sign-in"
+import { signInInput } from "shared/types"
+import { signInModel } from "shared/models"
+import { signInSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
@@ -57,16 +57,10 @@ export function SignInForm() {
             </FormItem>
           )}
         />
-        <div className="flex items-center justify-between">
-          <Link 
-            className="underline"
-            href="/auth/verify-email/request"
-          >Verify email</Link>
-          <Link 
-            className="underline"
-            href="/auth/forgot-password"
-          >Forgot password?</Link>
-        </div>
+        <Link 
+          href="/auth/forgot-password"
+          className="underline ml-auto"
+        >Forgot password?</Link>
         <Button 
           type="submit"
           className="w-full"

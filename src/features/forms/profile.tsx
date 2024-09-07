@@ -1,10 +1,10 @@
 "use client"
 
 import { useForm } from "react-hook-form"
-import { profileInput } from "shared/types/profile"
-import { profileModel } from "shared/models/profile"
+import { profileInput } from "shared/types"
+import { profileModel } from "shared/models"
+import { profileSechema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { profileSechema } from "shared/schemas/profile"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function ProfileForm() {

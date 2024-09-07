@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { SignUpWidget } from "widgets/cards/sign-up";
+import { SignUpWidget } from "widgets/index";
 
 export const metadata: Metadata = {
   title: "Sign up",

@@ -1,5 +1,5 @@
 import { Card } from "shared/ui"
-import { Transaction } from "shared/ui/transaction"
+import { Transaction } from "shared/ui"
 
 interface IProps {
   styles?: string;

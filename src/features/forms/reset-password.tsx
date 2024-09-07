@@ -1,10 +1,10 @@
 "use client"
 
 import { useForm } from "react-hook-form"
+import { resetPasswordInput } from "shared/types"
+import { resetPasswordModel } from "shared/models"
+import { resetPasswordSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { resetPasswordInput } from "shared/types/reset-password"
-import { resetPasswordModel } from "shared/models/reset-password"
-import { resetPasswordSchema } from "shared/schemas/reset-password"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function ResetPasswordForm() {

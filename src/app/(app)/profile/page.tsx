@@ -1,5 +1,4 @@
-import { ProfileWidget } from "widgets/cards/profile";
-import { PreferencesWidget } from "widgets/cards/preferences";
+import { ProfileWidget, PreferencesWidget } from "widgets/index";
 
 export default function Page() {
   return (

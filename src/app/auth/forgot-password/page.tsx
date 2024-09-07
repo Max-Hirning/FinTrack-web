@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ForgotPasswordWidget } from "widgets/cards/forgot-password";
+import { ForgotPasswordWidget } from "widgets/index";
 
 export const metadata: Metadata = {
   title: "Forgot password",

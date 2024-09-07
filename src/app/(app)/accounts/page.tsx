@@ -1,6 +1,4 @@
-import { CardsListWidget } from "widgets/cards-list"
-import { BudgetCardsListWidget } from "widgets/budget-cards-list"
-import { AccountsCardsListWidget } from "widgets/accounts-cards-list"
+import { CardsListWidget, BudgetCardsListWidget, AccountsCardsListWidget } from "widgets/index"
 
 export default function Page() {
   return (

@@ -1,7 +1,7 @@
 "use client"
 
+import { pages } from 'shared/constants';
 import { usePathname } from 'next/navigation'
-import { pages } from 'shared/constants/pages';
 import { Avatar, AvatarFallback, AvatarImage, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from "shared/ui";
 
 export function Header() {
