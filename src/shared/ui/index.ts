@@ -3,6 +3,8 @@ export * from "./card";
 export * from "./input";
 export * from "./chart";
 export * from "./label";
+export * from "./select";
+export * from "./switch";
 export * from "./button";
 export * from "./avatar";
 export * from "./tooltip";

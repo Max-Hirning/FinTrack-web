@@ -1,18 +1,12 @@
-import { SignInWidget } from "widgets/cards/sign-in"
+import { SettingsForm } from "features/forms/settings"
+import { Card } from "shared/ui"
 
 export default function Page() {
   return (
     <>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
-      <SignInWidget/>
+      <Card className="max-sm:flex-col max-sm:items-center max-w-[500px] p-[24px] flex-row flex gap-[40px] bg-red">
+        <SettingsForm/>
+      </Card>
     </>
   )
 }
