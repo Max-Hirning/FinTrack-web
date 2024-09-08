@@ -11,4 +11,4 @@ export * from "./forms/check-code";
 export * from "./forms/preferences";
 export * from "./budget-cards-list";
 export * from "./forms/reset-password";
-export * from "./charts/bars/multiple";
+export * from "./charts/bar";

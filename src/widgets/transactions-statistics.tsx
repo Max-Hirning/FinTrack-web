@@ -1,8 +1,34 @@
 import { Card } from "shared/ui";
-import { MyMultipleBarsChart as BarsChart } from "features/index";
+import { MyBarsChart as BarsChart } from "features/index";
 
 interface IProps {
   styles?: string;
+}
+
+const data = [
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+]
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
+  },
 }
 
 export function TransactionsStatisticsWidget({styles}: IProps) {
@@ -12,7 +38,7 @@ export function TransactionsStatisticsWidget({styles}: IProps) {
         <h2 className="text-2xl font-bold">Expense/Income Statistics</h2>
       </article>
       <Card className="h-[350px] p-[20px]">
-        <BarsChart/>
+        <BarsChart data={data} chartConfig={chartConfig}/>
       </Card>
     </section>
   )

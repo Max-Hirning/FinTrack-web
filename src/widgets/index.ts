@@ -8,6 +8,7 @@ export * from "./budget-cards-list";
 export * from "./transactions-list";
 export * from "./cards/preferences";
 export * from "./accounts-cards-list";
+export * from "./expenses-statistics";
 export * from "./cards/reset-password";
 export * from "./cards/forgot-password";
 export * from "./transactions-statistics";
