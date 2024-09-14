@@ -1,3 +1,5 @@
+export * from './loan-card';
+export * from './goal-card';
 export * from "./bank-card";
 export * from "./transaction";
 export * from "./shadcn/form";
