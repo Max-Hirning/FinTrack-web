@@ -65,6 +65,40 @@ export function PreferencesForm() {
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="goalNotifications"
+          render={({ field }) => (
+            <FormItem className="w-fit gap-[20px] flex flex-row items-center justify-between">
+              <FormControl>
+                <>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                  <p style={{marginTop: 0}}>Goal notifications</p>
+                </>
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="loanNotifications"
+          render={({ field }) => (
+            <FormItem className="w-fit gap-[20px] flex flex-row items-center justify-between">
+              <FormControl>
+                <>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                  <p style={{marginTop: 0}}>Loan notifications</p>
+                </>
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button 
           type="submit"
           disabled={!form.formState.isValid}

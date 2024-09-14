@@ -13,6 +13,8 @@ const settingsModel: settingsInput = {
 }
 const preferencesModel: preferencesInput = {
   currency: undefined,
+  goalNotifications: undefined,
+  loanNotifications: undefined,
   budgetNotifications: undefined,
 }
 
