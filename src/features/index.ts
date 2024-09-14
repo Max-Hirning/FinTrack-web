@@ -1,5 +1,6 @@
 export * from "./header";
 export * from "./side-bar";
+export * from "./charts/bar";
 export * from "./cards-list";
 export * from "./charts/pie";
 export * from "./forms/profile";
@@ -7,8 +8,9 @@ export * from "./forms/sign-in";
 export * from "./forms/sign-up";
 export * from "./forms/settings";
 export * from "./forms/send-code";
+export * from './goal-cards-list';
+export * from './loan-cards-list';
 export * from "./forms/check-code";
 export * from "./forms/preferences";
 export * from "./budget-cards-list";
 export * from "./forms/reset-password";
-export * from "./charts/bar";

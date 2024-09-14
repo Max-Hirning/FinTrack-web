@@ -3,6 +3,8 @@ export * from "./cards/profile";
 export * from "./cards/sign-in";
 export * from "./cards/sign-up";
 export * from "./cards/settings";
+export * from './loan-cards-list';
+export * from './goal-cards-list';
 export * from "./cards/check-code";
 export * from "./budget-cards-list";
 export * from "./transactions-list";
