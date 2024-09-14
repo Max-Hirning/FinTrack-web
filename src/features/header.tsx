@@ -110,11 +110,10 @@ export function Header() {
             <BellDot />
           </SheetTrigger>
           <SheetContent>
-            {/* className='overflow-auto' */}
             <SheetHeader className='mb-2'>
               <SheetTitle className='font-extrabold text-xl'>Notifications</SheetTitle>
             </SheetHeader>
-            <div className='mb-6 overflow-auto h-[-webkit-fill-available]'>
+            <div className='mb-6 overflow-auto pr-[5px] h-[-webkit-fill-available]'>
               <TooltipProvider>
                 {
                   Object.entries(notifications).map(([key, value]) => {

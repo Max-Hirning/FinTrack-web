@@ -4,7 +4,7 @@ const profileSechema = z.object({
   email: z.string().email(),
   lastName: z.string().min(1),
   firstName: z.string().min(1),
-  dateOfBirth: z.string().date(),
+  dateOfBirth: z.string().datetime(),
 }).partial();
 const settingsSechema = z.object({
   password: z.string().min(8).max(15),
@@ -19,6 +19,8 @@ const settingsSechema = z.object({
 });
 const preferencesSechema = z.object({
   currency: z.string().length(3),
+  goalNotifications: z.boolean(),
+  loanNotifications: z.boolean(),
   budgetNotifications: z.boolean(),
 }).partial();
 

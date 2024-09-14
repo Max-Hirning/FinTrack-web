@@ -5,7 +5,7 @@ import { profileInput } from "shared/types"
 import { profileModel } from "shared/models"
 import { profileSechema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
+import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, DatePicker } from "shared/ui"
 
 export function ProfileForm() {
   const form = useForm<profileInput>({
@@ -20,7 +20,7 @@ export function ProfileForm() {
   return (
     <Form {...form}>
       <form 
-        className="grid gap-[20px] w-full"
+        className="flex flex-col gap-[20px] w-full"
         onSubmit={form.handleSubmit(onSubmit)} 
       >
         <div className="max-sm:items-center flex flex-row max-md:flex-col gap-[20px]">
@@ -28,13 +28,15 @@ export function ProfileForm() {
             name="firstName"
             control={form.control}
             render={({ field }) => (
-              <FormItem className="grid gap-2 max-w-[400px] w-full">
+              <FormItem className="flex flex-col gap-2 max-w-[400px] w-full">
                 <FormLabel>First name</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="Joseph" 
-                    type="text"
                     {...field} 
+                    type="text"
+                    placeholder="Joseph" 
+                    value={field.value || ""}
+                    onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -45,13 +47,15 @@ export function ProfileForm() {
             name="lastName"
             control={form.control}
             render={({ field }) => (
-              <FormItem className="grid gap-2 max-w-[400px] w-full">
+              <FormItem className="flex flex-col gap-2 max-w-[400px] w-full">
                 <FormLabel>Last name</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="Hoffenhof" 
-                    type="text"
                     {...field} 
+                    type="text"
+                    placeholder="Hoffenhof" 
+                    value={field.value || ""}
+                    onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -64,24 +68,41 @@ export function ProfileForm() {
             name="email"
             control={form.control}
             render={({ field }) => (
-              <FormItem className="grid gap-2 max-w-[400px] w-full">
+              <FormItem className="flex flex-col gap-2 max-w-[400px] w-full">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="email@gmail.com" 
-                    type="email"
                     {...field} 
+                    type="email"
+                    value={field.value || ""}
+                    placeholder="email@gmail.com" 
+                    onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {/* date picker */}
+          <FormField
+            name="dateOfBirth"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2 max-w-[400px] w-full">
+                <FormLabel>Date of birth</FormLabel>
+                <FormControl>
+                  <DatePicker 
+                    onChange={field.onChange}
+                    value={field.value ? new Date(field.value) : new Date()}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
+          disabled={!form.formState.isValid || !(Object.values(form.watch()).some((el) => !!el))}
           className="w-fit ml-auto mt-[10px]"
         >Save</Button>
       </form>
