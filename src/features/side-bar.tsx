@@ -13,15 +13,15 @@ export function SideBar() {
   return (
     <>
       <div
-        style={{transform: `translateY(${index * 48}px)`}}
-        className={`${(index === -1) && "hidden"} bg-accent duration-500 ease-out delay-0 absolute top-[100.25px] left-[13.25px] z-10 flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-all hover:text-foreground md:h-8 md:w-8`}
+        style={{transform: `translateY(${index * 52}px)`}}
+        className={`${(index === -1) && "hidden"} bg-accent duration-500 ease-out delay-0 absolute top-[100px] left-[12px] z-10 flex h-9 w-9 items-center justify-center rounded-lg text-accent-foreground transition-all hover:text-foreground`}
       />
-      <nav className="mt-[80px] flex flex-col items-center gap-4 px-2 py-5">
+      <nav className="mt-[80px] flex flex-col items-center gap-[16px] px-2 py-[20px]">
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
               href="/"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
               <LayoutDashboard className="h-5 w-5" />
               <span className="sr-only">Dashboard</span>
@@ -33,7 +33,7 @@ export function SideBar() {
           <TooltipTrigger asChild>
             <Link
               href="/transactions"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
               <BadgeCent className="h-5 w-5" />
               <span className="sr-only">Transactions</span>
@@ -45,7 +45,7 @@ export function SideBar() {
           <TooltipTrigger asChild>
             <Link
               href="/accounts"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
               <WalletMinimal className="h-5 w-5" />
               <span className="sr-only">Accounts</span>
@@ -57,7 +57,7 @@ export function SideBar() {
           <TooltipTrigger asChild>
             <Link
               href="/cards"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
               <CreditCard className="h-5 w-5" />
               <span className="sr-only">Cards</span>
@@ -69,7 +69,7 @@ export function SideBar() {
           <TooltipTrigger asChild>
             <Link
               href="/profile"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
               <UserRoundPen className="h-5 w-5" />
               <span className="sr-only">Profile</span>
@@ -83,7 +83,7 @@ export function SideBar() {
           <TooltipTrigger asChild>
             <Link
               href="/settings"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
               <Settings className="h-5 w-5" />
               <span className="sr-only">Settings</span>

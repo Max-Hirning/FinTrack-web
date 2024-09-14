@@ -1,5 +1,3 @@
-import { exitCode } from "process";
-
 export * from "./bank-card";
 export * from "./transaction";
 export * from "./shadcn/form";
@@ -10,6 +8,7 @@ export * from "./shadcn/input";
 export * from "./shadcn/chart";
 export * from "./shadcn/label";
 export * from "./shadcn/table";
+export * from "./shadcn/sheet";
 export * from "./shadcn/select";
 export * from "./shadcn/switch";
 export * from "./shadcn/button";
