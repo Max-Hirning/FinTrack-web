@@ -3,6 +3,8 @@ export * from "./side-bar";
 export * from "./charts/bar";
 export * from "./cards-list";
 export * from "./charts/pie";
+export * from './forms/card';
+export * from './forms/budget';
 export * from "./forms/profile";
 export * from "./forms/sign-in";
 export * from "./forms/sign-up";
