@@ -3,13 +3,13 @@
 import { useForm } from "react-hook-form";
 import { preferencesInput } from "shared/types";
 import { preferencesModel } from "shared/models";
-import { preferencesSechema } from "shared/schemas";
+import { preferencesSchema } from "shared/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch } from "shared/ui";
 
 export function PreferencesForm() {
   const form = useForm<preferencesInput>({
-    resolver: zodResolver(preferencesSechema),
+    resolver: zodResolver(preferencesSchema),
     defaultValues: preferencesModel,
   })
 

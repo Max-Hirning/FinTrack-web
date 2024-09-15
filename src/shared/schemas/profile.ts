@@ -1,12 +1,12 @@
 import { z } from "zod";
 
-const profileSechema = z.object({
+const profileSchema = z.object({
   email: z.string().email(),
   lastName: z.string().min(1),
   firstName: z.string().min(1),
   dateOfBirth: z.string().datetime(),
 }).partial();
-const settingsSechema = z.object({
+const settingsSchema = z.object({
   password: z.string().min(8).max(15),
   oldPassword: z.string().min(8).max(15),
   confirmPassword: z.string().min(8).max(15),
@@ -17,7 +17,7 @@ const settingsSechema = z.object({
   message: "Passwords don't match",
   path: ["confirmPassword"],
 });
-const preferencesSechema = z.object({
+const preferencesSchema = z.object({
   currency: z.string().length(3),
   goalNotifications: z.boolean(),
   loanNotifications: z.boolean(),
@@ -25,7 +25,7 @@ const preferencesSechema = z.object({
 }).partial();
 
 export {
-  profileSechema,
-  settingsSechema,
-  preferencesSechema
+  profileSchema,
+  settingsSchema,
+  preferencesSchema
 };

@@ -21,6 +21,7 @@ export * from "./shadcn/dialog";
 export * from "./shadcn/menubar";
 export * from "./shadcn/tooltip";
 export * from './shadcn/popover';
+export * from "./shadcn/textarea";
 export * from "./shadcn/checkbox";
 export * from './shadcn/calendar';
 export * from './multiple-select';
