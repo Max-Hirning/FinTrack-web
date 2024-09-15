@@ -7,19 +7,19 @@ const cardSchema = z.object({
 });
 const loanSchema = z.object({
   title: z.string().min(1),
-  amount: z.string().min(0),
+  amount: z.string().min(1),
   date: z.string().datetime(),
   currency: z.string().length(3),
-  description: z.string().min(1),
   deadline: z.string().datetime(),
+  description: z.string().optional(),
 });
 const goalSchema = z.object({
   title: z.string().min(1),
-  amount: z.string().min(0),
-  balance: z.string().min(0),
+  amount: z.string().min(1),
+  balance: z.string().min(1),
   currency: z.string().length(3),
-  description: z.string().min(1),
   deadline: z.string().datetime(),
+  description: z.string().optional(),
 });
 const budgetSchema = z.object({
   title: z.string().min(1),
@@ -27,6 +27,8 @@ const budgetSchema = z.object({
   currency: z.string().length(3),
   cards: z.array(z.string()).min(1),
   categories: z.array(z.string()).min(1),
+  endDate: z.string().datetime().optional(),
+  startDate: z.string().datetime().optional(),
   period: z.enum(["oneTime", "year", "month", "week"]),
 });
 

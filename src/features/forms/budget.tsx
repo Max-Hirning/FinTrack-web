@@ -5,7 +5,8 @@ import { budgetInput } from "shared/types"
 import { budgetModel } from "shared/models"
 import { budgetSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, MultipleSelect } from "shared/ui"
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, MultipleSelect, DatePicker } from "shared/ui"
+import { format } from "date-fns"
 
 const cardsList = [
   {
@@ -67,6 +68,23 @@ export function BudgetForm() {
   });
 
   function onSubmit(values: budgetInput) {
+    if(values.endDate) {
+      values.endDate = format(values.endDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    }
+    if(values.startDate) {
+      values.startDate = format(values.startDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    }
+    console.log(values);
+    if(values.period === "oneTime") {
+      if(!values.startDate || !values.endDate) {
+        form.setError("startDate", {
+          message: "Start date is required"
+        })
+        form.setError("endDate", {
+          message: "End date is required"
+        })
+      }
+    }
     if(+values.balance <= 0) form.setError("balance", {
       message: "Balance must be greater than 0"
     })
@@ -143,7 +161,19 @@ export function BudgetForm() {
                 <FormLabel>Budget period</FormLabel>
                 <Select 
                   value={field.value}
-                  onValueChange={field.onChange} 
+                  onValueChange={(value) => {
+                    if(value !== "oneTime") {
+                      form.setValue("startDate", undefined);
+                      form.setValue("endDate", undefined);
+                      form.setError("startDate", {
+                        message: undefined
+                      })
+                      form.setError("endDate", {
+                        message: undefined
+                      })
+                    }
+                    field.onChange(value);
+                  }} 
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -157,6 +187,40 @@ export function BudgetForm() {
                     <SelectItem value="week">Weekly budget</SelectItem>
                   </SelectContent>
                 </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className={`${form.watch().period !== "oneTime" && "hidden"} max-sm:items-center flex flex-row max-md:flex-col gap-[20px]`}>
+          <FormField
+            name="startDate"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2 md:max-w-[400px] w-full">
+                <FormLabel>Budget start date</FormLabel>
+                <FormControl>
+                  <DatePicker
+                    onChange={(date) => field.onChange(date.toISOString())}
+                    value={field.value ? new Date(field.value) : new Date()}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="endDate"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-2 md:max-w-[400px] w-full">
+                <FormLabel>Budget end date</FormLabel>
+                <FormControl>
+                  <DatePicker
+                    onChange={(date) => field.onChange(date.toISOString())}
+                    value={field.value ? new Date(field.value) : new Date()}
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

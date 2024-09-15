@@ -6,7 +6,6 @@ import { DayPicker } from "react-day-picker"
 
 import { cn } from "shared/lib"
 import { buttonVariants } from "shared/ui"
-import { parse } from "date-fns"
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
@@ -16,7 +15,6 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  console.log(typeof props.selected)
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}

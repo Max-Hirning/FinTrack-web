@@ -1,5 +1,7 @@
 export * from "./header";
 export * from "./side-bar";
+export * from "./forms/goal";
+export * from "./forms/loan";
 export * from "./charts/bar";
 export * from "./cards-list";
 export * from "./charts/pie";

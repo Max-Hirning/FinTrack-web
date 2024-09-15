@@ -28,6 +28,8 @@ const budgetModel: budgetInput = {
   categories: [],
   currency: "USD", 
   period: "oneTime",
+  endDate: undefined,
+  startDate: undefined,
 }
 
 export {
