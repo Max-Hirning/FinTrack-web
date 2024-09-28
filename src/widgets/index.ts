@@ -10,6 +10,7 @@ export * from "./cards/settings";
 export * from './loan-cards-list';
 export * from './goal-cards-list';
 export * from "./cards/check-code";
+export * from "./cards/transaction";
 export * from "./budget-cards-list";
 export * from "./transactions-list";
 export * from "./cards/preferences";

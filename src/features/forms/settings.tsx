@@ -1,15 +1,15 @@
 "use client"
 
 import { useForm } from "react-hook-form"
+import { settingsInput } from "shared/types"
+import { settingsModel } from "shared/models"
+import { settingsSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { profileInput, settingsInput } from "shared/types"
-import { profileModel, settingsModel } from "shared/models"
-import { profileSechema, settingsSechema } from "shared/schemas"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function SettingsForm() {
   const form = useForm<settingsInput>({
-    resolver: zodResolver(settingsSechema),
+    resolver: zodResolver(settingsSchema),
     defaultValues: settingsModel,
   })
 

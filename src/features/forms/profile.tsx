@@ -3,13 +3,13 @@
 import { useForm } from "react-hook-form"
 import { profileInput } from "shared/types"
 import { profileModel } from "shared/models"
-import { profileSechema } from "shared/schemas"
+import { profileSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, DatePicker } from "shared/ui"
 
 export function ProfileForm() {
   const form = useForm<profileInput>({
-    resolver: zodResolver(profileSechema),
+    resolver: zodResolver(profileSchema),
     defaultValues: profileModel,
   })
 

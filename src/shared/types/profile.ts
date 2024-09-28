@@ -1,9 +1,9 @@
 import {z} from "zod";
-import { preferencesSechema, profileSechema, settingsSechema } from "shared/schemas";
+import { preferencesSchema, profileSchema, settingsSchema } from "shared/schemas";
 
-type profileInput = z.infer<typeof profileSechema>;
-type settingsInput = z.infer<typeof settingsSechema>;
-type preferencesInput = z.infer<typeof preferencesSechema>;
+type profileInput = z.infer<typeof profileSchema>;
+type settingsInput = z.infer<typeof settingsSchema>;
+type preferencesInput = z.infer<typeof preferencesSchema>;
 
 export type {
   profileInput,

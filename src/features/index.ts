@@ -17,4 +17,5 @@ export * from './loan-cards-list';
 export * from "./forms/check-code";
 export * from "./forms/preferences";
 export * from "./budget-cards-list";
+export * from "./forms/transaction";
 export * from "./forms/reset-password";
