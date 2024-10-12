@@ -1,3 +1,5 @@
+"use client";
+
 import { toast } from "react-toastify";
 import { ApiError, authService } from "shared/lib";
 import { useMutation } from "@tanstack/react-query";
@@ -15,9 +17,6 @@ export const useSignIn = () => {
   return useMutation({
     onError(error: ApiError) {
       toast.error(error.data as string);
-    },
-    onSuccess: (success: any) => {
-      console.log(success);
     },
     mutationFn: async (data: signInInput) => authService.signInUser(data),
   });

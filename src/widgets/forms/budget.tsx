@@ -2,7 +2,7 @@ import { Card } from "shared/ui"
 import { Suspense } from "react";
 import { BudgetForm } from "features/index"
 import { getUserCookies } from "src/shared/lib/api/server";
-import { makeQueryClient, QueryKeys } from "shared/constants";
+import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { categoryService, currencyService, userService } from "shared/lib";
 
@@ -12,7 +12,6 @@ interface IProps {
 
 export async function BudgetWidget({styles}: IProps) {
   const user = await getUserCookies();
-  const queryClient = makeQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getCurrencies],

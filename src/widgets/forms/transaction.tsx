@@ -1,9 +1,9 @@
 import { Card } from "shared/ui"
 import { Suspense } from "react";
-import { categoryService, currencyService, userService } from "shared/lib";
+import { categoryService, userService } from "shared/lib";
 import { TransactionForm } from "features/index"
 import { getUserCookies } from "shared/lib/api/server";
-import { makeQueryClient, QueryKeys } from "shared/constants";
+import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 interface IProps {
@@ -12,7 +12,6 @@ interface IProps {
 
 export async function TransactionWidget({styles}: IProps) {
   const user = await getUserCookies();
-  const queryClient = makeQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getUser, user.id],

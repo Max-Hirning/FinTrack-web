@@ -6,7 +6,7 @@ import { cardModel } from "shared/models/card"
 import { cardSchema } from "shared/schemas/card"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "shared/ui"
-import { useGetCurrencies } from "src/shared/hooks"
+import { useCreateCard, useGetCurrencies } from "src/shared/hooks"
 
 export function CardForm() {
   const form = useForm<cardInput>({
@@ -14,9 +14,10 @@ export function CardForm() {
     defaultValues: cardModel,
   })
   const {data: currencies} = useGetCurrencies();
+  const {mutate: createCard, isPending: isCreateCard} = useCreateCard();
 
   function onSubmit(values: cardInput) {
-    console.log(values)
+    createCard(values);
   }
 
   return (
@@ -89,8 +90,9 @@ export function CardForm() {
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
+          isLoading={isCreateCard}
           className="w-fit ml-auto mt-[10px]"
+          disabled={!form.formState.isValid || isCreateCard}
         >Save</Button>
       </form>
     </Form>

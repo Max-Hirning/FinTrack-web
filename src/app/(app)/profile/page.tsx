@@ -1,13 +1,12 @@
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { makeQueryClient, QueryKeys } from "src/shared/constants";
+import { queryClient, QueryKeys } from "src/shared/constants";
 import { userService } from "src/shared/lib";
 import { getUserCookies } from "src/shared/lib/api/server";
 import { ProfileWidget, PreferencesWidget } from "widgets/index";
 
 export default async function Page() {
   const user = await getUserCookies();
-  const queryClient = makeQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getUser, user.id],

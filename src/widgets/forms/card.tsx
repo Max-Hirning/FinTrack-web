@@ -2,7 +2,7 @@ import { Card } from "shared/ui"
 import { Suspense } from "react";
 import { CardForm } from "features/index"
 import { currencyService } from "shared/lib";
-import { makeQueryClient, QueryKeys } from "shared/constants";
+import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 interface IProps {
@@ -10,8 +10,6 @@ interface IProps {
 }
 
 export async function CardWidget({styles}: IProps) {
-  const queryClient = makeQueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getCurrencies],
     queryFn: () => currencyService.getCurrencies(),
