@@ -6,66 +6,21 @@ import { budgetInput } from "shared/types"
 import { budgetModel } from "shared/models"
 import { budgetSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useGetCategories, useGetCurrencies, useGetUser } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, MultipleSelect, DatePicker } from "shared/ui"
 
-const cardsList = [
-  {
-    title: "Personal Savings",
-    currency: "USD",
-    startBalance: 5000,
-  },
-  {
-    title: "Business Account",
-    currency: "EUR",
-    startBalance: 12000,
-  },
-  {
-    title: "Vacation Fund",
-    currency: "USD",
-    startBalance: 1500,
-  },
-  {
-    title: "Investment Portfolio",
-    currency: "GBP",
-    startBalance: 25000,
-  },
-  {
-    title: "Emergency Fund",
-    currency: "USD",
-    startBalance: 3000,
-  },
-  {
-    title: "Crypto Wallet",
-    currency: "BTC",
-    startBalance: 2,
-  },
-  {
-    title: "Child's College Fund",
-    currency: "USD",
-    startBalance: 10000,
-  },
-  {
-    title: "Home Renovation Fund",
-    currency: "USD",
-    startBalance: 8000,
-  },
-  {
-    title: "Car Maintenance",
-    currency: "USD",
-    startBalance: 1200,
-  },
-  {
-    title: "Charity Fund",
-    currency: "USD",
-    startBalance: 600,
-  }
-]
+interface IProps {
+  userId: string
+}
 
-export function BudgetForm() {
+export function BudgetForm({userId}: IProps) {
   const form = useForm<budgetInput>({
     resolver: zodResolver(budgetSchema),
     defaultValues: budgetModel,
   });
+  const {data: user} = useGetUser(userId)
+  const {data: currencies} = useGetCurrencies();
+  const {data: categories} = useGetCategories([userId]);
 
   function onSubmit(values: budgetInput) {
     if(values.endDate) {
@@ -126,9 +81,13 @@ export function BudgetForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="USD">USD</SelectItem>
-                    <SelectItem value="EUR">EUR</SelectItem>
-                    <SelectItem value="GBP">GBP</SelectItem>
+                    {
+                      (currencies || []).map((el) => {
+                        return (
+                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                        )
+                      })
+                    }
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -236,7 +195,7 @@ export function BudgetForm() {
                 <MultipleSelect
                   value={field.value}
                   onChange={field.onChange}
-                  data={cardsList.map((el, index) => ({label: el.title, value: index.toString()}))}
+                  data={(user?.cards || []).map((el) => ({label: el.title, value: el.id}))}
                   title={field.value.length !== 0 ? `Chosen cards: ${field.value.length}` : `Choose cards`}
                 />
                 <FormMessage />
@@ -252,7 +211,7 @@ export function BudgetForm() {
                 <MultipleSelect
                   value={field.value}
                   onChange={field.onChange}
-                  data={cardsList.map((el, index) => ({label: el.title, value: index.toString()}))}
+                  data={(categories || []).map((el) => ({label: el.title, value: el.id}))}
                   title={field.value.length !== 0 ? `Chosen categories: ${field.value.length}` : `Choose categories`}
                 />
                 <FormMessage />

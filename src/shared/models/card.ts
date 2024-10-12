@@ -1,4 +1,4 @@
-import { budgetInput, cardInput, goalInput, loanInput } from "shared/types/card"
+import { budgetInput, cardInput, goalInput, loanInput } from "shared/types"
 
 const cardModel: cardInput = {
   title: "",

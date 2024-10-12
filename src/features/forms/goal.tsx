@@ -5,6 +5,7 @@ import { goalInput } from "shared/types"
 import { useForm } from "react-hook-form"
 import { goalModel } from "shared/models"
 import { goalSchema } from "shared/schemas"
+import { useGetCurrencies } from "shared/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, DatePicker } from "shared/ui"
 
@@ -13,6 +14,7 @@ export function GoalForm() {
     resolver: zodResolver(goalSchema),
     defaultValues: goalModel,
   });
+  const {data: currencies} = useGetCurrencies();
 
   function onSubmit(values: goalInput) {
     console.log({...values, deadline: format(values.deadline, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")});
@@ -60,9 +62,13 @@ export function GoalForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="USD">USD</SelectItem>
-                    <SelectItem value="EUR">EUR</SelectItem>
-                    <SelectItem value="GBP">GBP</SelectItem>
+                    {
+                      (currencies || []).map((el) => {
+                        return (
+                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                        )
+                      })
+                    }
                   </SelectContent>
                 </Select>
                 <FormMessage />

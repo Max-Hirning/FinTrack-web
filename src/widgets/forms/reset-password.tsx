@@ -11,7 +11,7 @@ export function ResetPasswordWidget({styles}: IProps) {
     <Card className={`w-full max-w-sm ${styles || ""}`}>
       <CardHeader>
         <CardTitle className="text-2xl">Reset password</CardTitle>
-        <CardDescription>Password must contain at least 1 upper case, numeric, and special character.</CardDescription>
+        <CardDescription className="text-wrap">Password must contain at least 1 upper case, numeric, and special character.</CardDescription>
       </CardHeader>
       <CardContent>
         <ResetPasswordForm/>

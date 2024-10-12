@@ -2,6 +2,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { cn } from "shared/lib/utils";
+import Providers from "src/app/providers";
 import { TooltipProvider } from "shared/ui";
 import { Inter as FontSans } from "next/font/google"
 
@@ -21,7 +22,11 @@ export default function RootLayout({ children }: Readonly<IProps>) {
   return (
     <TooltipProvider>
       <html lang="en">
-        <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>{children}</body>
+        <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+          <Providers>
+            {children}
+          </Providers>
+        </body>
       </html>
     </TooltipProvider>
   );

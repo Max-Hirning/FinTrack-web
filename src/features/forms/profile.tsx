@@ -1,17 +1,23 @@
 "use client"
 
 import { useForm } from "react-hook-form"
+import { useGetUser } from "shared/hooks"
 import { profileInput } from "shared/types"
 import { profileModel } from "shared/models"
 import { profileSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, DatePicker } from "shared/ui"
 
-export function ProfileForm() {
+interface IProps {
+  userId: string;
+}
+
+export function ProfileForm({userId}: IProps) {
   const form = useForm<profileInput>({
     resolver: zodResolver(profileSchema),
     defaultValues: profileModel,
   })
+  const {data: user} = useGetUser(userId);
 
   function onSubmit(values: profileInput) {
     console.log(values)
@@ -34,8 +40,8 @@ export function ProfileForm() {
                   <Input 
                     {...field} 
                     type="text"
-                    placeholder="Joseph" 
                     value={field.value || ""}
+                    placeholder={user?.firstName || "Joseph"}
                     onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
                 </FormControl>
@@ -53,8 +59,8 @@ export function ProfileForm() {
                   <Input 
                     {...field} 
                     type="text"
-                    placeholder="Hoffenhof" 
                     value={field.value || ""}
+                    placeholder={user?.lastName || "Hoffenhof"} 
                     onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
                 </FormControl>
@@ -75,7 +81,7 @@ export function ProfileForm() {
                     {...field} 
                     type="email"
                     value={field.value || ""}
-                    placeholder="email@gmail.com" 
+                    placeholder={user?.email || "email@gmail.com"} 
                     onChange={(e) => field.onChange(e.target.value || undefined)}
                   />
                 </FormControl>
@@ -92,7 +98,7 @@ export function ProfileForm() {
                 <FormControl>
                   <DatePicker 
                     onChange={field.onChange}
-                    value={field.value ? new Date(field.value) : new Date()}
+                    value={field.value ? new Date(field.value) : (user?.dateOfBirth ? new Date(user.dateOfBirth) : new Date())}
                   />
                 </FormControl>
                 <FormMessage />
@@ -102,8 +108,8 @@ export function ProfileForm() {
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid || !(Object.values(form.watch()).some((el) => !!el))}
           className="w-fit ml-auto mt-[10px]"
+          disabled={!form.formState.isValid || !(Object.values(form.watch()).some((el) => !!el))}
         >Save</Button>
       </form>
     </Form>

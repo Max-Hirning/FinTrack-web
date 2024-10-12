@@ -3,18 +3,26 @@
 import { useForm } from "react-hook-form"
 import { signUpInput } from "shared/types"
 import { signUpModel } from "shared/models"
+import { useRouter } from "next/navigation"
 import { signUpSchema } from "shared/schemas"
+import { useSignUp } from "src/shared/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function SignUpForm() {
+  const router = useRouter();
   const form = useForm<signUpInput>({
     resolver: zodResolver(signUpSchema),
     defaultValues: signUpModel,
   })
+  const {mutate: preSignUp, isPending: isSignUp} = useSignUp();
 
-  function onSubmit(values: signUpInput) {
-    console.log(values)
+  function onSubmit({confirmPassword, ...values}: signUpInput) {
+    preSignUp({confirmPassword, ...values}, {
+      onSuccess: () => {
+        router.push("/auth/sign-in")
+      }
+    })
   }
 
   return (
@@ -109,7 +117,8 @@ export function SignUpForm() {
         <Button 
           type="submit"
           className="w-full"
-          disabled={!form.formState.isValid}
+          isLoading={isSignUp}
+          disabled={!form.formState.isValid || isSignUp}
         >Sign up</Button>
       </form>
     </Form>

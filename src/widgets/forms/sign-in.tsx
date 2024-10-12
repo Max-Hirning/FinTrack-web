@@ -11,7 +11,7 @@ export function SignInWidget({styles}: IProps) {
     <Card className={`w-full max-w-sm ${styles || ""}`}>
       <CardHeader>
         <CardTitle className="text-2xl">Sign In</CardTitle>
-        <CardDescription>Enter your email below to login to your account.</CardDescription>
+        <CardDescription className="text-wrap">Enter your email below to login to your account.</CardDescription>
       </CardHeader>
       <CardContent>
         <SignInForm/>

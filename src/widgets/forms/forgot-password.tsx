@@ -11,7 +11,7 @@ export function ForgotPasswordWidget({styles}: IProps) {
     <Card className={`w-full max-w-sm ${styles || ""}`}>
       <CardHeader>
         <CardTitle className="text-2xl">Forgot Password?</CardTitle>
-        <CardDescription>Enter your registered email address to reset the password</CardDescription>
+        <CardDescription className="text-wrap">Enter your registered email address to reset the password</CardDescription>
       </CardHeader>
       <CardContent>
         <SendCodeForm/>

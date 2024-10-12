@@ -1,4 +1,4 @@
-import { transactionInput } from "shared/types/transaction"
+import { transactionInput } from "shared/types"
 
 const transactionModel: transactionInput = {
   cardId: "",

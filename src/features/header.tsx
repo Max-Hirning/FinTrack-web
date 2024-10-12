@@ -1,9 +1,12 @@
 "use client"
 
+import { BellDot } from 'lucide-react';
 import { pages } from 'shared/constants';
-import { Bell, BellDot } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { Avatar, AvatarFallback, AvatarImage, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "shared/ui";
+import { Avatar, AvatarFallback, AvatarImage, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "shared/ui";
+import axios from 'axios';
+import axiosInstance from 'src/shared/lib/axios';
+import { categoryService, userService } from 'src/shared/lib';
 
 const notifications = {
   "2024-09-14": [
@@ -102,7 +105,10 @@ export function Header() {
 
   return (
     <header className="z-50 sticky top-0 right-0 bg-background w-[calc(100%-60px)] ml-auto flex border-border border-b h-[80px] items-center justify-between p-[20px]">
-      <h1 className="text-2xl font-bold">{page?.title || "Overview"}</h1>
+      <h1 className="text-2xl font-bold" onClick={async () => {
+        const a = await userService.getUser("baadaaee-b0aa-43e5-a8d7-52c4de3ac8b1");
+        console.log(a);
+      }}>{page?.title || "Overview"}</h1>
       <div className='flex flex-row gap-[25px]'>
         <Sheet>
           <SheetTrigger>

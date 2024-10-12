@@ -1,6 +1,6 @@
-import { ArrowDownToLine, ArrowUpToLine } from "lucide-react"
+import { ArrowUpToLine } from "lucide-react"
 import { CardsListWidget, ExpensesStatisticsWidget } from "widgets/index"
-import { Card, Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow, Transaction } from "shared/ui"
+import { Card, Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "shared/ui"
 
 export default function Page() {
   return (

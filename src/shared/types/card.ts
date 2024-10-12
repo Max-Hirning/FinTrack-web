@@ -1,5 +1,5 @@
 import {z} from "zod";
-import { budgetSchema, cardSchema, goalSchema, loanSchema } from "shared/schemas/card";
+import { budgetSchema, cardSchema, goalSchema, loanSchema } from "shared/schemas";
 
 type cardInput = z.infer<typeof cardSchema>;
 type loanInput = z.infer<typeof loanSchema>;

@@ -6,12 +6,14 @@ import { cardModel } from "shared/models/card"
 import { cardSchema } from "shared/schemas/card"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "shared/ui"
+import { useGetCurrencies } from "src/shared/hooks"
 
 export function CardForm() {
   const form = useForm<cardInput>({
     resolver: zodResolver(cardSchema),
     defaultValues: cardModel,
   })
+  const {data: currencies} = useGetCurrencies();
 
   function onSubmit(values: cardInput) {
     console.log(values)
@@ -53,9 +55,13 @@ export function CardForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="USD">USD</SelectItem>
-                    <SelectItem value="EUR">EUR</SelectItem>
-                    <SelectItem value="GBP">GBP</SelectItem>
+                    {
+                      (currencies || []).map((el) => {
+                        return (
+                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                        )
+                      })
+                    }
                   </SelectContent>
                 </Select>
                 <FormMessage />

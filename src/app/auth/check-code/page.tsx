@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { CheckCodeWidget } from "widgets/index";
 
 export const metadata: Metadata = {
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="flex items-center justify-center p-[20px] h-screen">
-      <CheckCodeWidget/>
+      <Suspense>
+        <CheckCodeWidget/>
+      </Suspense>
     </main>
   )
 }

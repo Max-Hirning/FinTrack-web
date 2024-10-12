@@ -3,19 +3,27 @@
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { signInInput } from "shared/types"
+import { useRouter } from "next/navigation"
 import { signInModel } from "shared/models"
+import { useSignIn } from "src/shared/hooks"
 import { signInSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
 export function SignInForm() {
+  const router = useRouter();
   const form = useForm<signInInput>({
     resolver: zodResolver(signInSchema),
     defaultValues: signInModel,
   })
+  const {mutate: signIn, isPending: isSignIn} = useSignIn();
 
   function onSubmit(values: signInInput) {
-    console.log(values)
+    signIn(values, {
+      onSuccess: () => {
+        router.push('/')
+      }
+    })
   }
 
   return (
@@ -64,7 +72,8 @@ export function SignInForm() {
         <Button 
           type="submit"
           className="w-full"
-          disabled={!form.formState.isValid}
+          isLoading={isSignIn}
+          disabled={!form.formState.isValid || isSignIn}
         >Sign in</Button>
       </form>
     </Form>

@@ -5,13 +5,20 @@ import { preferencesInput } from "shared/types";
 import { preferencesModel } from "shared/models";
 import { preferencesSchema } from "shared/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useGetCurrencies, useGetUser } from "shared/hooks";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch } from "shared/ui";
 
-export function PreferencesForm() {
+interface IProps {
+  userId: string;
+}
+
+export function PreferencesForm({userId}: IProps) {
   const form = useForm<preferencesInput>({
     resolver: zodResolver(preferencesSchema),
     defaultValues: preferencesModel,
   })
+  const {data: user} = useGetUser(userId);
+  const {data: currencies} = useGetCurrencies();
 
   function onSubmit(values: preferencesInput) {
     console.log(values)
@@ -35,13 +42,17 @@ export function PreferencesForm() {
               >
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="USD" />
+                    <SelectValue placeholder={user?.currency} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="USD">USD</SelectItem>
-                  <SelectItem value="EUR">EUR</SelectItem>
-                  <SelectItem value="GBP">GBP</SelectItem>
+                  {
+                    (currencies || []).map((el) => {
+                      return (
+                        <SelectItem value={el.id} key={el.id}>{el.title}</SelectItem>
+                      )
+                    })
+                  }
                 </SelectContent>
               </Select>
               <FormMessage />

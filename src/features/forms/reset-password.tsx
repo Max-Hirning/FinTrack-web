@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form"
 import { resetPasswordInput } from "shared/types"
 import { resetPasswordModel } from "shared/models"
+import { useResetPassword } from "src/shared/hooks"
 import { resetPasswordSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
@@ -12,9 +13,10 @@ export function ResetPasswordForm() {
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: resetPasswordModel,
   })
+  const {mutate: resetPassword, isPending: isResetPassword} = useResetPassword();
 
-  function onSubmit(values: resetPasswordInput) {
-    console.log(values)
+  function onSubmit({confirmPassword, ...values}: resetPasswordInput) {
+    resetPassword(values)
   }
 
   return (
@@ -58,7 +60,8 @@ export function ResetPasswordForm() {
         <Button 
           type="submit"
           className="w-full"
-          disabled={!form.formState.isValid}
+          isLoading={isResetPassword}
+          disabled={!form.formState.isValid || isResetPassword}
         >Reset password</Button>
       </form>
     </Form>
