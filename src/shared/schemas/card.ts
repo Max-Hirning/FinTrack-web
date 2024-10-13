@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const cardSchema = z.object({
   title: z.string().min(1),
+  color: z.string().min(1),
   currency: z.string().length(3),
   startBalance: z.string().min(1),
 });

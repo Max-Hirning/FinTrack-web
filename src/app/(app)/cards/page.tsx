@@ -1,6 +1,12 @@
 import { BudgetWidget, CardsListWidget, CardWidget, ExpensesStatisticsByCards, GoalCardsListWidget, LoanCardsListWidget } from "widgets/index"
 
-export default function Page() {
+interface IProps {
+  searchParams: { 
+    cardId?: string 
+  }
+}
+
+export default function Page({searchParams}: IProps) {
   return (
     <>
       <section className="flex max-md:flex-col w-full gap-[25px]">
@@ -12,7 +18,7 @@ export default function Page() {
         <GoalCardsListWidget styles="max-md:w-full md:w-[calc(50%-12.5px)]"/>
       </section>
       <section className="flex max-md:flex-col mt-[25px] w-full gap-[25px]">
-        <CardWidget/>
+        <CardWidget cardId={searchParams.cardId}/>
         <BudgetWidget/>
       </section>
     </>

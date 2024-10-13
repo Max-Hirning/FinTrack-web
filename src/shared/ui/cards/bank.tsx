@@ -1,11 +1,13 @@
+import Link from "next/link";
 import { Cpu } from "lucide-react";
 import { useDeleteCard } from "shared/hooks";
 import { ICardResponse } from "shared/types";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "shared/ui";
+import { hexToRgba } from "src/shared/lib/color";
 
 interface IProps extends ICardResponse {}
 
-export function BankCard({title, balance, currency, id}: IProps) {
+export function BankCard({title, balance, currency, id, color}: IProps) {
   const {mutate: deleteCard} = useDeleteCard();
 
   return (
@@ -17,7 +19,9 @@ export function BankCard({title, balance, currency, id}: IProps) {
               <CardTitle className="text-lg font-semibold">{title}</CardTitle>
               <CardTitle className="text-lg font-semibold">**{id.slice(-4)}</CardTitle>
             </article>
-            <Cpu />
+            <div style={{backgroundColor: hexToRgba(color, 0.25)}} className="rounded-[8px] p-[6px]">
+              <Cpu style={{color: color}} />
+            </div>
           </CardHeader>
           <CardFooter className="flex-col items-start">
             <CardTitle className="font-normal text-base">Balance</CardTitle>
@@ -26,7 +30,9 @@ export function BankCard({title, balance, currency, id}: IProps) {
         </Card>
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem>Edit</ContextMenuItem>
+        <Link href={`/cards?cardId=${id}`}>
+          <ContextMenuItem>Edit</ContextMenuItem>
+        </Link>
         <ContextMenuItem onClick={() => deleteCard(id)}>Delete</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>

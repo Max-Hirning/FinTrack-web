@@ -1,15 +1,29 @@
 import { Card } from "shared/ui"
 import { Suspense } from "react";
 import { CardForm } from "features/index"
-import { currencyService } from "shared/lib";
+import { cardService, currencyService } from "shared/lib";
 import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 interface IProps {
+  cardId?: string;
   styles?: string;
 }
 
-export async function CardWidget({styles}: IProps) {
+export async function CardWidget({styles, cardId}: IProps) {
+  let initialCardModel = undefined;
+  if(cardId) {
+    // const card = await cardService.getCard(cardId);
+    // initialCardModel = {
+    //   title: card.title,
+    //   currency: card.currency,
+    //   startBalance: `${card.balance}`
+    // }
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.getCard, cardId],
+      queryFn: () => cardService.getCard(cardId),
+    });
+  }
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getCurrencies],
     queryFn: () => currencyService.getCurrencies(),
@@ -21,7 +35,7 @@ export async function CardWidget({styles}: IProps) {
       <Card className="p-[24px]">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <CardForm/>
+            <CardForm cardId={cardId} />
           </Suspense>
         </HydrationBoundary>
       </Card>

@@ -13,7 +13,7 @@ export function CardsList({userId}: IProps) {
     currencies: [],
     userIds: [userId],
   });
-  console.log(cards);
+
   return (
     <section className="flex gap-[25px] pb-[5px] px-[5px] overflow-auto">
       {

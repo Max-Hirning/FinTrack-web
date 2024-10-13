@@ -43,6 +43,12 @@ export const useDeleteCard = () => {
     mutationFn: (cardId: string) => cardService.deleteCard(cardId),
   });
 }
+export const useGetCard = (cardId?: string) => {
+  return useQuery({
+    queryKey: [QueryKeys.getCard, cardId],
+    queryFn: () => cardService.getCard(cardId),
+  });
+}
 export const useGetCards = (query: IFilterCards) => {
   return useQuery({
     queryKey: [QueryKeys.getCards, query],

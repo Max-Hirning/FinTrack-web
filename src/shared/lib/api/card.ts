@@ -16,9 +16,21 @@ class CardService {
     }
   }
 
+  async getCard(cardId?: string): Promise<ICardResponse | null> {
+    try {
+      if(cardId) {
+        const response = await axiosInstance.get(`${this.url}/${cardId}`);
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      throw axios.isAxiosError(error) ? ApiError.fromAxiosError(error) : ApiError.default();
+    }
+  }
+
   async createCard({startBalance, ...payload}: cardInput): Promise<string> {
     try {
-      const response = await axiosInstance.post(this.url, {...payload, startBalance: +startBalance, color: "#0130FD"});
+      const response = await axiosInstance.post(this.url, {...payload, startBalance: +startBalance});
       return response.data;
     } catch (error) {
       throw axios.isAxiosError(error) ? ApiError.fromAxiosError(error) : ApiError.default();
@@ -36,7 +48,6 @@ class CardService {
 
   async getCards(query: IFilterCards): Promise<IPaginationResponse<ICardResponse>> {
     try {
-      console.log(query)
       const response = await axiosInstance.get(this.url, {
         params: query,
       });

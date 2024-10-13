@@ -14,9 +14,8 @@ interface IProps {
 export default function Providers({ children }: IProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Loader>
-        {children}
-      </Loader>
+      {children}
+      <Loader/>
       <ToastContainer
         style={{
           maxWidth: '100%',

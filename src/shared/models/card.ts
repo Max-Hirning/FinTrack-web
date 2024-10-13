@@ -2,6 +2,7 @@ import { budgetInput, cardInput, goalInput, loanInput } from "shared/types"
 
 const cardModel: cardInput = {
   title: "",
+  color: "",
   currency: "USD",
   startBalance: "0",
 }
