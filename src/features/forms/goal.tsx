@@ -1,20 +1,44 @@
 "use client"
 
 import { format } from "date-fns"
+import { useEffect } from "react"
 import { goalInput } from "shared/types"
 import { useForm } from "react-hook-form"
 import { goalModel } from "shared/models"
+import { useRouter } from "next/navigation"
 import { goalSchema } from "shared/schemas"
 import { useGetCurrencies } from "shared/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useCreateGoal, useGetGoal, useUpdateGoal } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, DatePicker } from "shared/ui"
 
-export function GoalForm() {
+interface IProps {
+  goalId?: string;
+}
+
+export function GoalForm({goalId}: IProps) {
+  const router = useRouter();
   const form = useForm<goalInput>({
     resolver: zodResolver(goalSchema),
     defaultValues: goalModel,
   });
+  const {data: goal} = useGetGoal(goalId);
   const {data: currencies} = useGetCurrencies();
+  const {mutate: createGoal, isPending: isCreateGoal} = useCreateGoal();
+  const {mutate: updateGoal, isPending: isUpdateGoal} = useUpdateGoal();
+
+  useEffect(() => {
+    if(goal) {
+      form.reset({
+        title: goal.title,
+        currency: goal.currency,
+        deadline: goal.deadline,
+        description: goal.description,
+        amount: goal.amount.toString(),
+        balance: goal.balance.toString(),
+      });
+    }
+  }, [form, goal])
 
   function onSubmit(values: goalInput) {
     console.log({...values, deadline: format(values.deadline, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")});
@@ -24,6 +48,20 @@ export function GoalForm() {
     if(+values.amount < 0) form.setError("amount", {
       message: "Amount must be greater or equal than 0"
     })
+    if(goalId) {
+      updateGoal({...values, goalId}, {
+        onSuccess: () => {
+          form.reset(goalModel);
+          router.replace("/accounts");
+        }
+      });
+    } else {      
+      createGoal(values, {
+        onSuccess: () => {
+          form.reset(goalModel);
+        }
+      });
+    }
   }
 
   return (
@@ -143,8 +181,9 @@ export function GoalForm() {
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
           className="w-fit ml-auto mt-[10px]"
+          isLoading={isCreateGoal || isUpdateGoal}
+          disabled={!form.formState.isValid || isCreateGoal || isUpdateGoal}
         >Save</Button>
       </form>
     </Form>

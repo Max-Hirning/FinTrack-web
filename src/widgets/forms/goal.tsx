@@ -1,15 +1,22 @@
 import { Card } from "shared/ui"
 import { Suspense } from "react";
 import { GoalForm } from "features/index"
-import { currencyService } from "shared/lib";
+import { currencyService, goalService } from "shared/lib";
 import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 interface IProps {
   styles?: string;
+  goalId?: string;
 }
 
-export async function GoalWidget({styles}: IProps) {
+export async function GoalWidget({styles, goalId}: IProps) {
+  if(goalId) {
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.getGoal, goalId],
+      queryFn: () => goalService.getGoal(goalId),
+    });
+  }
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getCurrencies],
     queryFn: () => currencyService.getCurrencies(),
@@ -21,7 +28,7 @@ export async function GoalWidget({styles}: IProps) {
       <Card className="p-[24px] w-full">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <GoalForm/>
+            <GoalForm goalId={goalId}/>
           </Suspense>
         </HydrationBoundary>
       </Card>

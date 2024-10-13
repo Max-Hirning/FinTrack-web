@@ -10,6 +10,16 @@ interface ICardResponse {
   currency: currencies;
   user: Pick<IUserResponse, "lastName"|"firstName"|"id">;
 }
+interface IGoalResponse {
+  id: string;
+  title: string;
+  amount: number;
+  balance: number;
+  deadline: string;
+  description: string;
+  currency: currencies;
+  user: Pick<IUserResponse, "lastName"|"firstName"|"id">;
+}
 interface IBudgetResponse {
   id: string;
   title: string;
@@ -26,6 +36,7 @@ interface IBudgetResponse {
 
 
 export type {
+  IGoalResponse,
   ICardResponse,
   IBudgetResponse
 }

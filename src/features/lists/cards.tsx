@@ -14,7 +14,7 @@ export function CardsList({userId}: IProps) {
     currencies: [],
     userIds: [userId],
   });
-  console.log(cards);
+
   if(isLoading) {
     return (
       <section className="flex justify-center items-center h-[260px] gap-[25px] pb-[5px] px-[5px] overflow-auto">

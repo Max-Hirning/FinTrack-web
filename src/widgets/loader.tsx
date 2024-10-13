@@ -6,9 +6,10 @@ import { useIsMutating } from '@tanstack/react-query'
 
 export function Loader() {
   const isDeleteCard = useIsMutating({ mutationKey: [QueryKeys.deleteCard] })
+  const isDeleteGoal = useIsMutating({ mutationKey: [QueryKeys.deleteGoal] })
   const isDeleteBudget = useIsMutating({ mutationKey: [QueryKeys.deleteBudget] })
 
-  if(isDeleteCard || isDeleteBudget) {
+  if(isDeleteCard || isDeleteBudget || isDeleteGoal) {
     return (
       <div 
         style={{backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000}}

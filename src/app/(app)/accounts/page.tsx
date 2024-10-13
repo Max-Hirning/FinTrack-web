@@ -1,6 +1,13 @@
 import { AccountsCardsListWidget, GoalWidget, LoanWidget, GoalCardsListWidget, LoanCardsListWidget } from "widgets/index"
 
-export default function Page() {
+interface IProps {
+  searchParams: { 
+    goalId?: string;
+    loanId?: string;
+  }
+}
+
+export default function Page({searchParams}: IProps) {
   return (
     <>
       <AccountsCardsListWidget/>
@@ -9,7 +16,7 @@ export default function Page() {
         <GoalCardsListWidget styles="max-md:w-full md:w-[calc(50%-12.5px)]"/>
       </section>
       <section className="flex max-md:flex-col mt-[25px] w-full gap-[25px]">
-        <GoalWidget/>
+        <GoalWidget goalId={searchParams.goalId}/>
         <LoanWidget/>
       </section>
     </>

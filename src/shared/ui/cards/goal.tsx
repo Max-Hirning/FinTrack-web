@@ -1,10 +1,18 @@
+"use client"
+
+import Link from "next/link";
 import { Goal } from "lucide-react"
+import { useDeleteGoal } from "src/shared/hooks";
+import { IGoalResponse } from "src/shared/types";
+import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "shared/ui"
 
-export function GoalCard() {
-  const amount = 400;
-  const balance = 800;
+interface IProps extends IGoalResponse {}
+
+export function GoalCard({balance, amount, id, title, description}: IProps) {
+  const searchParams = useSearchParams();
   const percentage = (amount / balance) * 100;
+  const {mutate: deleteGoal} = useDeleteGoal();
   const width = percentage >= 100 ? 100 : percentage;
 
   return (
@@ -13,13 +21,13 @@ export function GoalCard() {
         <Card className="p-[24px] w-full max-w-[350px] min-w-[350px] h-[235px] justify-between flex flex-col">
           <CardHeader className="p-0 flex flex-col gap-[15px]">
             <article className="flex items-center justify-between">
-              <CardTitle className="text-lg font-semibold">My Goal</CardTitle>
+              <CardTitle className="text-lg font-semibold">{title}</CardTitle>
               <Goal />
             </article>
-            <CardTitle className="font-normal text-base">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum labore libero tempore ratione ad saepe nihil sequi, commodi nostrum autem, deserunt hic laborum assumenda enim praesentium. In nam porro repellat?</CardTitle>
+            <CardTitle className="font-normal text-base">{description}</CardTitle>
           </CardHeader>
           <CardContent className="p-0 flex flex-col gap-[10px]">
-            <CardDescription className="font-normal text-base self-end">USD 624.00/827.00</CardDescription>
+            <CardDescription className="font-normal text-base self-end">USD {amount.toFixed(2)}/{balance.toFixed(2)}</CardDescription>
             <div className="relative w-full h-[8px]">
               <div className="absolute z-10 w-full h-[8px] bg-gray-300"/>
               <div 
@@ -33,8 +41,16 @@ export function GoalCard() {
         </Card>
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem>Edit</ContextMenuItem>
-        <ContextMenuItem>Delete</ContextMenuItem>
+        <Link href={{
+          pathname: "/accounts",
+          query: {
+            ...Object.fromEntries(searchParams.entries()),
+            goalId: id
+          }
+        }}>
+          <ContextMenuItem>Edit</ContextMenuItem>
+        </Link>
+        <ContextMenuItem onClick={() => deleteGoal(id)}>Delete</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   )

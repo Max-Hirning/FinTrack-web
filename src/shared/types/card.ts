@@ -13,6 +13,12 @@ interface IFilterCards {
   cardIds: string[];
   currencies: currencies[];
 }
+interface IFilterGoals {
+  page?: number;
+  userIds: string[];
+  goalIds: string[];
+  currencies: currencies[];
+}
 interface IFilterBudgets {
   page?: number;
   userIds: string[];
@@ -26,5 +32,6 @@ export type {
   goalInput,
   budgetInput,
   IFilterCards,
+  IFilterGoals,
   IFilterBudgets,
 };
