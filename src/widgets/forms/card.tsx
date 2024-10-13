@@ -11,14 +11,7 @@ interface IProps {
 }
 
 export async function CardWidget({styles, cardId}: IProps) {
-  let initialCardModel = undefined;
   if(cardId) {
-    // const card = await cardService.getCard(cardId);
-    // initialCardModel = {
-    //   title: card.title,
-    //   currency: card.currency,
-    //   startBalance: `${card.balance}`
-    // }
     await queryClient.prefetchQuery({
       queryKey: [QueryKeys.getCard, cardId],
       queryFn: () => cardService.getCard(cardId),

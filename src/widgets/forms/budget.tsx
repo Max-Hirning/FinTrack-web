@@ -4,15 +4,22 @@ import { BudgetForm } from "features/index"
 import { getUserCookies } from "src/shared/lib/api/server";
 import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { categoryService, currencyService, userService } from "shared/lib";
+import { budgetService, categoryService, currencyService, userService } from "shared/lib";
 
 interface IProps {
   styles?: string;
+  budgetId?: string;
 }
 
-export async function BudgetWidget({styles}: IProps) {
+export async function BudgetWidget({styles, budgetId}: IProps) {
   const user = await getUserCookies();
 
+  if(budgetId) {
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.getBudget, budgetId],
+      queryFn: () => budgetService.getBudget(budgetId),
+    });
+  }
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getCurrencies],
     queryFn: () => currencyService.getCurrencies(),
@@ -32,7 +39,7 @@ export async function BudgetWidget({styles}: IProps) {
       <Card className="p-[24px] w-full">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <BudgetForm userId={user.id}/>
+            <BudgetForm budgetId={budgetId} userId={user.id}/>
           </Suspense>
         </HydrationBoundary>
       </Card>

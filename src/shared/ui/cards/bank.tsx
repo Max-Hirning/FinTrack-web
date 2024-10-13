@@ -1,13 +1,17 @@
+"use client"
+
 import Link from "next/link";
 import { Cpu } from "lucide-react";
 import { useDeleteCard } from "shared/hooks";
 import { ICardResponse } from "shared/types";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "shared/ui";
 import { hexToRgba } from "src/shared/lib/color";
+import { useSearchParams } from "next/navigation";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "shared/ui";
 
 interface IProps extends ICardResponse {}
 
 export function BankCard({title, balance, currency, id, color}: IProps) {
+  const searchParams = useSearchParams();
   const {mutate: deleteCard} = useDeleteCard();
 
   return (
@@ -30,7 +34,13 @@ export function BankCard({title, balance, currency, id, color}: IProps) {
         </Card>
       </ContextMenuTrigger>
       <ContextMenuContent>
-        <Link href={`/cards?cardId=${id}`}>
+        <Link href={{
+          pathname: "/cards",
+          query: {
+            ...Object.fromEntries(searchParams.entries()),
+            cardId: id
+          }
+        }}>
           <ContextMenuItem>Edit</ContextMenuItem>
         </Link>
         <ContextMenuItem onClick={() => deleteCard(id)}>Delete</ContextMenuItem>

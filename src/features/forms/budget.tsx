@@ -1,26 +1,45 @@
 "use client"
 
+import { useEffect } from "react"
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
 import { budgetInput } from "shared/types"
 import { budgetModel } from "shared/models"
 import { budgetSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useGetCategories, useGetCurrencies, useGetUser } from "shared/hooks"
+import { useCreateBudget, useGetBudget, useGetCategories, useGetCurrencies, useGetUser } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, MultipleSelect, DatePicker } from "shared/ui"
 
 interface IProps {
-  userId: string
+  userId: string;
+  budgetId?: string;
 }
 
-export function BudgetForm({userId}: IProps) {
+export function BudgetForm({userId, budgetId}: IProps) {
   const form = useForm<budgetInput>({
     resolver: zodResolver(budgetSchema),
     defaultValues: budgetModel,
   });
   const {data: user} = useGetUser(userId)
+  const {data: budget} = useGetBudget(budgetId);
   const {data: currencies} = useGetCurrencies();
   const {data: categories} = useGetCategories([userId]);
+  const {mutate: createBudget, isPending: isCreateBudget} = useCreateBudget();
+
+  useEffect(() => {
+    if(budget) {
+      form.reset({
+        title: budget.title,
+        cardIds: budget.cards,
+        period: budget.period,
+        endDate: budget.endDate,
+        currency: budget.currency,
+        startDate: budget.startDate,
+        categoryIds: budget.categories,
+        balance: budget.balance.toString(),
+      });
+    }
+  }, [form, budget])
 
   function onSubmit(values: budgetInput) {
     if(values.endDate) {
@@ -29,7 +48,6 @@ export function BudgetForm({userId}: IProps) {
     if(values.startDate) {
       values.startDate = format(values.startDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     }
-    console.log(values);
     if(values.period === "oneTime") {
       if(!values.startDate || !values.endDate) {
         form.setError("startDate", {
@@ -43,6 +61,11 @@ export function BudgetForm({userId}: IProps) {
     if(+values.balance <= 0) form.setError("balance", {
       message: "Balance must be greater than 0"
     })
+    if(budgetId) {
+      
+    } else {
+      createBudget(values);
+    }
   }
 
   return (
@@ -187,7 +210,7 @@ export function BudgetForm({userId}: IProps) {
         </div>
         <div className="max-sm:items-center flex flex-row max-md:flex-col gap-[20px]">
           <FormField
-            name="cards"
+            name="cardIds"
             control={form.control}
             render={({ field }) => (
               <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
@@ -203,7 +226,7 @@ export function BudgetForm({userId}: IProps) {
             )}
           />
           <FormField
-            name="categories"
+            name="categoryIds"
             control={form.control}
             render={({ field }) => (
               <FormItem className="flex flex-col gap-2 md:max-w-[400px] w-full">
@@ -221,8 +244,9 @@ export function BudgetForm({userId}: IProps) {
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
+          isLoading={isCreateBudget}
           className="w-fit ml-auto mt-[10px]"
+          disabled={!form.formState.isValid || isCreateBudget}
         >Save</Button>
       </form>
     </Form>

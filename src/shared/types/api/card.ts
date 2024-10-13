@@ -1,14 +1,31 @@
 import { currencies, IUserResponse } from "shared/types";
 
+type periods = "oneTime" | "year" | "month" | "week";
+
 interface ICardResponse {
   id: string;
   title: string;
   color: string;
   balance: number;
   currency: currencies;
-  user: Pick<IUserResponse, "lastName"|"firstName"|"images"|"id">;
+  user: Pick<IUserResponse, "lastName"|"firstName"|"id">;
+}
+interface IBudgetResponse {
+  id: string;
+  title: string;
+  amount: number;
+  balance: number;
+  period: periods;
+  endDate: string;
+  cards: string[];
+  startDate: string;
+  categories: string[];
+  currency: currencies;
+  user: Pick<IUserResponse, "lastName"|"firstName"|"id">;
 }
 
+
 export type {
-  ICardResponse
+  ICardResponse,
+  IBudgetResponse
 }

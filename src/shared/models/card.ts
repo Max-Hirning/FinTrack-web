@@ -24,9 +24,9 @@ const goalModel: goalInput = {
 }
 const budgetModel: budgetInput = {
   title: "",
-  cards: [],
+  cardIds: [],
   balance: "0",
-  categories: [],
+  categoryIds: [],
   currency: "USD", 
   period: "oneTime",
   endDate: undefined,

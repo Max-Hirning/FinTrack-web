@@ -1,8 +1,9 @@
-import { BudgetWidget, CardsListWidget, CardWidget, ExpensesStatisticsByCards, GoalCardsListWidget, LoanCardsListWidget } from "widgets/index"
+import { BudgetCardsListWidget, BudgetWidget, CardsListWidget, CardWidget, ExpensesStatisticsByCards } from "widgets/index"
 
 interface IProps {
   searchParams: { 
-    cardId?: string 
+    cardId?: string;
+    budgetId?: string;
   }
 }
 
@@ -14,12 +15,12 @@ export default function Page({searchParams}: IProps) {
         <CardsListWidget styles="max-md:w-full md:w-[calc(100%-350px-25px)]"/>
       </section>
       <section className="flex max-md:flex-col mt-[25px] w-full gap-[25px]">
-        <LoanCardsListWidget styles="max-md:w-full md:w-[calc(50%-12.5px)]"/>
-        <GoalCardsListWidget styles="max-md:w-full md:w-[calc(50%-12.5px)]"/>
+        <CardsListWidget styles="max-md:w-full md:w-[calc(50%-12.5px)]"/>
+        <BudgetCardsListWidget styles="max-md:w-full md:w-[calc(50%-12.5px)]"/>
       </section>
       <section className="flex max-md:flex-col mt-[25px] w-full gap-[25px]">
         <CardWidget cardId={searchParams.cardId}/>
-        <BudgetWidget/>
+        <BudgetWidget budgetId={searchParams.budgetId}/>
       </section>
     </>
   )

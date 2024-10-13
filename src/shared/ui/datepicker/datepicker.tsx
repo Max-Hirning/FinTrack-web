@@ -79,7 +79,23 @@ export function DatePicker({value: date, timePicker, onChange: setDate}: IProps)
           </div>
         </div>
         <div className="rounded-md border">
-          <Calendar mode="single" selected={date} onSelect={(date) => date && setDate(date)} />
+          <Calendar
+            month={date}
+            mode="single"
+            selected={date}
+            onMonthChange={newDate => {
+              if (date) {
+                setDate(
+                  setMonth(
+                    setYear(date, newDate.getFullYear()),
+                    newDate.getMonth(),
+                  ),
+                );
+              }
+            }}
+            key={date ? date.toString() : 'no-selected'}
+            onDayClick={selectedDate => selectedDate && setDate(selectedDate)}
+          />
         </div>
       </PopoverContent>
     </Popover>

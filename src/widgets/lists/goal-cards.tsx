@@ -7,7 +7,7 @@ interface IProps {
 
 export function GoalCardsListWidget({styles}: IProps) {
   return (
-    <section className={`max-w-fit ${styles || ""}`}>
+    <section className={`${styles || ""}`}>
       <article className="flex items-end justify-between mb-[5px]">
         <h2 className="text-2xl font-bold">My Goals</h2>
         <Link 
