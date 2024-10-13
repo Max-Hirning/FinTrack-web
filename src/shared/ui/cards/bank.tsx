@@ -1,10 +1,13 @@
 import { Cpu } from "lucide-react";
+import { useDeleteCard } from "shared/hooks";
+import { ICardResponse } from "shared/types";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "shared/ui";
-import { ICardResponse } from "src/shared/types";
 
 interface IProps extends ICardResponse {}
 
 export function BankCard({title, balance, currency, id}: IProps) {
+  const {mutate: deleteCard} = useDeleteCard();
+
   return (
     <ContextMenu>
       <ContextMenuTrigger>
@@ -24,7 +27,7 @@ export function BankCard({title, balance, currency, id}: IProps) {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem>Edit</ContextMenuItem>
-        <ContextMenuItem>Delete</ContextMenuItem>
+        <ContextMenuItem onClick={() => deleteCard(id)}>Delete</ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
   )

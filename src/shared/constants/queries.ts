@@ -4,6 +4,7 @@ export enum QueryKeys {
   getUser = "get-user",
 
   getCards = "get-cards",
+  deleteCard = "delete-card",
 
   getCategories = "get-categories",
 

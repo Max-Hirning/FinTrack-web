@@ -7,7 +7,7 @@ interface IProps {
 
 export function BudgetCardsListWidget({styles}: IProps) {
   return (
-    <section className={styles || ""}>
+    <section className={`max-w-fit ${styles || ""}`}>
       <article className="flex items-end justify-between mb-[5px]">
         <h2 className="text-2xl font-bold">My Budgets</h2>
         <Link 

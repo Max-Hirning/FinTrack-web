@@ -25,7 +25,7 @@ export async function CardsListWidget({styles}: IProps) {
   });
 
   return (
-    <section className={styles || ""}>
+    <section className={`max-w-fit ${styles || ""}`}>
       <article className="flex items-end justify-between mb-[5px]">
         <h2 className="text-2xl font-bold">My Cards</h2>
         <Link 

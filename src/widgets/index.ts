@@ -12,6 +12,7 @@ export * from './lists/goal-cards';
 export * from "./forms/check-code";
 export * from "./forms/transaction";
 export * from "./lists/budget-cards";
+export * from "./loader";
 export * from "./lists/transactions";
 export * from "./forms/preferences";
 export * from "./lists/accounts-cards";

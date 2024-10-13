@@ -39,6 +39,7 @@ export const useDeleteCard = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
     },
+    mutationKey: [QueryKeys.deleteCard],
     mutationFn: (cardId: string) => cardService.deleteCard(cardId),
   });
 }

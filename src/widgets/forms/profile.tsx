@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGetUser } from "shared/hooks";
 import { ProfileForm } from "features/index";
 import { FilePenLine, Trash2 } from "lucide-react";
@@ -13,6 +13,7 @@ interface IProps {
 
 export function ProfileWidget({styles, userId}: IProps) {
   const {data: user} = useGetUser(userId);
+  // const [image, setImage] = useState(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = (): void => {
@@ -21,8 +22,8 @@ export function ProfileWidget({styles, userId}: IProps) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      const imageUrl = URL.createObjectURL(file);
-      console.log(imageUrl);
+      // const imageUrl = URL.createObjectURL(file);
+      console.log(file);
     }
   };
 
@@ -30,7 +31,7 @@ export function ProfileWidget({styles, userId}: IProps) {
     <Card className={`max-sm:flex-col max-sm:items-center max-w-[1040px] p-[24px] flex-row flex gap-[40px] ${styles || ""}`}>
       <div className="relative w-[130px] h-[130px]">
         <Avatar className="w-[130px] h-[130px]">
-          <AvatarImage src={user?.images[0].url || "https://github.com/shadcn.png"} />
+          <AvatarImage src={user?.images[0]?.url || "https://github.com/shadcn.png"} />
           <AvatarFallback>{user?.firstName || ""}</AvatarFallback>
         </Avatar>
         <label className="absolute bottom-0 right-0">
@@ -47,7 +48,7 @@ export function ProfileWidget({styles, userId}: IProps) {
         </label>
         <Button 
           variant="destructive" 
-          className="w-[30px] h-[30px] rounded-full p-0 absolute top-0 left-0"
+          className={`${!(user?.images[0]?.id) && "hidden"} w-[30px] h-[30px] rounded-full p-0 absolute top-0 left-0`}
         >
           <Trash2 className="text-white" size={15} />
         </Button>

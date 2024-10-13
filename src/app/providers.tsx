@@ -1,12 +1,11 @@
 'use client'
 
-import {
-  QueryClientProvider,
-} from '@tanstack/react-query'
 import { ReactNode } from 'react'
+import { Loader } from 'widgets/index';
 import { queryClient } from 'shared/constants';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 interface IProps {
   children: ReactNode;
@@ -15,7 +14,9 @@ interface IProps {
 export default function Providers({ children }: IProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <Loader>
+        {children}
+      </Loader>
       <ToastContainer
         style={{
           maxWidth: '100%',
