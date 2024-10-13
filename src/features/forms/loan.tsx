@@ -1,26 +1,62 @@
 "use client"
 
 import { format } from "date-fns"
+import { useEffect } from "react"
 import { loanInput } from "shared/types"
 import { useForm } from "react-hook-form"
 import { loanModel } from "shared/models"
 import { loanSchema } from "shared/schemas"
-import { useGetCurrencies } from "shared/hooks"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useCreateLoan, useGetCurrencies, useGetLoan, useUpdateLoan } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, DatePicker } from "shared/ui"
 
-export function LoanForm() {
+interface IProps {
+  loanId?: string;
+}
+
+export function LoanForm({loanId}: IProps) {
+  const router = useRouter();
   const form = useForm<loanInput>({
     resolver: zodResolver(loanSchema),
     defaultValues: loanModel,
   });
+  const {data: loan} = useGetLoan(loanId);
   const {data: currencies} = useGetCurrencies();
+  const {mutate: createLoan, isPending: isCreateLoan} = useCreateLoan();
+  const {mutate: updateLoan, isPending: isUpdateLoan} = useUpdateLoan();
+
+  useEffect(() => {
+    if(loan) {
+      form.reset({
+        date: loan.date,
+        title: loan.title,
+        currency: loan.currency,
+        deadline: loan.deadline,
+        description: loan.description,
+        amount: loan.amount.toString(),
+      });
+    }
+  }, [form, loan])
 
   function onSubmit(values: loanInput) {
-    console.log({...values, deadline: format(values.deadline, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"), date: format(values.date, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")});
     if(+values.amount === 0) form.setError("amount", {
       message: "Amount mustm't be equal to 0"
     })
+    if(loanId) {
+      updateLoan({...values, loanId}, {
+        onSuccess: () => {
+          form.reset(loanModel);
+          router.replace("/accounts");
+        }
+      });
+    } else {      
+      createLoan(values, {
+        onSuccess: () => {
+          form.reset(loanModel);
+        }
+      });
+    }
   }
 
   return (
@@ -140,8 +176,9 @@ export function LoanForm() {
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
           className="w-fit ml-auto mt-[10px]"
+          isLoading={isCreateLoan || isUpdateLoan}
+          disabled={!form.formState.isValid || isCreateLoan || isUpdateLoan}
         >Save</Button>
       </form>
     </Form>

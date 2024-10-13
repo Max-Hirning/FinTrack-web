@@ -19,6 +19,12 @@ interface IFilterGoals {
   goalIds: string[];
   currencies: currencies[];
 }
+interface IFilterLoans {
+  page?: number;
+  userIds: string[];
+  loanIds: string[];
+  currencies: currencies[];
+}
 interface IFilterBudgets {
   page?: number;
   userIds: string[];
@@ -31,6 +37,7 @@ export type {
   loanInput,
   goalInput,
   budgetInput,
+  IFilterLoans,
   IFilterCards,
   IFilterGoals,
   IFilterBudgets,

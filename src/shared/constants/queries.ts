@@ -15,6 +15,10 @@ export enum QueryKeys {
   getGoals = "get-goals",
   deleteGoal = "delete-goal",
 
+  getLoan = "get-loan",
+  getLoans = "get-loans",
+  deleteLoan = "delete-loan",
+
   getCategories = "get-categories",
 
   getCurrencies = "get-currencies",

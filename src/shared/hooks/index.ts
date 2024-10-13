@@ -2,6 +2,7 @@ export * from "./auth";
 export * from "./user";
 export * from "./card";
 export * from "./goal";
+export * from "./loan";
 export * from "./utils";
 export * from "./budget";
 export * from "./category";
