@@ -2,11 +2,13 @@
 
 import { BellDot } from 'lucide-react';
 import { pages } from 'shared/constants';
-import { usePathname } from 'next/navigation';
+import { useDeleteUser } from 'shared/hooks';
+import { usePathname, useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "shared/ui";
-import axios from 'axios';
-import axiosInstance from 'src/shared/lib/axios';
-import { categoryService, userService } from 'src/shared/lib';
+
+interface IProps {
+  userId: string
+}
 
 const notifications = {
   "2024-09-14": [
@@ -97,18 +99,15 @@ const notifications = {
   ]
 }
 
-
-
-export function Header() {
+export function Header({userId}: IProps) {
+  const router = useRouter();
   const pathname = usePathname()
+  const {mutate: deleteUser} = useDeleteUser()
   const page = pages.find((el) => el.url === pathname);
 
   return (
     <header className="z-50 sticky top-0 right-0 bg-background w-[calc(100%-60px)] ml-auto flex border-border border-b h-[80px] items-center justify-between p-[20px]">
-      <h1 className="text-2xl font-bold" onClick={async () => {
-        const a = await userService.getUser("baadaaee-b0aa-43e5-a8d7-52c4de3ac8b1");
-        console.log(a);
-      }}>{page?.title || "Overview"}</h1>
+      <h1 className="text-2xl font-bold">{page?.title || "Overview"}</h1>
       <div className='flex flex-row gap-[25px]'>
         <Sheet>
           <SheetTrigger>
@@ -163,7 +162,7 @@ export function Header() {
                 </Avatar>
               </MenubarTrigger>
               <MenubarContent>
-                <MenubarItem>Logout</MenubarItem>
+                <MenubarItem onClick={() => router.push("/auth/sign-in")}>Logout</MenubarItem>
                 <MenubarItem>
                   <DialogTrigger>Delete account</DialogTrigger>
                 </MenubarItem>
@@ -178,7 +177,7 @@ export function Header() {
                 <Button variant="outline">Cancel</Button>
               </DialogClose>
               <DialogClose>
-                <Button variant="destructive">Delete</Button>
+                <Button onClick={() => deleteUser(userId)} variant="destructive">Delete</Button>
               </DialogClose>
             </div>
           </DialogContent>

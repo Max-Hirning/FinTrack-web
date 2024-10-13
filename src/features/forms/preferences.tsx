@@ -5,7 +5,7 @@ import { preferencesInput } from "shared/types";
 import { preferencesModel } from "shared/models";
 import { preferencesSchema } from "shared/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGetCurrencies, useGetUser } from "shared/hooks";
+import { useGetCurrencies, useGetUser, useUpdateUser } from "shared/hooks";
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch } from "shared/ui";
 
 interface IProps {
@@ -19,9 +19,10 @@ export function PreferencesForm({userId}: IProps) {
   })
   const {data: user} = useGetUser(userId);
   const {data: currencies} = useGetCurrencies();
+  const {mutate: updateUser, isPending: isUpdateUser} = useUpdateUser()
 
   function onSubmit(values: preferencesInput) {
-    console.log(values)
+    updateUser({...values, userId})
   }
 
   return (
@@ -67,8 +68,8 @@ export function PreferencesForm({userId}: IProps) {
               <FormControl>
                 <>
                   <Switch
-                    checked={field.value}
                     onCheckedChange={field.onChange}
+                    checked={field.value || user?.budgetNotification}
                   />
                   <p style={{marginTop: 0}}>Budget notifications</p>
                 </>
@@ -84,8 +85,8 @@ export function PreferencesForm({userId}: IProps) {
               <FormControl>
                 <>
                   <Switch
-                    checked={field.value}
                     onCheckedChange={field.onChange}
+                    checked={field.value || user?.goalNotification}
                   />
                   <p style={{marginTop: 0}}>Goal notifications</p>
                 </>
@@ -101,8 +102,8 @@ export function PreferencesForm({userId}: IProps) {
               <FormControl>
                 <>
                   <Switch
-                    checked={field.value}
                     onCheckedChange={field.onChange}
+                    checked={field.value || user?.loanNotification}
                   />
                   <p style={{marginTop: 0}}>Loan notifications</p>
                 </>
@@ -112,8 +113,9 @@ export function PreferencesForm({userId}: IProps) {
         />
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
+          isLoading={isUpdateUser}
           className="w-fit ml-auto mt-[10px]"
+          disabled={!form.formState.isValid || isUpdateUser}
         >Save</Button>
       </form>
     </Form>

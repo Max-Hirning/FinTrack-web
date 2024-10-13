@@ -2,6 +2,7 @@ import { defaultShouldDehydrateQuery, QueryClient } from "@tanstack/react-query"
 
 export enum QueryKeys {
   getUser = "get-user",
+  deleteUser = "delete-user",
 
   getBudget = "get-budget",
   getBudgets = "get-budgets",

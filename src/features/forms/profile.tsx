@@ -1,11 +1,11 @@
 "use client"
 
 import { useForm } from "react-hook-form"
-import { useGetUser } from "shared/hooks"
 import { profileInput } from "shared/types"
 import { profileModel } from "shared/models"
 import { profileSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useGetUser, useUpdateUser } from "shared/hooks"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, DatePicker } from "shared/ui"
 
 interface IProps {
@@ -18,9 +18,10 @@ export function ProfileForm({userId}: IProps) {
     defaultValues: profileModel,
   })
   const {data: user} = useGetUser(userId);
+  const {mutate: updateUser, isPending: isUpdateUser} = useUpdateUser()
 
   function onSubmit(values: profileInput) {
-    console.log(values)
+    updateUser({...values, userId})
   }
 
   return (
@@ -108,8 +109,9 @@ export function ProfileForm({userId}: IProps) {
         </div>
         <Button 
           type="submit"
+          isLoading={isUpdateUser}
           className="w-fit ml-auto mt-[10px]"
-          disabled={!form.formState.isValid || !(Object.values(form.watch()).some((el) => !!el))}
+          disabled={!form.formState.isValid || isUpdateUser || !(Object.values(form.watch()).some((el) => !!el))}
         >Save</Button>
       </form>
     </Form>

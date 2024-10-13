@@ -4,17 +4,23 @@ import { useForm } from "react-hook-form"
 import { settingsInput } from "shared/types"
 import { settingsModel } from "shared/models"
 import { settingsSchema } from "shared/schemas"
+import { useUpdateUserPassword } from "shared/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Input, Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "shared/ui"
 
-export function SettingsForm() {
+interface IProps {
+  userId: string
+}
+
+export function SettingsForm({userId}: IProps) {
   const form = useForm<settingsInput>({
     resolver: zodResolver(settingsSchema),
     defaultValues: settingsModel,
-  })
+  });
+  const {mutate: updateUser, isPending: isUpdateUser} = useUpdateUserPassword()
 
   function onSubmit(values: settingsInput) {
-    console.log(values)
+    updateUser({...values, userId})
   }
 
   return (
@@ -73,8 +79,9 @@ export function SettingsForm() {
         />
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
+          isLoading={isUpdateUser}
           className="w-fit ml-auto mt-[10px]"
+          disabled={!form.formState.isValid || isUpdateUser}
         >Save</Button>
       </form>
     </Form>
