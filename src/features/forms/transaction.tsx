@@ -2,30 +2,65 @@
 
 import { format } from "date-fns"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 import { transactionInput } from "shared/types"
 import { transactionModel } from "shared/models"
 import { transactionSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useGetUser, useGetCategories } from "shared/hooks"
+import { useGetUser, useGetCategories, useCreateTransaction, useUpdateTransaction, useGetTransaction } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, DatePicker, Textarea } from "shared/ui"
+import { useEffect } from "react"
 
 interface IProps {
   userId: string;
+  transactionId?: string;
 }
 
-export function TransactionForm({userId}: IProps) {
+export function TransactionForm({userId, transactionId}: IProps) {
   const form = useForm<transactionInput>({
     resolver: zodResolver(transactionSchema),
     defaultValues: transactionModel,
   });
+  const router = useRouter();
   const {data: user} = useGetUser(userId)
   const {data: categories} = useGetCategories([userId])
+  const {data: transaction} = useGetTransaction(transactionId);
+  const {mutate: createTransaction, isPending: isCreateTransaction} = useCreateTransaction();
+  const {mutate: updateTransaction, isPending: isUpdateTransaction} = useUpdateTransaction();
+
+  useEffect(() => {
+    if(transaction) {
+      form.reset({
+        date: transaction.date,
+        cardId: transaction.card.id,
+        goalId: transaction.goal?.id,
+        loanId: transaction.loan?.id,
+        categoryId: transaction.category.id,
+        description: transaction.description,
+        amount: transaction.amount.toString(),
+      });
+    }
+  }, [form, transaction])
 
   function onSubmit(values: transactionInput) {
     console.log({...values, date: format(values.date, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")});
     if(+values.amount === 0) form.setError("amount", {
       message: "Amount mustn't be equal to 0"
     })
+    if(transactionId) {
+      updateTransaction({...values, transactionId}, {
+        onSuccess: () => {
+          form.reset(transactionModel);
+          router.replace("/");
+        }
+      });
+    } else {      
+      createTransaction(values, {
+        onSuccess: () => {
+          form.reset(transactionModel);
+        }
+      });
+    }
   }
 
   return (
@@ -52,7 +87,7 @@ export function TransactionForm({userId}: IProps) {
             )}
           />
           <FormField
-            name="category"
+            name="categoryId"
             control={form.control}
             render={({ field }) => (
               <FormItem className="flex flex-col gap-2 md:max-w-[400px] w-full">
@@ -205,8 +240,9 @@ export function TransactionForm({userId}: IProps) {
         </div>
         <Button 
           type="submit"
-          disabled={!form.formState.isValid}
           className="w-fit ml-auto mt-[10px]"
+          isLoading={isCreateTransaction || isUpdateTransaction}
+          disabled={!form.formState.isValid || isCreateTransaction || isUpdateTransaction}
         >Save</Button>
       </form>
     </Form>

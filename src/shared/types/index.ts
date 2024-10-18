@@ -9,3 +9,4 @@ export * from "./transaction";
 export * from "./api/currency";
 export * from "./api/category";
 export * from "./api/pagination";
+export * from "./api/transaction";

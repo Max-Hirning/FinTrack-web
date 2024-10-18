@@ -1,6 +1,12 @@
 import { CardsListWidget, ExpensesStatisticsByCategories, TransactionsStatisticsWidget, TransactionsListWidget, TransactionWidget } from "widgets/index"
 
-export default function Page() {
+interface IProps {
+  searchParams: { 
+    transactionId?: string;
+  }
+}
+
+export default function Page({searchParams}: IProps) {
   return (
     <>
       <section className="flex max-md:flex-col w-full gap-[25px]">
@@ -12,7 +18,7 @@ export default function Page() {
         <ExpensesStatisticsByCategories styles="max-md:w-full md:w-[350px]"/>
       </section>
       <section className="flex max-md:flex-col w-full gap-[25px] mt-[25px]">
-        <TransactionWidget/>
+        <TransactionWidget transactionId={searchParams.transactionId}/>
       </section>
     </>
   )

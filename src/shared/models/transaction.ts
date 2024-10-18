@@ -3,7 +3,7 @@ import { transactionInput } from "shared/types"
 const transactionModel: transactionInput = {
   cardId: "",
   amount: "0",
-  category: "",
+  categoryId: "",
   description: "",
   goalId: undefined,
   loanId: undefined,

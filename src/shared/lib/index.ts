@@ -8,3 +8,4 @@ export * from "./api/loan";
 export * from "./api/budget";
 export * from "./api/category";
 export * from "./api/currency";
+export * from "./api/transaction";

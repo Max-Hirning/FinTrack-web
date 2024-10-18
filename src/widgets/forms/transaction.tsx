@@ -1,18 +1,25 @@
 import { Card } from "shared/ui"
 import { Suspense } from "react";
-import { categoryService, userService } from "shared/lib";
 import { TransactionForm } from "features/index"
 import { getUserCookies } from "shared/lib/api/server";
 import { queryClient, QueryKeys } from "shared/constants";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { categoryService, transactionService, userService } from "shared/lib";
 
 interface IProps {
   styles?: string;
+  transactionId?: string;
 }
 
-export async function TransactionWidget({styles}: IProps) {
+export async function TransactionWidget({styles, transactionId}: IProps) {
   const user = await getUserCookies();
 
+  if(transactionId) {
+    await queryClient.prefetchQuery({
+      queryKey: [QueryKeys.getTransaction, transactionId],
+      queryFn: () => transactionService.getTransaction(transactionId),
+    });
+  }
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getUser, user.id],
     queryFn: () => userService.getUser(user.id),
@@ -28,7 +35,7 @@ export async function TransactionWidget({styles}: IProps) {
       <Card className="p-[24px] w-full">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <TransactionForm userId={user.id}/>
+            <TransactionForm transactionId={transactionId} userId={user.id}/>
           </Suspense>
         </HydrationBoundary>
       </Card>

@@ -12,6 +12,10 @@ export enum QueryKeys {
   getCards = "get-cards",
   deleteCard = "delete-card",
 
+  getTransaction = "get-transaction",
+  getTransactions = "get-transactions",
+  deleteTransaction = "delete-transaction",
+
   getGoal = "get-goal",
   getGoals = "get-goals",
   deleteGoal = "delete-goal",
