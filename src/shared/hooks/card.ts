@@ -13,7 +13,14 @@ export const useCreateCard = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCard]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
     },
     mutationFn: (payload: cardInput) => cardService.createCard(payload),
   });
@@ -25,7 +32,14 @@ export const useUpdateCard = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCard]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
     },
     mutationFn: ({cardId, ...payload}: cardInput & {cardId: string}) => cardService.updateCard(payload, cardId),
   });
@@ -37,7 +51,14 @@ export const useDeleteCard = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCard]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
     },
     mutationKey: [QueryKeys.deleteCard],
     mutationFn: (cardId: string) => cardService.deleteCard(cardId),

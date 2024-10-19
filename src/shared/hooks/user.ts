@@ -20,6 +20,14 @@ export const useDeleteUser = () => {
     onSuccess(message: string) {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getUser]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCard]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
     },
     mutationKey: [QueryKeys.deleteUser],
     mutationFn: async (userId: string) => userService.deleteUser(userId),

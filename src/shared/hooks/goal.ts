@@ -13,6 +13,7 @@ export const useCreateGoal = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
     },
     mutationFn: (payload: goalInput) => goalService.createGoal(payload),
@@ -25,6 +26,7 @@ export const useUpdateGoal = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
     },
     mutationFn: ({goalId, ...payload}: goalInput & {goalId: string}) => goalService.updateGoal(payload, goalId),
@@ -37,6 +39,7 @@ export const useDeleteGoal = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getGoal]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
     },
     mutationKey: [QueryKeys.deleteGoal],

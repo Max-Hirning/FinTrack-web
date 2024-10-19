@@ -13,6 +13,7 @@ export const useCreateBudget = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getBudget]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudgets]})
     },
     mutationFn: (payload: budgetInput) => budgetService.createBudget(payload),
@@ -25,6 +26,7 @@ export const useUpdateBudget = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getBudget]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudgets]})
     },
     mutationFn: ({budgetId, ...payload}: budgetInput & {budgetId: string}) => budgetService.updateBudget(payload, budgetId),
@@ -37,6 +39,7 @@ export const useDeleteBudget = () => {
     },
     onSuccess(message: string) {
       toast.success(message);
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getBudget]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudgets]})
     },
     mutationKey: [QueryKeys.deleteBudget],
