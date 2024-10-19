@@ -62,14 +62,14 @@ export function PreferencesForm({userId}: IProps) {
         />
         <FormField
           control={form.control}
-          name="budgetNotifications"
+          name="budgetNotification"
           render={({ field }) => (
             <FormItem className="w-fit gap-[20px] flex flex-row items-center justify-between">
               <FormControl>
                 <>
                   <Switch
                     onCheckedChange={field.onChange}
-                    checked={field.value || user?.budgetNotification}
+                    checked={(field.value === undefined) ? user?.budgetNotification : field.value}
                   />
                   <p style={{marginTop: 0}}>Budget notifications</p>
                 </>
@@ -79,14 +79,14 @@ export function PreferencesForm({userId}: IProps) {
         />
         <FormField
           control={form.control}
-          name="goalNotifications"
+          name="goalNotification"
           render={({ field }) => (
             <FormItem className="w-fit gap-[20px] flex flex-row items-center justify-between">
               <FormControl>
                 <>
                   <Switch
                     onCheckedChange={field.onChange}
-                    checked={field.value || user?.goalNotification}
+                    checked={(field.value === undefined) ? user?.goalNotification : field.value}
                   />
                   <p style={{marginTop: 0}}>Goal notifications</p>
                 </>
@@ -96,14 +96,14 @@ export function PreferencesForm({userId}: IProps) {
         />
         <FormField
           control={form.control}
-          name="loanNotifications"
+          name="loanNotification"
           render={({ field }) => (
             <FormItem className="w-fit gap-[20px] flex flex-row items-center justify-between">
               <FormControl>
                 <>
                   <Switch
                     onCheckedChange={field.onChange}
-                    checked={field.value || user?.loanNotification}
+                    checked={(field.value === undefined) ? user?.loanNotification : field.value}
                   />
                   <p style={{marginTop: 0}}>Loan notifications</p>
                 </>
@@ -115,7 +115,7 @@ export function PreferencesForm({userId}: IProps) {
           type="submit"
           isLoading={isUpdateUser}
           className="w-fit ml-auto mt-[10px]"
-          disabled={!form.formState.isValid || isUpdateUser}
+          disabled={!form.formState.isValid || isUpdateUser || !(Object.values(form.watch()).some((el) => el !== undefined))}
         >Save</Button>
       </form>
     </Form>

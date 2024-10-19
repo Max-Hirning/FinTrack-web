@@ -9,8 +9,9 @@ export function Loader() {
   const isDeleteGoal = useIsMutating({ mutationKey: [QueryKeys.deleteGoal] })
   const isDeleteUser = useIsMutating({ mutationKey: [QueryKeys.deleteUser] })
   const isDeleteBudget = useIsMutating({ mutationKey: [QueryKeys.deleteBudget] })
+  const isDeleteTransaction = useIsMutating({ mutationKey: [QueryKeys.deleteTransaction] })
 
-  if(isDeleteCard || isDeleteBudget || isDeleteGoal || isDeleteUser) {
+  if(isDeleteCard || isDeleteBudget || isDeleteGoal || isDeleteUser || isDeleteTransaction) {
     return (
       <div 
         style={{backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000}}

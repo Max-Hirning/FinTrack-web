@@ -19,9 +19,9 @@ const settingsSchema = z.object({
 });
 const preferencesSchema = z.object({
   currency: z.string().length(3),
-  goalNotifications: z.boolean(),
-  loanNotifications: z.boolean(),
-  budgetNotifications: z.boolean(),
+  goalNotification: z.boolean(),
+  loanNotification: z.boolean(),
+  budgetNotification: z.boolean(),
 }).partial();
 
 export {
