@@ -7,6 +7,8 @@ import { useDeleteTransaction } from "shared/hooks";
 import { ITransactionResponse } from "shared/types";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "shared/ui";
 import Image from "next/image";
+import { hexToRgba } from "../lib/color";
+import axios from "axios";
 
 interface IProps extends ITransactionResponse {}
 
@@ -19,10 +21,10 @@ export function Transaction({description, date, amount, id, card, category}: IPr
       <ContextMenuTrigger>
         <div className="flex gap-[10px] items-center justify-between">
           <div className="flex items-center gap-[10px]">
-            <div className="bg-[#FFF5D9] w-[55px] h-[55px] flex items-center justify-center rounded-full">
+            <div className="w-[55px] h-[55px] flex items-center justify-center rounded-full" style={{backgroundColor: hexToRgba(category.color, 0.75)}}>
               <Image
-                width={40}
-                height={40}
+                width={35}
+                height={35}
                 alt={category.title}
                 src={category.image}
               />

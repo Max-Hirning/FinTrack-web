@@ -19,4 +19,5 @@ export * from "./forms/preferences";
 export * from "./forms/transaction";
 export * from "./lists/transaction";
 export * from "./lists/budget-cards";
+export * from "./tables/transactions";
 export * from "./forms/reset-password";

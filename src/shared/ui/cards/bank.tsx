@@ -21,7 +21,7 @@ export function BankCard({title, balance, currency, id, color}: IProps) {
           <CardHeader className="flex flex-row items-center justify-between">
             <article>
               <CardTitle className="text-lg font-semibold">{title}</CardTitle>
-              <CardTitle className="text-lg font-semibold">**{id.slice(-4)}</CardTitle>
+              <CardTitle className="text-lg font-semibold">**** {id.slice(-4)}</CardTitle>
             </article>
             <div style={{backgroundColor: hexToRgba(color, 0.25)}} className="rounded-[8px] p-[6px]">
               <Cpu style={{color: color}} />
