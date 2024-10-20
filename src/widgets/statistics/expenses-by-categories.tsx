@@ -1,21 +1,38 @@
-import { Card, CardContent } from "shared/ui"
+"use client";
+
+import { ChartConfig } from "shared/ui"
+import { getMonthRange } from "shared/lib";
 import { MyPieChart as PieChart } from "features/index";
+import { useGetCategoriesStatistic } from "shared/hooks";
 
 interface IProps {
-  styles?: string;
+  userId: string;
 }
 
-export function ExpensesStatisticsByCategories({styles}: IProps) {
+export function ExpensesStatisticsByCategories({userId}: IProps) {
+  const {startDate, endDate} = getMonthRange();
+
+  const query = {
+    userId,
+    endDate,
+    startDate,
+    cardIds: [],
+  };
+
+  const {data} = useGetCategoriesStatistic(query);
+
+  console.log('useGetCategoriesStatistic', data);
+
   return (
-    <section className={styles || ""}>
-      <article className="flex items-end justify-between mb-[5px]">
-        <h2 className="text-2xl font-bold">Expense Statistics</h2>
-      </article>
-      <Card className="h-[350px] p-[20px]">
-        <CardContent className="w-full h-full p-0">
-          <PieChart/>
-        </CardContent>
-      </Card>
-    </section>
+    <PieChart 
+      chartData={data || []}
+      chartConfig={(data || []).reduce((res, el) => {
+        res[el.title.toLowerCase()] = {
+          color: el.fill,
+          label: el.title,
+        }
+        return res;
+      }, {} as ChartConfig)}
+    />
   )
 }

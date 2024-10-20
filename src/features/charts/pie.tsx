@@ -2,45 +2,18 @@
 
 import * as React from "react"
 import { Label, Pie, PieChart } from "recharts"
+import { IStatisticCaregoriesResponse } from "shared/types"
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "shared/ui"
 
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-]
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig
+interface IProps {
+  chartConfig: ChartConfig;
+  chartData: IStatisticCaregoriesResponse[];
+}
 
-export function MyPieChart() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
-  }, [])
+export function MyPieChart({chartData, chartConfig}: IProps) {
+  const totalVisitors = +React.useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.value, 0)
+  }, [chartData]).toFixed(2)
 
   return (
     <ChartContainer
@@ -53,11 +26,11 @@ export function MyPieChart() {
           content={<ChartTooltipContent hideLabel />}
         />
         <Pie
+          nameKey="title"
+          dataKey="value"
           strokeWidth={5}
           data={chartData}
           innerRadius={60}
-          nameKey="browser"
-          dataKey="visitors"
         >
           <Label
             content={({ viewBox }) => {
@@ -72,7 +45,7 @@ export function MyPieChart() {
                     <tspan
                       x={viewBox.cx}
                       y={viewBox.cy}
-                      className="fill-foreground text-3xl font-bold"
+                      className="fill-foreground text-lg font-bold"
                     >
                       {totalVisitors.toLocaleString()}
                     </tspan>

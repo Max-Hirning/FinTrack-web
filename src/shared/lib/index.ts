@@ -1,3 +1,4 @@
+export * from "./date";
 export * from "./utils";
 export * from "./error";
 export * from "./api/auth";
@@ -8,4 +9,5 @@ export * from "./api/loan";
 export * from "./api/budget";
 export * from "./api/category";
 export * from "./api/currency";
+export * from "./api/statistic";
 export * from "./api/transaction";

@@ -1,6 +1,11 @@
 import { defaultShouldDehydrateQuery, QueryClient } from "@tanstack/react-query";
 
 export enum QueryKeys {
+  getAccount = "get-account",
+  getStatistic = "get-statistic",
+  getCardsStatistic = "get-cards-statistic",
+  getCategoriesStatistic = "get-categories-statistic",
+
   getUser = "get-user",
   deleteUser = "delete-user",
 
