@@ -1,6 +1,8 @@
 import { defaultShouldDehydrateQuery, QueryClient } from "@tanstack/react-query";
 
 export enum QueryKeys {
+  getNotifications = "get-notifications",
+
   getAccount = "get-account",
   getStatistic = "get-statistic",
   getCardsStatistic = "get-cards-statistic",

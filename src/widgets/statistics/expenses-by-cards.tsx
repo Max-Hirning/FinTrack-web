@@ -21,8 +21,6 @@ export function ExpensesStatisticsByCards({userId}: IProps) {
 
   const {data} = useGetCardsStatistic(query);
 
-  console.log('useGetCardsStatistic', data)
-
   return (
     <PieChart 
       chartData={data || []}

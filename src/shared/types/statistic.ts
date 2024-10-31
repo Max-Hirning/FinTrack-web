@@ -3,6 +3,7 @@ interface IFilterStatistic {
   endDate: string;
   startDate: string;
   cardIds?: string[];
+  frequency?: "year"|"month"|"day";
 }
 
 export type {

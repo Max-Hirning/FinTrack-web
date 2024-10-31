@@ -11,3 +11,4 @@ export * from "./api/category";
 export * from "./api/currency";
 export * from "./api/statistic";
 export * from "./api/transaction";
+export * from "./api/notification";

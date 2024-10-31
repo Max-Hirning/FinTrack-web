@@ -9,6 +9,8 @@ export * from "./statistic";
 export * from "./transaction";
 export * from "./api/currency";
 export * from "./api/category";
+export * from "./notification";
 export * from "./api/statistic";
 export * from "./api/pagination";
 export * from "./api/transaction";
+export * from "./api/notification";

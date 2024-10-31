@@ -3,6 +3,8 @@ import { queryClient, QueryKeys } from "shared/constants";
 import { getUserCookies } from "src/shared/lib/api/server";
 import { getMonthRange, statisticService } from "shared/lib";
 import { BudgetCardsListWidget, BudgetWidget, CardsListWidget, CardWidget, ExpensesStatisticsByCards } from "widgets/index"
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
 
 interface IProps {
   searchParams: { 
@@ -36,7 +38,11 @@ export default async function Page({searchParams}: IProps) {
           </article>
           <Card className="p-[20px] h-[235px]">
             <CardContent className="w-full h-full p-0">
-              <ExpensesStatisticsByCards userId={user.id}/>
+              <HydrationBoundary state={dehydrate(queryClient)}>
+                <Suspense>
+                  <ExpensesStatisticsByCards userId={user.id}/>
+                </Suspense>
+              </HydrationBoundary>
             </CardContent>
           </Card>
         </section>
