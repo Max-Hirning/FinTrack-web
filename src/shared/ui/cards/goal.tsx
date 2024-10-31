@@ -42,7 +42,7 @@ export function GoalCard({balance, amount, id, title, description}: IProps) {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <Link href={{
-          pathname: "/accounts",
+          pathname: "/goals",
           query: {
             ...Object.fromEntries(searchParams.entries()),
             goalId: id

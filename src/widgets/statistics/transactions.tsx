@@ -35,7 +35,7 @@ export function TransactionsStatisticsWidget({userId, styles}: IProps) {
 
   return (
     <section className={styles || ""}>
-      <article className="flex items-end justify-between mb-[5px]">
+      <article className="flex items-end justify-between mb-[18px]">
         <h2 className="text-2xl font-bold">Expense/Income Statistics</h2>
       </article>
       <Card className="h-[350px] p-[20px]">

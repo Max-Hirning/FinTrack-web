@@ -4,7 +4,7 @@ import Link from "next/link";
 import { pages } from "shared/constants";
 import { usePathname } from 'next/navigation'
 import { Tooltip, TooltipContent, TooltipTrigger } from "shared/ui";
-import { CreditCard, LayoutDashboard, UserRoundPen, WalletMinimal, BadgeCent, Settings } from "lucide-react"
+import { CreditCard, LayoutDashboard, UserRoundPen, WalletMinimal, BadgeCent, Settings, Wallet, Landmark } from "lucide-react"
 
 export function SideBar() {
   const pathname = usePathname()
@@ -32,30 +32,6 @@ export function SideBar() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
-              href="/transactions"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <BadgeCent className="h-5 w-5" />
-              <span className="sr-only">Transactions</span>
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent side="right">Transactions</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              href="/accounts"
-              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <WalletMinimal className="h-5 w-5" />
-              <span className="sr-only">Accounts</span>
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent side="right">Accounts</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
               href="/cards"
               className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -64,6 +40,42 @@ export function SideBar() {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right">Cards</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="/budgets"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Wallet className="h-5 w-5" />
+              <span className="sr-only">Budgets</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Budgets</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="/goals"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <BadgeCent className="h-5 w-5" />
+              <span className="sr-only">Goals</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Goals</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="/loans"
+              className="z-20 flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Landmark className="h-5 w-5" />
+              <span className="sr-only">Loans</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Loans</TooltipContent>
         </Tooltip>
         <Tooltip>
           <TooltipTrigger asChild>

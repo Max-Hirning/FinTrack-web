@@ -26,7 +26,7 @@ export async function CardsListWidget({styles}: IProps) {
 
   return (
     <section className={`${styles || ""}`}>
-      <article className="flex items-end justify-between mb-[5px]">
+      <article className="flex items-end justify-between mb-[18px]">
         <h2 className="text-2xl font-bold">My Cards</h2>
         <Link 
           href="/cards"

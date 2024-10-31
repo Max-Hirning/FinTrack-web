@@ -24,7 +24,7 @@ export async function CardWidget({styles, cardId}: IProps) {
 
   return (
     <section className={`w-full max-w-[600px] ${styles || ""}`}>
-      <h2 className="mb-[5px] text-2xl font-bold">Card form</h2>
+      <h2 className="text-2xl font-bold mb-[18px]">Card form</h2>
       <Card className="p-[24px]">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>

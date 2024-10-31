@@ -17,7 +17,7 @@ export function Header({userId}: IProps) {
   const {mutate: deleteUser} = useDeleteUser()
   const page = pages.find((el) => el.url === pathname);
   const {data: notifications, fetchNextPage, hasNextPage} = useGetNotifications();
-  console.log(hasNextPage)
+
   return (
     <header className="z-50 sticky top-0 right-0 bg-background w-[calc(100%-60px)] ml-auto flex border-border border-b h-[80px] items-center justify-between p-[20px]">
       <h1 className="text-2xl font-bold">{page?.title || "Overview"}</h1>
