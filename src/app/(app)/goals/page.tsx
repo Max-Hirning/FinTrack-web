@@ -1,11 +1,10 @@
 import { Suspense } from "react"
-import { Card, CardContent } from "shared/ui"
+import { IFilterStatistic } from "shared/types"
 import { queryClient, QueryKeys } from "shared/constants"
 import { getUserCookies } from "src/shared/lib/api/server"
-import { getMonthRange, getYearRange, statisticService } from "shared/lib"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { BudgetCardsListWidget, BudgetWidget, CardsListWidget, CardWidget, ExpensesStatisticsByCards, GoalCardsListWidget, GoalWidget, TransactionsStatisticsWidget } from "widgets/index"
-import { IFilterStatistic } from "src/shared/types"
+import { getYearRange, statisticService, userService } from "shared/lib"
+import { GoalCardsListWidget, GoalWidget, GoalsTransactionsStatisticsWidget } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -14,16 +13,20 @@ interface IProps {
 }
 
 export default async function Page({searchParams}: IProps) {
-  const user = await getUserCookies();
-  const {startDate: startDateYear, endDate: endDateYear} = getYearRange();
+  const {id} = await getUserCookies();
+  const user = await userService.getUser(id);
+  const {startDate, endDate} = getYearRange();
 
   const statisticQuery: IFilterStatistic = {
+    endDate,
+    startDate,
+    userId: id,
+    loanIds: [],
     cardIds: [],
-    userId: user.id,
+    budgetIds: [],
     frequency: "month",
-    endDate: endDateYear,
-    startDate: startDateYear,
-  }
+    goalIds: (user?.goals || []).map((el) => el.id),
+  };
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getStatistic, statisticQuery],
     queryFn: () => statisticService.getStatistic(statisticQuery)
@@ -34,7 +37,7 @@ export default async function Page({searchParams}: IProps) {
       <GoalCardsListWidget styles="w-full"/>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
-          <TransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
+          <GoalsTransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
         </Suspense>
       </HydrationBoundary>
       <GoalWidget styles="mt-[24px]" goalId={searchParams.goalId}/>

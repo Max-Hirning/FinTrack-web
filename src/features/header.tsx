@@ -1,11 +1,11 @@
 "use client"
 
-import { BellDot } from 'lucide-react';
 import { pages } from 'shared/constants';
-import { useDeleteUser } from 'shared/hooks';
+import { BellDot, LoaderCircle } from 'lucide-react';
+import { useDeleteUser, useGetUser } from 'shared/hooks';
 import { usePathname, useRouter } from 'next/navigation';
 import { useGetNotifications } from 'src/shared/hooks/notification';
-import { Avatar, AvatarFallback, AvatarImage, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "shared/ui";
+import { Avatar, InfiniteScroll, AvatarFallback, AvatarImage, Button, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger, Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger, Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "shared/ui";
 
 interface IProps {
   userId: string
@@ -13,10 +13,11 @@ interface IProps {
 
 export function Header({userId}: IProps) {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const {data: user} = useGetUser(userId);
   const {mutate: deleteUser} = useDeleteUser()
   const page = pages.find((el) => el.url === pathname);
-  const {data: notifications, fetchNextPage, hasNextPage} = useGetNotifications();
+  const {data: notifications, isFetchingNextPage, fetchNextPage, hasNextPage} = useGetNotifications();
 
   return (
     <header className="z-50 sticky top-0 right-0 bg-background w-[calc(100%-60px)] ml-auto flex border-border border-b h-[80px] items-center justify-between p-[20px]">
@@ -51,6 +52,18 @@ export function Header({userId}: IProps) {
                   })
                 }
               </TooltipProvider>
+              <InfiniteScroll
+                next={fetchNextPage}
+                hasMore={hasNextPage}
+                isLoading={isFetchingNextPage}
+              >
+                {hasNextPage && (
+                  <LoaderCircle
+                    size={32}
+                    className="m-auto animate-spin-infinite my-6"
+                  />
+                )}
+              </InfiniteScroll>
             </div>
           </SheetContent>
         </Sheet>
@@ -59,8 +72,8 @@ export function Header({userId}: IProps) {
             <MenubarMenu>
               <MenubarTrigger className='bg-transparent p-0 rounded-full'>
                 <Avatar className='w-[60px] h-[60px]'>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src={user?.images[0]?.url || ""} />
+                  <AvatarFallback>{user?.firstName[0] || ""}{user?.lastName[0] || ""}</AvatarFallback>
                 </Avatar>
               </MenubarTrigger>
               <MenubarContent>

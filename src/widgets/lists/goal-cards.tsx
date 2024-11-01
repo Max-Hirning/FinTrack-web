@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { GoalCardsList } from "features/index";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { queryClient, QueryKeys } from "shared/constants";
 import { goalService } from "shared/lib";
+import { GoalCardsList } from "features/index";
+import { queryClient, QueryKeys } from "shared/constants";
 import { getUserCookies } from "src/shared/lib/api/server";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 interface IProps {
   styles?: string;
 }
 
 export async function GoalCardsListWidget({styles}: IProps) {
-  const user = await getUserCookies();
+  const {id} = await getUserCookies();
 
   const query = {
     goalIds: [],
+    userIds: [id],
     currencies: [],
-    userIds: [user.id],
   };
 
   await queryClient.prefetchQuery({
@@ -35,7 +35,7 @@ export async function GoalCardsListWidget({styles}: IProps) {
       </article>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
-          <GoalCardsList userId={user.id}/>
+          <GoalCardsList userId={id}/>
         </Suspense>
       </HydrationBoundary>
     </section>

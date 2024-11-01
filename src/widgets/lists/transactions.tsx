@@ -11,15 +11,15 @@ interface IProps {
 }
 
 export async function TransactionsListWidget({styles}: IProps) {
-  const user = await getUserCookies();
+  const {id} = await getUserCookies();
 
   const query = {
     loanIds: [],
     goalIds: [],
     cardIds: [],
+    userIds: [id],
     budgetIds: [],
     currencies: [],
-    userIds: [user.id],
     transactionIds: [],
   };
 
@@ -36,7 +36,7 @@ export async function TransactionsListWidget({styles}: IProps) {
       <Card className="h-[235px] min-w-[350px] max-w-[350px] py-[20px] pl-[20px] pr-[10px]">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <TransactionsList userId={user.id}/>
+            <TransactionsList userId={id}/>
           </Suspense>
         </HydrationBoundary>
       </Card>

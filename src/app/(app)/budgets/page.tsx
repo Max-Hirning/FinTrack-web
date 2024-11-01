@@ -1,11 +1,10 @@
 import { Suspense } from "react"
-import { Card, CardContent } from "shared/ui"
+import { IFilterStatistic } from "shared/types"
 import { queryClient, QueryKeys } from "shared/constants"
 import { getUserCookies } from "src/shared/lib/api/server"
-import { getMonthRange, getYearRange, statisticService } from "shared/lib"
+import { getYearRange, statisticService, userService } from "shared/lib"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { BudgetCardsListWidget, BudgetWidget, CardsListWidget, CardWidget, ExpensesStatisticsByCards, TransactionsStatisticsWidget } from "widgets/index"
-import { IFilterStatistic } from "src/shared/types"
+import { BudgetCardsListWidget, BudgetWidget, BudgetsTransactionsStatisticsWidget } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -14,15 +13,19 @@ interface IProps {
 }
 
 export default async function Page({searchParams}: IProps) {
-  const user = await getUserCookies();
-  const {startDate: startDateYear, endDate: endDateYear} = getYearRange();
+  const {id} = await getUserCookies();
+  const user = await userService.getUser(id);
+  const {startDate, endDate} = getYearRange();
 
   const statisticQuery: IFilterStatistic = {
+    endDate,
+    startDate,
+    userId: id,
+    loanIds: [],
+    goalIds: [],
     cardIds: [],
-    userId: user.id,
     frequency: "month",
-    endDate: endDateYear,
-    startDate: startDateYear,
+    budgetIds: (user?.budgets || []).map((el) => el.id),
   }
   await queryClient.prefetchQuery({
     queryKey: [QueryKeys.getStatistic, statisticQuery],
@@ -34,7 +37,7 @@ export default async function Page({searchParams}: IProps) {
       <BudgetCardsListWidget styles="w-full"/>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
-          <TransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
+          <BudgetsTransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
         </Suspense>
       </HydrationBoundary>
       <BudgetWidget styles="mt-[24px]" budgetId={searchParams.budgetId}/>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { CardsList } from "features/index";
-import { cardService } from "src/shared/lib";
+import { cardService, userService } from "src/shared/lib";
 import { queryClient, QueryKeys } from "shared/constants";
 import { getUserCookies } from "src/shared/lib/api/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
@@ -11,12 +11,12 @@ interface IProps {
 }
 
 export async function CardsListWidget({styles}: IProps) {
-  const user = await getUserCookies();
+  const {id} = await getUserCookies();
 
   const query = {
     cardIds: [],
+    userIds: [id],
     currencies: [],
-    userIds: [user.id],
   };
 
   await queryClient.prefetchQuery({
@@ -35,7 +35,7 @@ export async function CardsListWidget({styles}: IProps) {
       </article>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
-          <CardsList userId={user.id}/>
+          <CardsList userId={id}/>
         </Suspense>
       </HydrationBoundary>
     </section>

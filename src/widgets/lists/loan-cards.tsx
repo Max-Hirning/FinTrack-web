@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { LoanCardsList } from "features/index";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { Suspense } from "react";
-import { queryClient, QueryKeys } from "src/shared/constants";
-import { goalService, loanService } from "src/shared/lib";
+import { loanService } from "shared/lib";
+import { LoanCardsList } from "features/index";
+import { queryClient, QueryKeys } from "shared/constants";
 import { getUserCookies } from "src/shared/lib/api/server";
+import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 interface IProps {
   styles?: string;

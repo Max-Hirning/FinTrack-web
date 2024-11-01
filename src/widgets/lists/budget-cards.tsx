@@ -1,22 +1,22 @@
 import Link from "next/link";
+import { Suspense } from "react";
+import { budgetService } from "shared/lib";
 import { BudgetCardsList } from "features/index";
 import { queryClient, QueryKeys } from "shared/constants";
-import { budgetService } from "shared/lib";
 import { getUserCookies } from "src/shared/lib/api/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { Suspense } from "react";
 
 interface IProps {
   styles?: string;
 }
 
 export async function BudgetCardsListWidget({styles}: IProps) {
-  const user = await getUserCookies();
+  const {id} = await getUserCookies();
 
   const query = {
     budgetIds: [],
+    userIds: [id],
     currencies: [],
-    userIds: [user.id],
   };
 
   await queryClient.prefetchQuery({
@@ -35,7 +35,7 @@ export async function BudgetCardsListWidget({styles}: IProps) {
       </article>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
-          <BudgetCardsList userId={user.id}/>
+          <BudgetCardsList userId={id}/>
         </Suspense>
       </HydrationBoundary>
     </section>

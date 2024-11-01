@@ -1,10 +1,11 @@
 import { Suspense } from "react"
 import { Card, CardContent } from "shared/ui"
+import { IFilterStatistic } from "shared/types"
 import { queryClient, QueryKeys } from "shared/constants"
 import { getUserCookies } from "src/shared/lib/api/server"
-import { getMonthRange, statisticService } from "shared/lib"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { CardsListWidget, CardWidget, ExpensesStatisticsByCards, TransactionsStatisticsWidget } from "widgets/index"
+import { getMonthRange, statisticService, userService } from "shared/lib"
+import { CardsListWidget, CardWidget, ExpensesStatisticsByCards, CardsTransactionsStatisticsWidget } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -13,19 +14,23 @@ interface IProps {
 }
 
 export default async function Page({searchParams}: IProps) {
-  const user = await getUserCookies();
+  const {id} = await getUserCookies();
+  const user = await userService.getUser(id);
   const {startDate, endDate} = getMonthRange();
 
-  const query = {
+  const statisticQuery: IFilterStatistic = {
     endDate,
     startDate,
-    cardIds: [],
-    userId: user.id,
+    userId: id,
+    loanIds: [],
+    goalIds: [],
+    budgetIds: [],
+    frequency: "month",
+    cardIds: (user?.cards || []).map((el) => el.id),
   };
-
   await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.getCardsStatistic, query],
-    queryFn: () => statisticService.getCards(query)
+    queryKey: [QueryKeys.getStatistic, statisticQuery],
+    queryFn: () => statisticService.getStatistic(statisticQuery)
   });
 
   return (
@@ -33,7 +38,7 @@ export default async function Page({searchParams}: IProps) {
       <CardsListWidget styles="w-full"/>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense>
-          <TransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
+          <CardsTransactionsStatisticsWidget userId={id} styles="w-full mt-[24px]"/>
         </Suspense>
       </HydrationBoundary>
       <section className="flex gap-[24px] mt-[24px]">
