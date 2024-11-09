@@ -41,7 +41,7 @@ export default async function Page({searchParams}: IProps) {
           <CardsTransactionsStatisticsWidget userId={id} styles="w-full mt-[24px]"/>
         </Suspense>
       </HydrationBoundary>
-      <section className="flex gap-[24px] mt-[24px]">
+      <section className="flex gap-[24px] mt-[24px] flex-wrap">
         <CardWidget cardId={searchParams.cardId}/>
         <section className="max-md:w-full md:w-[350px]">
           <article className="flex items-end justify-between mb-[18px]">

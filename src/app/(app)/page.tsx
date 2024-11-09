@@ -64,7 +64,7 @@ export default async function Page() {
           <TransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
         </Suspense>
       </HydrationBoundary>
-      <section className="flex gap-[24px] mt-[24px]">
+      <section className="flex gap-[24px] mt-[24px] flex-wrap">
         <section className="max-md:w-full md:w-[350px]">
           <article className="flex items-end justify-between mb-[18px]">
             <h2 className="text-2xl font-bold">Card Expense Statistics</h2>
