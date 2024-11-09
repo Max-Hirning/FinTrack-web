@@ -2,7 +2,7 @@ import axios from 'axios';
 import { env } from 'src/env';
 import axiosInstance from '../axios';
 import { ApiError } from 'shared/lib';
-import { signUpInput, signInInput, resetPasswordInput, checkCodeInput, sendCodeInput, ISignInResponse, IUserResponse, profileInput, preferencesInput, settingsInput } from 'shared/types';
+import { IUserResponse, profileInput, preferencesInput, settingsInput } from 'shared/types';
 
 class UserService {
   constructor(private url: string) {}

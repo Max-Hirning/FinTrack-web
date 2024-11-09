@@ -4,7 +4,6 @@ export * from "./forms/loan";
 export * from "./forms/goal";
 export * from "./lists/cards";
 export * from "./forms/budget";
-export * from "./forms/profile";
 export * from "./forms/sign-in";
 export * from "./forms/sign-up";
 export * from "./forms/settings";
