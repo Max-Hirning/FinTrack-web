@@ -22,7 +22,11 @@ export function PreferencesForm({userId}: IProps) {
   const {mutate: updateUser, isPending: isUpdateUser} = useUpdateUser()
 
   function onSubmit(values: preferencesInput) {
-    updateUser({...values, userId})
+    updateUser({...values, userId}, {
+      onSuccess: () => {
+        form.reset(preferencesModel)
+      }
+    })
   }
 
   return (

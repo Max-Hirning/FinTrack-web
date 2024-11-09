@@ -42,7 +42,7 @@ export function LoanCard({amount, id, title, balance, description}: IProps) {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <Link href={{
-          pathname: "/accounts",
+          pathname: "/loans",
           query: {
             ...Object.fromEntries(searchParams.entries()),
             loanId: id

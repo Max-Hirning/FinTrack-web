@@ -42,7 +42,7 @@ export function BudgetCard({id, amount, balance, title, period}: IProps) {
       </ContextMenuTrigger>
       <ContextMenuContent>
         <Link href={{
-          pathname: "/cards",
+          pathname: "/budgets",
           query: {
             ...Object.fromEntries(searchParams.entries()),
             budgetId: id

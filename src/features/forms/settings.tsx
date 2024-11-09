@@ -20,7 +20,11 @@ export function SettingsForm({userId}: IProps) {
   const {mutate: updateUser, isPending: isUpdateUser} = useUpdateUserPassword()
 
   function onSubmit(values: settingsInput) {
-    updateUser({...values, userId})
+    updateUser({...values, userId}, {
+      onSuccess: () => {
+        form.reset(settingsModel)
+      }
+    })
   }
 
   return (

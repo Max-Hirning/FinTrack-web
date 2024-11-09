@@ -4,16 +4,20 @@ export const pages = [
     title: "Overview"
   },
   {
-    url: "/transactions",
-    title: "Transactions"
-  },
-  {
-    url: "/accounts",
-    title: "Accounts"
-  },
-  {
     url: "/cards",
     title: "Cards"
+  },
+  {
+    url: "/budgets",
+    title: "Budgets"
+  },
+  {
+    url: "/goals",
+    title: "Goals"
+  },
+  {
+    url: "/loans",
+    title: "Loans"
   },
   {
     url: "/profile",

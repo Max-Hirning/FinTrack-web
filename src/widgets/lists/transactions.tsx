@@ -11,15 +11,15 @@ interface IProps {
 }
 
 export async function TransactionsListWidget({styles}: IProps) {
-  const user = await getUserCookies();
+  const {id} = await getUserCookies();
 
   const query = {
     loanIds: [],
     goalIds: [],
     cardIds: [],
+    userIds: [id],
     budgetIds: [],
     currencies: [],
-    userIds: [user.id],
     transactionIds: [],
   };
 
@@ -30,13 +30,13 @@ export async function TransactionsListWidget({styles}: IProps) {
 
   return (
     <section className={styles || ""}>
-      <article className="flex items-end justify-between mb-[5px]">
+      <article className="flex items-end justify-between mb-[18px]">
         <h2 className="text-2xl font-bold">Recent Transaction</h2>
       </article>
       <Card className="h-[235px] min-w-[350px] max-w-[350px] py-[20px] pl-[20px] pr-[10px]">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense>
-            <TransactionsList userId={user.id}/>
+            <TransactionsList userId={id}/>
           </Suspense>
         </HydrationBoundary>
       </Card>
