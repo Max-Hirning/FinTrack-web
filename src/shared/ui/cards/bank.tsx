@@ -29,7 +29,7 @@ export function BankCard({title, balance, currency, id, color}: IProps) {
           </CardHeader>
           <CardFooter className="flex-col items-start">
             <CardTitle className="font-normal text-base">Balance</CardTitle>
-            <CardDescription className="font-semibold text-2xl">{currency} {balance.toFixed(2)}</CardDescription>
+            <CardDescription className="font-semibold text-2xl">{currency.toUpperCase()} {balance.toFixed(2)}</CardDescription>
           </CardFooter>
         </Card>
       </ContextMenuTrigger>

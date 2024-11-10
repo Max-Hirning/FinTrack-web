@@ -19,8 +19,11 @@ export const useCreateTransaction = () => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: (payload: transactionInput) => transactionService.createTransaction(payload),
   });
@@ -38,8 +41,11 @@ export const useUpdateTransaction = () => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: ({transactionId, ...payload}: transactionInput & {transactionId: string}) => transactionService.updateTransaction(payload, transactionId),
   });
@@ -57,8 +63,11 @@ export const useDeleteTransaction = () => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationKey: [QueryKeys.deleteTransaction],
     mutationFn: (transactionId: string) => transactionService.deleteTransaction(transactionId),

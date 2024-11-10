@@ -26,8 +26,11 @@ export const useDeleteUser = () => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getCards]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getGoals]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransaction]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getTransactions]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationKey: [QueryKeys.deleteUser],
     mutationFn: async (userId: string) => userService.deleteUser(userId),
@@ -41,6 +44,9 @@ export const useUpdateUser = () => {
     onSuccess(message: string) {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getUser]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: async ({userId, ...payload}: (profileInput | preferencesInput) & {userId: string}) => userService.updateUser(payload, userId),
   });

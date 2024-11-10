@@ -15,6 +15,9 @@ export const useCreateBudget = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudget]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudgets]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: (payload: budgetInput) => budgetService.createBudget(payload),
   });
@@ -28,6 +31,9 @@ export const useUpdateBudget = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudget]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudgets]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: ({budgetId, ...payload}: budgetInput & {budgetId: string}) => budgetService.updateBudget(payload, budgetId),
   });
@@ -41,6 +47,9 @@ export const useDeleteBudget = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudget]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getBudgets]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationKey: [QueryKeys.deleteBudget],
     mutationFn: (budgetId: string) => budgetService.deleteBudget(budgetId),

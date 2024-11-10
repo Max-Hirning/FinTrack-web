@@ -5,9 +5,15 @@ import { queryClient, QueryKeys } from "shared/constants";
 import { getUserCookies } from "src/shared/lib/api/server";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { getMonthRange, getYearRange, statisticService } from "shared/lib";
-import { ExpensesStatisticsByCategories, TransactionsStatisticsWidget, AccountsCardsListWidget, ExpensesStatisticsByCards } from "widgets/index"
+import { ExpensesStatisticsByCategories, TransactionsStatisticsWidget, AccountsCardsListWidget, ExpensesStatisticsByCards, TransactionWidget } from "widgets/index"
 
-export default async function Page() {
+interface IProps {
+  searchParams: { 
+    transactionId?: string;
+  }
+}
+
+export default async function Page({searchParams}: IProps) {
   const user = await getUserCookies();
   const {startDate, endDate} = getMonthRange();
   const {startDate: startDateYear, endDate: endDateYear} = getYearRange();
@@ -94,6 +100,7 @@ export default async function Page() {
           </Card>
         </section>
       </section>
+      <TransactionWidget styles="mt-[24px]" transactionId={searchParams.transactionId}/>
     </>
   )
 }
