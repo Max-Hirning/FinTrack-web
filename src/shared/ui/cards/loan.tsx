@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, ContextMenu,
 
 interface IProps extends ILoanResponse {}
 
-export function LoanCard({amount, id, title, balance, description}: IProps) {
+export function LoanCard({amount, id, title, balance, description, currency}: IProps) {
   const searchParams = useSearchParams();
   const percentage = (amount / balance) * 100;
   const {mutate: deleteLoan} = useDeleteLoan();
@@ -27,7 +27,7 @@ export function LoanCard({amount, id, title, balance, description}: IProps) {
             <CardTitle className="font-normal text-base">{description}</CardTitle>
           </CardHeader>
           <CardContent className="p-0 flex flex-col gap-[10px]">
-            <CardDescription className="font-normal text-base self-end">USD {balance.toFixed(2)}/{amount.toFixed(2)}</CardDescription>
+            <CardDescription className="font-normal text-base self-end">{currency.toUpperCase()} {balance.toFixed(2)}/{amount.toFixed(2)}</CardDescription>
             <div className="relative w-full h-[8px]">
               <div className="absolute z-10 w-full h-[8px] bg-gray-300"/>
               <div 

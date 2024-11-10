@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, ContextMenu,
 
 interface IProps extends IGoalResponse {}
 
-export function GoalCard({balance, amount, id, title, description}: IProps) {
+export function GoalCard({balance, amount, id, title, description, currency}: IProps) {
   const searchParams = useSearchParams();
   const percentage = (amount / balance) * 100;
   const {mutate: deleteGoal} = useDeleteGoal();
@@ -27,7 +27,7 @@ export function GoalCard({balance, amount, id, title, description}: IProps) {
             <CardTitle className="font-normal text-base">{description}</CardTitle>
           </CardHeader>
           <CardContent className="p-0 flex flex-col gap-[10px]">
-            <CardDescription className="font-normal text-base self-end">USD {amount.toFixed(2)}/{balance.toFixed(2)}</CardDescription>
+            <CardDescription className="font-normal text-base self-end">{currency.toUpperCase()} {amount.toFixed(2)}/{balance.toFixed(2)}</CardDescription>
             <div className="relative w-full h-[8px]">
               <div className="absolute z-10 w-full h-[8px] bg-gray-300"/>
               <div 

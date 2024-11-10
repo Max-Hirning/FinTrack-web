@@ -15,6 +15,9 @@ export const useCreateLoan = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: (payload: loanInput) => loanService.createLoan(payload),
   });
@@ -28,6 +31,9 @@ export const useUpdateLoan = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationFn: ({loanId, ...payload}: loanInput & {loanId: string}) => loanService.updateLoan(payload, loanId),
   });
@@ -41,6 +47,9 @@ export const useDeleteLoan = () => {
       toast.success(message);
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoan]})
       queryClient.invalidateQueries({queryKey: [QueryKeys.getLoans]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCardsStatistic]})
+      queryClient.invalidateQueries({queryKey: [QueryKeys.getCategoriesStatistic]})
     },
     mutationKey: [QueryKeys.deleteLoan],
     mutationFn: (loanId: string) => loanService.deleteLoan(loanId),
