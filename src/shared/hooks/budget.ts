@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { ApiError, budgetService } from "shared/lib";
 import { budgetInput, IFilterBudgets } from "shared/types";
 import { queryClient, QueryKeys } from "shared/constants";
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query"
 
 export const useCreateBudget = () => {
   return useMutation({
@@ -56,13 +56,13 @@ export const useDeleteBudget = () => {
   });
 }
 export const useGetBudget = (budgetId?: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getBudget, budgetId],
     queryFn: () => budgetService.getBudget(budgetId),
   });
 }
 export const useGetBudgets = (query: IFilterBudgets) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getBudgets, query],
     queryFn: () => budgetService.getBudgets(query),
   });

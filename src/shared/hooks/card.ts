@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { ApiError, cardService } from "shared/lib";
 import { cardInput, IFilterCards } from "shared/types";
 import { queryClient, QueryKeys } from "shared/constants";
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query"
 
 export const useCreateCard = () => {
   return useMutation({
@@ -74,13 +74,13 @@ export const useDeleteCard = () => {
   });
 }
 export const useGetCard = (cardId?: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getCard, cardId],
     queryFn: () => cardService.getCard(cardId),
   });
 }
 export const useGetCards = (query: IFilterCards) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getCards, query],
     queryFn: () => cardService.getCards(query),
   });

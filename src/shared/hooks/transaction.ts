@@ -3,7 +3,7 @@
 import { toast } from "react-toastify";
 import { ApiError, transactionService } from "shared/lib";
 import { queryClient, QueryKeys } from "shared/constants";
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { transactionInput, IFilterTransactions } from "shared/types";
 
 export const useCreateTransaction = () => {
@@ -74,7 +74,7 @@ export const useDeleteTransaction = () => {
   });
 }
 export const useGetTransaction = (transactionId?: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getTransaction, transactionId],
     queryFn: () => transactionService.getTransaction(transactionId),
   });

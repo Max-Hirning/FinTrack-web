@@ -1,6 +1,6 @@
 "use client"
 
-import { format } from "date-fns"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import { transactionInput } from "shared/types"
@@ -9,7 +9,6 @@ import { transactionSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useGetUser, useGetCategories, useCreateTransaction, useUpdateTransaction, useGetTransaction } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, DatePicker, Textarea } from "shared/ui"
-import { useEffect } from "react"
 
 interface IProps {
   userId: string;
@@ -43,7 +42,6 @@ export function TransactionForm({userId, transactionId}: IProps) {
   }, [form, transaction])
 
   function onSubmit(values: transactionInput) {
-    console.log({...values, date: format(values.date, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")});
     if(+values.amount === 0) form.setError("amount", {
       message: "Amount mustn't be equal to 0"
     })
@@ -95,6 +93,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                 <Select 
                   value={field.value}
                   onValueChange={field.onChange} 
+                  disabled={categories.length === 0}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -126,6 +125,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                 <Select 
                   value={field.value}
                   onValueChange={field.onChange} 
+                  disabled={(user?.cards || []).length === 0}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -173,6 +173,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                 <Select 
                   value={field.value}
                   onValueChange={field.onChange} 
+                  disabled={(user?.goals || []).length === 0}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -202,6 +203,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                 <Select 
                   value={field.value}
                   onValueChange={field.onChange} 
+                  disabled={(user?.loans || []).length === 0}
                 >
                   <FormControl>
                     <SelectTrigger>
