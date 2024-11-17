@@ -1,7 +1,8 @@
 import { Suspense } from "react";
+import { TransactionForm } from "src/features";
 import { Card, CardContent, Skeleton } from "shared/ui";
 import { getUserCookies } from "src/shared/lib/api/server";
-import { ExpensesStatisticsByCategories, TransactionsStatisticsWidget, AccountsCardsListWidget, ExpensesStatisticsByCards, TransactionWidget, AccountsCardsListSkeleton } from "widgets/index"
+import { ExpensesStatisticsByCategories, TransactionsStatisticsWidget, AccountsCardsListWidget, ExpensesStatisticsByCards, AccountsCardsListSkeleton } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -51,7 +52,14 @@ export default async function Page({searchParams}: IProps) {
           </Suspense>
         </section>
       </section>
-      <TransactionWidget styles="mt-[24px]" transactionId={searchParams.transactionId}/>
+      <section className="w-full max-w-[600px]">
+        <h2 className="mb-[18px] text-2xl font-bold">Transaction form</h2>
+        <Suspense fallback={<Skeleton className="w-full min-h-[500px]"/>}>
+          <Card className="p-[24px] w-full min-h-[500px]">
+            <TransactionForm transactionId={searchParams.transactionId} userId={user.id}/>
+          </Card>
+        </Suspense>
+      </section>
     </>
   )
 }

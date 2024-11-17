@@ -21,8 +21,6 @@ export function ExpensesStatisticsByCategories({userId}: IProps) {
 
   const {data} = useGetCategoriesStatistic(query);
 
-  console.log('useGetCategoriesStatistic', data);
-
   return (
     <PieChart 
       chartData={data || []}

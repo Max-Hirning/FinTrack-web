@@ -8,7 +8,6 @@ import { format } from "date-fns";
 
 interface IProps {
   userId: string;
-  styles?: string;
 }
 
 const chartConfig = {
@@ -22,7 +21,7 @@ const chartConfig = {
   },
 }
 
-export function TransactionsStatisticsWidget({userId, styles}: IProps) {
+export function TransactionsStatisticsWidget({userId}: IProps) {
   const {startDate, endDate} = getYearRange();
 
   const {data: statistics} = useGetStatistic({
@@ -34,7 +33,7 @@ export function TransactionsStatisticsWidget({userId, styles}: IProps) {
   });
 
   return (
-    <Card className={`h-[350px] p-[20px] w-full ${styles || ""}`}>
+    <Card className="h-[350px] p-[20px] w-full">
       <BarsChart 
         chartConfig={chartConfig}
         data={(statistics || []).map((el) => ({

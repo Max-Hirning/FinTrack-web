@@ -16,6 +16,7 @@ export * from "./lists/transactions";
 export * from "./statistics/expenses";
 export * from "./lists/accounts-cards";
 export * from "./forms/reset-password";
+export * from "./skeletons/list/cards";
 export * from "./forms/forgot-password";
 export * from "./statistics/transactions";
 export * from "./statistics/expenses-by-cards";

@@ -1,10 +1,10 @@
+import Link from "next/link"
 import { Suspense } from "react"
-import { IFilterStatistic } from "shared/types"
-import { queryClient, QueryKeys } from "shared/constants"
+import { Card, Skeleton } from "shared/ui"
+import { userService } from "shared/lib"
+import { LoanCardsList, LoanForm } from "src/features"
 import { getUserCookies } from "src/shared/lib/api/server"
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { getYearRange, statisticService, userService } from "shared/lib"
-import { LoanCardsListWidget, LoanWidget, LoansTransactionsStatisticsWidget } from "widgets/index"
+import { CardsListSkeleton, LoansTransactionsStatisticsWidget } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -15,32 +15,37 @@ interface IProps {
 export default async function Page({searchParams}: IProps) {
   const {id} = await getUserCookies();
   const user = await userService.getUser(id);
-  const {startDate, endDate} = getYearRange();
-
-  const statisticQuery: IFilterStatistic = {
-    endDate,
-    startDate,
-    userId: id,
-    goalIds: [],
-    cardIds: [],
-    budgetIds: [],
-    frequency: "month",
-    loanIds: (user?.loans || []).map((el) => el.id),
-  };
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.getStatistic, statisticQuery],
-    queryFn: () => statisticService.getStatistic(statisticQuery)
-  });
 
   return (
     <>
-      <LoanCardsListWidget styles="w-full"/>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense>
-          <LoansTransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
+      <section className="w-full">
+        <article className="flex items-end justify-between mb-[18px]">
+          <h2 className="text-2xl font-bold">My Loans</h2>
+          <Link 
+            href="/loans"
+            className="text-base"
+          >+ Add Loan</Link>
+        </article>
+        <Suspense fallback={<CardsListSkeleton/>}>
+          <LoanCardsList userId={user.id}/>
         </Suspense>
-      </HydrationBoundary>
-      <LoanWidget styles="mt-[24px]" loanId={searchParams.loanId}/>
+      </section>
+      <section className="w-full mt-[24px]">
+        <article className="flex items-end justify-between mb-[18px]">
+          <h2 className="text-2xl font-bold">Loans Expense/Income Statistics</h2>
+        </article>
+        <Suspense fallback={<Skeleton className="h-[350px] w-full"/>}>
+          <LoansTransactionsStatisticsWidget userId={user.id} />
+        </Suspense>
+      </section>
+      <section className="w-full max-w-[600px] mt-[24px]">
+        <h2 className="mb-[18px] text-2xl font-bold">Loan form</h2>
+        <Suspense fallback={<Skeleton className="w-full min-h-[400px]"/>}>
+          <Card className="p-[24px] w-full min-h-[400px]">
+            <LoanForm loanId={searchParams.loanId}/>
+          </Card>
+        </Suspense>
+      </section>
     </>
   )
 }
