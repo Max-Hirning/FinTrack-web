@@ -4,7 +4,7 @@ import Link from "next/link";
 import { pages } from "shared/constants";
 import { usePathname } from 'next/navigation'
 import { Tooltip, TooltipContent, TooltipTrigger } from "shared/ui";
-import { CreditCard, LayoutDashboard, UserRoundPen, WalletMinimal, BadgeCent, Settings, Wallet, Landmark } from "lucide-react"
+import { CreditCard, LayoutDashboard, UserRoundPen, BadgeCent, Settings, Wallet, Landmark } from "lucide-react"
 
 export function SideBar() {
   const pathname = usePathname()

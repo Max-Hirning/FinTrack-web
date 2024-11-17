@@ -11,7 +11,6 @@ export * from './lists/loan-cards';
 export * from './lists/goal-cards';
 export * from "./forms/check-code";
 export * from "./forms/transaction";
-export * from "./forms/preferences";
 export * from "./lists/budget-cards";
 export * from "./lists/transactions";
 export * from "./statistics/expenses";
