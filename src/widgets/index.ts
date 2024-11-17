@@ -23,5 +23,6 @@ export * from "./statistics/expenses-by-cards";
 export * from "./statistics/transactions/cards";
 export * from "./statistics/transactions/goals";
 export * from "./statistics/transactions/loans";
+export * from "./skeletons/list/accounts-cards";
 export * from "./statistics/transactions/budgets";
 export * from "./statistics/expenses-by-categories";
