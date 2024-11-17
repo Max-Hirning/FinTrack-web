@@ -1,10 +1,9 @@
+import Link from "next/link"
 import { Suspense } from "react"
-import { IFilterStatistic } from "shared/types"
-import { queryClient, QueryKeys } from "shared/constants"
+import { Card, Skeleton } from "shared/ui"
 import { getUserCookies } from "src/shared/lib/api/server"
-import { getYearRange, statisticService, userService } from "shared/lib"
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { BudgetCardsListWidget, BudgetWidget, BudgetsTransactionsStatisticsWidget } from "widgets/index"
+import { BudgetCardsList, BudgetForm } from "features/index"
+import { BudgetsTransactionsStatisticsWidget, CardsListSkeleton } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -14,33 +13,37 @@ interface IProps {
 
 export default async function Page({searchParams}: IProps) {
   const {id} = await getUserCookies();
-  const user = await userService.getUser(id);
-  const {startDate, endDate} = getYearRange();
-
-  const statisticQuery: IFilterStatistic = {
-    endDate,
-    startDate,
-    userId: id,
-    loanIds: [],
-    goalIds: [],
-    cardIds: [],
-    frequency: "month",
-    budgetIds: (user?.budgets || []).map((el) => el.id),
-  }
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.getStatistic, statisticQuery],
-    queryFn: () => statisticService.getStatistic(statisticQuery)
-  });
 
   return (
     <>
-      <BudgetCardsListWidget styles="w-full"/>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense>
-          <BudgetsTransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
+      <section className="w-full">
+        <article className="flex items-end justify-between mb-[18px]">
+          <h2 className="text-2xl font-bold">My Budgets</h2>
+          <Link 
+            href="/cards"
+            className="text-base"
+          >+ Add Budget</Link>
+        </article>
+        <Suspense fallback={<CardsListSkeleton/>}>
+          <BudgetCardsList userId={id}/>
         </Suspense>
-      </HydrationBoundary>
-      <BudgetWidget styles="mt-[24px]" budgetId={searchParams.budgetId}/>
+      </section>
+      <section className="w-full mt-[24px]">
+        <article className="flex items-end justify-between mb-[18px]">
+          <h2 className="text-2xl font-bold">Budgets Expense/Income Statistics</h2>
+        </article>
+        <Suspense fallback={<Skeleton className="h-[350px] w-full"/>}>
+          <BudgetsTransactionsStatisticsWidget userId={id} />
+        </Suspense>
+      </section>
+      <section className="w-full max-w-[600px] mt-[24px]">
+        <h2 className="mb-[18px] text-2xl font-bold">Budget form</h2>
+        <Suspense fallback={<Skeleton className="h-[500px] w-full"/>}>
+          <Card className="p-[24px] w-full h-[500px]">
+            <BudgetForm budgetId={searchParams.budgetId} userId={id}/>
+          </Card>
+        </Suspense>
+      </section>
     </>
   )
 }

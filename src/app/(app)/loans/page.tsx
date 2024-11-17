@@ -1,8 +1,7 @@
 import Link from "next/link"
 import { Suspense } from "react"
 import { Card, Skeleton } from "shared/ui"
-import { userService } from "shared/lib"
-import { LoanCardsList, LoanForm } from "src/features"
+import { LoanCardsList, LoanForm } from "features/index"
 import { getUserCookies } from "src/shared/lib/api/server"
 import { CardsListSkeleton, LoansTransactionsStatisticsWidget } from "widgets/index"
 
@@ -14,7 +13,6 @@ interface IProps {
 
 export default async function Page({searchParams}: IProps) {
   const {id} = await getUserCookies();
-  const user = await userService.getUser(id);
 
   return (
     <>
@@ -27,7 +25,7 @@ export default async function Page({searchParams}: IProps) {
           >+ Add Loan</Link>
         </article>
         <Suspense fallback={<CardsListSkeleton/>}>
-          <LoanCardsList userId={user.id}/>
+          <LoanCardsList userId={id}/>
         </Suspense>
       </section>
       <section className="w-full mt-[24px]">
@@ -35,7 +33,7 @@ export default async function Page({searchParams}: IProps) {
           <h2 className="text-2xl font-bold">Loans Expense/Income Statistics</h2>
         </article>
         <Suspense fallback={<Skeleton className="h-[350px] w-full"/>}>
-          <LoansTransactionsStatisticsWidget userId={user.id} />
+          <LoansTransactionsStatisticsWidget userId={id} />
         </Suspense>
       </section>
       <section className="w-full max-w-[600px] mt-[24px]">
