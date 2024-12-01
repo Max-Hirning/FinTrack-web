@@ -183,6 +183,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                   <SelectContent>
                     {
                       (user?.goals || []).map((el) => {
+                        if(el.status === "closed") return null
                         return (
                           <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
                         )
@@ -213,6 +214,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                   <SelectContent>
                     {
                       (user?.loans || []).map((el) => {
+                        if(el.status === "closed") return null
                         return (
                           <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
                         )

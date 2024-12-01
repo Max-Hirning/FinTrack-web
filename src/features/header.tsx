@@ -22,7 +22,7 @@ export function Header({userId}: IProps) {
   return (
     <header className="z-50 sticky top-0 right-0 bg-background w-[calc(100%-60px)] ml-auto flex border-border border-b h-[80px] items-center justify-between p-[20px]">
       <h1 className="text-2xl font-bold">{page?.title || "Overview"}</h1>
-      <div className='flex flex-row gap-[25px]'>
+      <div className='flex flex-row max-sm:gap-[10px] gap-[25px]'>
         <Sheet>
           <SheetTrigger>
             {/* <Bell /> */}
@@ -71,7 +71,7 @@ export function Header({userId}: IProps) {
           <Menubar className='border-none bg-transparent'>
             <MenubarMenu>
               <MenubarTrigger className='bg-transparent p-0 rounded-full'>
-                <Avatar className='w-[60px] h-[60px]'>
+                <Avatar className='max-sm:w-[45px] max-sm:h-[45px] w-[60px] h-[60px]'>
                   <AvatarImage src={user?.images[0]?.url || ""} />
                   <AvatarFallback>{user?.firstName[0] || ""}{user?.lastName[0] || ""}</AvatarFallback>
                 </Avatar>

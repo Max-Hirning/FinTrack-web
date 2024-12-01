@@ -1,5 +1,6 @@
 import { currencies, IUserResponse } from "shared/types";
 
+type statuses = "open" | "closed";
 type periods = "oneTime" | "year" | "month" | "week";
 
 interface ICardResponse {
@@ -15,6 +16,7 @@ interface IGoalResponse {
   title: string;
   amount: number;
   balance: number;
+  status: statuses;
   deadline: string;
   description: string;
   currency: currencies;
@@ -26,6 +28,7 @@ interface ILoanResponse {
   title: string;
   amount: number;
   balance: number;
+  status: statuses;
   deadline: string;
   description: string;
   currency: currencies;
@@ -47,6 +50,7 @@ interface IBudgetResponse {
 
 
 export type {
+  statuses,
   ILoanResponse,
   IGoalResponse,
   ICardResponse,
