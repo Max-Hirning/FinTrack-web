@@ -1,15 +1,17 @@
 "use client"
 
 import Link from "next/link";
-import { CircleCheckBig, Goal } from "lucide-react"
+import { format } from "date-fns";
 import { useDeleteGoal } from "src/shared/hooks";
 import { IGoalResponse } from "src/shared/types";
 import { useSearchParams } from "next/navigation";
+import { CircleCheckBig, Goal } from "lucide-react";
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger, Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "shared/ui"
+import { cardWarnStyle } from "shared/lib";
 
 interface IProps extends IGoalResponse {}
 
-export function GoalCard({balance, amount, id, title, description, currency, status}: IProps) {
+export function GoalCard({balance, amount, date, deadline, id, title, description, currency, status}: IProps) {
   const searchParams = useSearchParams();
   const percentage = (amount / balance) * 100;
   const {mutate: deleteGoal} = useDeleteGoal();
@@ -19,14 +21,17 @@ export function GoalCard({balance, amount, id, title, description, currency, sta
     <Dialog>
       <ContextMenu>
         <ContextMenuTrigger>
-          <Card className="p-[24px] w-full max-w-[350px] min-w-[350px] h-[235px] justify-between flex flex-col">
+          <Card className={`p-[24px] w-full max-w-[350px] min-w-[350px] h-[235px] justify-between flex flex-col ${!(balance / amount >= 1) && cardWarnStyle(deadline)}`}>
             <CardHeader className="p-0 flex flex-col gap-[15px]">
               <article className="flex items-center justify-between">
                 <CardTitle className="text-lg font-semibold">{title}</CardTitle>
                 {(status === "open") && <Goal />}
                 {(status === "closed") && <CircleCheckBig />}
               </article>
-              <CardTitle className="font-normal text-base">{description}</CardTitle>
+              <article className="flex flex-col">
+                <CardTitle className="font-normal text-base">{description}</CardTitle>
+                <CardTitle className="font-normal text-base">{format(new Date(date), 'dd MMM yyyy')} - {format(new Date(deadline), 'dd MMM yyyy')}</CardTitle>
+              </article>
             </CardHeader>
             <CardContent className="p-0 flex flex-col gap-[10px]">
               <CardDescription className="font-normal text-base self-end">{currency.toUpperCase()} {amount.toFixed(2)}/{balance.toFixed(2)}</CardDescription>

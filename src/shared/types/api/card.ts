@@ -13,6 +13,7 @@ interface ICardResponse {
 }
 interface IGoalResponse {
   id: string;
+  date: string;
   title: string;
   amount: number;
   balance: number;

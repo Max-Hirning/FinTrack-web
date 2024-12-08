@@ -60,7 +60,7 @@ export function Header({userId}: IProps) {
                 {hasNextPage && (
                   <LoaderCircle
                     size={32}
-                    className="m-auto animate-spin-infinite my-6"
+                    className="min-h-[32px] m-auto animate-spin my-6"
                   />
                 )}
               </InfiniteScroll>

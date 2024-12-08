@@ -167,64 +167,70 @@ export function TransactionForm({userId, transactionId}: IProps) {
           <FormField
             name="goalId"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
-                <FormLabel>Transaction goal</FormLabel>
-                <Select 
-                  value={field.value}
-                  onValueChange={field.onChange} 
-                  disabled={(user?.goals || []).length === 0}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select transaction card" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {
-                      (user?.goals || []).map((el) => {
-                        if(el.status === "closed") return null
-                        return (
-                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
-                        )
-                      })
-                    }
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const goalsArr = (user?.goals || []).filter((el) => el.status !== "closed");
+              return (
+                <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
+                  <FormLabel>Transaction goal</FormLabel>
+                  <Select 
+                    value={field.value}
+                    onValueChange={field.onChange} 
+                    disabled={goalsArr.length === 0}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select transaction card" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {
+                        goalsArr.map((el) => {
+                          if(el.status === "closed") return null
+                          return (
+                            <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                          )
+                        })
+                      }
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )
+            }}
           />
           <FormField
             name="loanId"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
-                <FormLabel>Transaction loan</FormLabel>
-                <Select 
-                  value={field.value}
-                  onValueChange={field.onChange} 
-                  disabled={(user?.loans || []).length === 0}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select transaction card" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {
-                      (user?.loans || []).map((el) => {
-                        if(el.status === "closed") return null
-                        return (
-                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
-                        )
-                      })
-                    }
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const loansArr = (user?.loans || []).filter((el) => el.status !== "closed");
+              return (
+                <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
+                  <FormLabel>Transaction loan</FormLabel>
+                  <Select 
+                    value={field.value}
+                    onValueChange={field.onChange} 
+                    disabled={loansArr.length === 0}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select transaction card" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {
+                        loansArr.map((el) => {
+                          if(el.status === "closed") return null
+                          return (
+                            <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                          )
+                        })
+                      }
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )
+            }}
           />
         </div>
         <div className="max-sm:items-center flex flex-row max-md:flex-col gap-[20px]">
