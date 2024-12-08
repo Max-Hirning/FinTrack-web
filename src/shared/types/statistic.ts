@@ -1,4 +1,5 @@
 interface IFilterStatistic {
+  limit?: number;
   userId?: string;
   endDate: string;
   startDate: string;

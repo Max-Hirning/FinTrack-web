@@ -1,5 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { type ClassValue, clsx } from "clsx";
+import { differenceInCalendarDays } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -208,4 +209,20 @@ export function display12HourValue(hours: number) {
   if (hours % 12 > 9) return `${hours}`;
   return `0${hours % 12}`;
 }
- 
+
+export const cardWarnStyle = (deadline: string) => {
+  // Calculate the difference in days between the current date and the deadline
+  const daysUntilDeadline = differenceInCalendarDays(new Date(deadline), new Date());
+
+  // Determine the border color based on the daysUntilDeadline
+  let borderColorClass = "border-gray-200"; // Default border color
+  if (daysUntilDeadline <= 0) {
+    borderColorClass = "border-red-500"; // Past or on the deadline
+  } else if (daysUntilDeadline === 1) {
+    borderColorClass = "border-orange-500"; // 1 day before the deadline
+  } else if (daysUntilDeadline === 2) {
+    borderColorClass = "border-yellow-500"; // 2 days before the deadline
+  }
+
+  return borderColorClass;
+}

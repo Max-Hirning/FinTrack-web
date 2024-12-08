@@ -3,11 +3,11 @@
 import { toast } from "react-toastify";
 import { ApiError, userService } from "shared/lib";
 import { queryClient, QueryKeys } from "shared/constants";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query";
 import { preferencesInput, profileInput, settingsInput } from "shared/types";
 
 export const useGetUser = (userId: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getUser, userId],
     queryFn: async () => userService.getUser(userId),
   });

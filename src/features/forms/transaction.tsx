@@ -1,6 +1,6 @@
 "use client"
 
-import { format } from "date-fns"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import { transactionInput } from "shared/types"
@@ -9,7 +9,6 @@ import { transactionSchema } from "shared/schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useGetUser, useGetCategories, useCreateTransaction, useUpdateTransaction, useGetTransaction } from "shared/hooks"
 import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, DatePicker, Textarea } from "shared/ui"
-import { useEffect } from "react"
 
 interface IProps {
   userId: string;
@@ -43,7 +42,6 @@ export function TransactionForm({userId, transactionId}: IProps) {
   }, [form, transaction])
 
   function onSubmit(values: transactionInput) {
-    console.log({...values, date: format(values.date, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")});
     if(+values.amount === 0) form.setError("amount", {
       message: "Amount mustn't be equal to 0"
     })
@@ -95,6 +93,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                 <Select 
                   value={field.value}
                   onValueChange={field.onChange} 
+                  disabled={categories.length === 0}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -126,6 +125,7 @@ export function TransactionForm({userId, transactionId}: IProps) {
                 <Select 
                   value={field.value}
                   onValueChange={field.onChange} 
+                  disabled={(user?.cards || []).length === 0}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -167,60 +167,70 @@ export function TransactionForm({userId, transactionId}: IProps) {
           <FormField
             name="goalId"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
-                <FormLabel>Transaction goal</FormLabel>
-                <Select 
-                  value={field.value}
-                  onValueChange={field.onChange} 
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select transaction card" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {
-                      (user?.goals || []).map((el) => {
-                        return (
-                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
-                        )
-                      })
-                    }
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const goalsArr = (user?.goals || []).filter((el) => el.status !== "closed");
+              return (
+                <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
+                  <FormLabel>Transaction goal</FormLabel>
+                  <Select 
+                    value={field.value}
+                    onValueChange={field.onChange} 
+                    disabled={goalsArr.length === 0}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select transaction card" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {
+                        goalsArr.map((el) => {
+                          if(el.status === "closed") return null
+                          return (
+                            <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                          )
+                        })
+                      }
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )
+            }}
           />
           <FormField
             name="loanId"
             control={form.control}
-            render={({ field }) => (
-              <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
-                <FormLabel>Transaction loan</FormLabel>
-                <Select 
-                  value={field.value}
-                  onValueChange={field.onChange} 
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select transaction card" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {
-                      (user?.loans || []).map((el) => {
-                        return (
-                          <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
-                        )
-                      })
-                    }
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
+            render={({ field }) => {
+              const loansArr = (user?.loans || []).filter((el) => el.status !== "closed");
+              return (
+                <FormItem className="flex flex-col md:max-w-[400px] gap-2 w-full">
+                  <FormLabel>Transaction loan</FormLabel>
+                  <Select 
+                    value={field.value}
+                    onValueChange={field.onChange} 
+                    disabled={loansArr.length === 0}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select transaction card" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {
+                        loansArr.map((el) => {
+                          if(el.status === "closed") return null
+                          return (
+                            <SelectItem key={el.id} value={el.id}>{el.title}</SelectItem>
+                          )
+                        })
+                      }
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )
+            }}
           />
         </div>
         <div className="max-sm:items-center flex flex-row max-md:flex-col gap-[20px]">

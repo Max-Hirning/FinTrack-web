@@ -1,15 +1,15 @@
 "use client";
 
-import { Transaction } from "shared/ui";
 import { LoaderCircle } from "lucide-react";
-import { useGetTransactions } from "shared/hooks";
+import { useGetTransactions, useGetTransactionsInfiniteScroll } from "shared/hooks";
+import { InfiniteScroll, Transaction } from "shared/ui";
 
 interface IProps {
   userId: string;
 }
 
 export function TransactionsList({userId}: IProps) {
-  const {data: transactions, isLoading} = useGetTransactions({
+  const {data: transactions, isFetchingNextPage, fetchNextPage, hasNextPage, isLoading} = useGetTransactionsInfiniteScroll({
     loanIds: [],
     goalIds: [],
     cardIds: [],
@@ -19,6 +19,8 @@ export function TransactionsList({userId}: IProps) {
     transactionIds: [],
   });
 
+  const data = transactions?.pages.map((el) => el.data).flat(1) || [];
+
   if(isLoading) {
     return (
       <section className="flex flex-col gap-[10px] justify-center items-center h-[-webkit-fill-available] pr-[10px] overflow-auto">
@@ -27,7 +29,7 @@ export function TransactionsList({userId}: IProps) {
     )
   }
 
-  if((transactions?.data || []).length === 0) {
+  if(data.length === 0) {
     return (
       <section className="flex flex-col gap-[10px] justify-center items-center h-[-webkit-fill-available] pr-[10px] overflow-auto">
         <p className="text-destructive font-bold text-lg">No Data</p>
@@ -38,12 +40,24 @@ export function TransactionsList({userId}: IProps) {
   return (
     <section className="flex flex-col gap-[10px] h-[-webkit-fill-available] pr-[10px] overflow-auto">
       {
-        (transactions?.data || []).map((el) => {
+        (data).map((el) => {
           return (
             <Transaction key={el.id} {...el}/>
           )
         })
       }
+      <InfiniteScroll
+        next={fetchNextPage}
+        hasMore={hasNextPage}
+        isLoading={isFetchingNextPage}
+      >
+        {hasNextPage && (
+          <LoaderCircle
+            size={32}
+            className="min-h-[32px] m-auto animate-spin my-6"
+          />
+        )}
+      </InfiniteScroll>
     </section>
   )
 }

@@ -21,10 +21,10 @@ export function Transaction({description, date, amount, id, card, category}: IPr
       <ContextMenuTrigger>
         <div className="flex gap-[10px] items-center justify-between">
           <div className="flex items-center gap-[10px]">
-            <div className="w-[55px] h-[55px] flex items-center justify-center rounded-full" style={{backgroundColor: hexToRgba(category.color, 0.75)}}>
+            <div className="w-[48px] h-[48px] flex items-center justify-center rounded-full" style={{backgroundColor: hexToRgba(category.color, 0.75)}}>
               <Image
-                width={35}
-                height={35}
+                width={28}
+                height={28}
                 alt={category.title}
                 src={category.image}
               />

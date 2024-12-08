@@ -1,10 +1,11 @@
-import { IImage, currencies } from "shared/types";
+import { IImage, currencies, statuses } from "shared/types";
 
 type roles =  "admin" | "user" | "guest";
 
 interface IEl {
   id: string;
   title: string;
+  status?: statuses;
 }
 interface IUserResponse {
   id: string;

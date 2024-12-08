@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { ApiError, loanService } from "shared/lib";
 import { loanInput, IFilterLoans } from "shared/types";
 import { queryClient, QueryKeys } from "shared/constants";
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useSuspenseQuery } from "@tanstack/react-query"
 
 export const useCreateLoan = () => {
   return useMutation({
@@ -56,13 +56,13 @@ export const useDeleteLoan = () => {
   });
 }
 export const useGetLoan = (loanId?: string) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getLoan, loanId],
     queryFn: () => loanService.getLoan(loanId),
   });
 }
 export const useGetLoans = (query: IFilterLoans) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QueryKeys.getLoans, query],
     queryFn: () => loanService.getLoans(query),
   });

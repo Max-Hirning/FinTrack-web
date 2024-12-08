@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const dashboardPages = [
-  '/accounts',
+  '/budgets',
   '/cards',
+  '/goals',
+  '/loans',
   '/profile',
-  '/settings',
-  '/transactions',
+  '/settings'
 ];
 
 export async function middleware(req: NextRequest) {

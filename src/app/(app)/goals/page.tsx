@@ -1,10 +1,9 @@
+import Link from "next/link"
 import { Suspense } from "react"
-import { IFilterStatistic } from "shared/types"
-import { queryClient, QueryKeys } from "shared/constants"
+import { Card, Skeleton } from "shared/ui"
+import { GoalCardsList, GoalForm } from "features/index"
 import { getUserCookies } from "src/shared/lib/api/server"
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { getYearRange, statisticService, userService } from "shared/lib"
-import { GoalCardsListWidget, GoalWidget, GoalsTransactionsStatisticsWidget } from "widgets/index"
+import { CardsListSkeleton, GoalsTransactionsStatisticsWidget } from "widgets/index"
 
 interface IProps {
   searchParams: { 
@@ -14,33 +13,37 @@ interface IProps {
 
 export default async function Page({searchParams}: IProps) {
   const {id} = await getUserCookies();
-  const user = await userService.getUser(id);
-  const {startDate, endDate} = getYearRange();
-
-  const statisticQuery: IFilterStatistic = {
-    endDate,
-    startDate,
-    userId: id,
-    loanIds: [],
-    cardIds: [],
-    budgetIds: [],
-    frequency: "month",
-    goalIds: (user?.goals || []).map((el) => el.id),
-  };
-  await queryClient.prefetchQuery({
-    queryKey: [QueryKeys.getStatistic, statisticQuery],
-    queryFn: () => statisticService.getStatistic(statisticQuery)
-  });
 
   return (
     <>
-      <GoalCardsListWidget styles="w-full"/>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense>
-          <GoalsTransactionsStatisticsWidget userId={user.id} styles="w-full mt-[24px]"/>
+      <section className="w-full">
+        <article className="flex items-end justify-between mb-[18px]">
+          <h2 className="text-2xl font-bold">My Goals</h2>
+          <Link 
+            href="/accounts"
+            className="text-base"
+          >+ Add Goal</Link>
+        </article>
+        <Suspense fallback={<CardsListSkeleton/>}>
+          <GoalCardsList userId={id}/>
         </Suspense>
-      </HydrationBoundary>
-      <GoalWidget styles="mt-[24px]" goalId={searchParams.goalId}/>
+      </section>
+      <section className="w-full mt-[24px]">
+        <article className="flex items-end justify-between mb-[18px]">
+          <h2 className="text-2xl font-bold">Goals Expense/Income Statistics</h2>
+        </article>
+        <Suspense fallback={<Skeleton className="h-[350px] w-full"/>}>
+          <GoalsTransactionsStatisticsWidget userId={id} />
+        </Suspense>
+      </section>
+      <section className="w-full max-w-[600px] mt-[24px]">
+        <h2 className="mb-[18px] text-2xl font-bold">Goal form</h2>
+        <Suspense fallback={<Skeleton className="w-full min-h-[400px]"/>}>
+          <Card className="p-[24px] w-full min-h-[400px]">
+            <GoalForm goalId={searchParams.goalId}/>
+          </Card>
+        </Suspense>
+      </section>
     </>
   )
 }

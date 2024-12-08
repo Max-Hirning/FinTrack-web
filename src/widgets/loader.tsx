@@ -7,11 +7,12 @@ import { useIsMutating } from '@tanstack/react-query'
 export function Loader() {
   const isDeleteCard = useIsMutating({ mutationKey: [QueryKeys.deleteCard] })
   const isDeleteGoal = useIsMutating({ mutationKey: [QueryKeys.deleteGoal] })
+  const isDeleteLoan = useIsMutating({ mutationKey: [QueryKeys.deleteLoan] })
   const isDeleteUser = useIsMutating({ mutationKey: [QueryKeys.deleteUser] })
   const isDeleteBudget = useIsMutating({ mutationKey: [QueryKeys.deleteBudget] })
   const isDeleteTransaction = useIsMutating({ mutationKey: [QueryKeys.deleteTransaction] })
 
-  if(isDeleteCard || isDeleteBudget || isDeleteGoal || isDeleteUser || isDeleteTransaction) {
+  if(isDeleteCard || isDeleteBudget || isDeleteGoal || isDeleteLoan || isDeleteUser || isDeleteTransaction) {
     return (
       <div 
         style={{backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000}}

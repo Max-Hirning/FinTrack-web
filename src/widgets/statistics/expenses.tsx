@@ -8,7 +8,6 @@ import { MyBarsChart as BarsChart } from "features/index";
 
 interface IProps {
   userId: string;
-  styles?: string;
 }
 
 const chartConfig = {
@@ -18,7 +17,7 @@ const chartConfig = {
   },
 }
 
-export function ExpensesStatisticsWidget({userId, styles}: IProps) {
+export function ExpensesStatisticsWidget({userId}: IProps) {
   const {startDate, endDate} = getYearRange();
 
   const {data: statistics} = useGetStatistic({
@@ -30,15 +29,10 @@ export function ExpensesStatisticsWidget({userId, styles}: IProps) {
   });
 
   return (
-    <section className={styles || ""}>
-      <article className="flex items-end justify-between mb-[18px]">
-        <h2 className="text-2xl font-bold">My Expense</h2>
-      </article>
-      <Card className="h-[235px] max-w-[350px] p-[20px]">
-        <BarsChart data={(statistics || []).map((el) => ({
-          month: format(el.date, 'MMMM'), expenses: +(el.expenses.toFixed(2)),
-        }))} chartConfig={chartConfig}/>
-      </Card>
-    </section>
+    <Card className="h-[235px] w-[390px] p-[20px]">
+      <BarsChart data={(statistics || []).map((el) => ({
+        month: format(el.date, 'MMMM'), expenses: +(el.expenses.toFixed(2)),
+      }))} chartConfig={chartConfig}/>
+    </Card>
   )
 }
